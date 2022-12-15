@@ -1,3 +1,20 @@
+const modalWindow = document.querySelector('.modal-window')
+const modalWindowMessage = document.querySelector('.modal-window-message');
+const modalWindowBtn = document.querySelector('.modal-window-btn');
+
+const questLine = [
+    {
+        id: 'start',
+        message: `Це квест-виживання у постапокаліптичному світі. Твоя історія починається у старій халупі в пустелі - це твій дім. Ти пригадуєш, що напередодні домовився зі старим По з хутора неподалік про зустріч. Варто обшукати халупу перед виходом.`,
+
+    },
+];
+
+modalWindowMessage.innerHTML = questLine[0].message;
+modalWindowBtn.addEventListener('click', function () {
+    modalWindow.classList.add('hidden')
+})
+
 function randomNumber() {
     return Math.round(Math.random() * 100);
 }
@@ -50,7 +67,7 @@ let emptyCellsOfBackPack = 0;
     for (let i = 0; i < user.backpackSize; i++) {
         backpack.innerHTML += `<div class="backpack-item empty" id="${i}-backpack-item"></div>`;
         emptyCellsOfBackPack += 1;
-    }    
+    }
 })();
 const backpackArr = [];
 for (let i = 0; i < user.backpackSize; i++) {
@@ -322,7 +339,17 @@ const enemies = [
 // Створюємо глобальні локації
 const globalLocations = [
     {
-        name: 'nearHouse',
+        name: 'firstHouse',
+        message: 'Ти в своєму будинку. ',
+        type: 'peaceful',
+        // findLocationChance: 100,
+        // battleChance: 0,
+        // locations: [],
+        // enemies: [],
+    },
+    {
+        name: 'nearFirstHouse',
+        type: 'seekAndFight',
         findLocationChance: 70,
         battleChance: 100,
         locations: [],
@@ -381,96 +408,96 @@ const locations = [
 // Наповнюємо глобальну локацію локаціями
 locations.forEach(el => {
     if (el.name === 'cache' || el.name === 'house1' || el.name === 'cave' || el.name === 'puddle' || el.name === 'wilderness') {
-        globalLocations[0].locations.push(el);
+        globalLocations[1].locations.push(el);
     }
 });
 
 // Наповнюємо глобальну локацію ворогами
 enemies.forEach(el => {
     if (el.id === 'rat') {
-        globalLocations[0].enemies.push(el);
+        globalLocations[1].enemies.push(el);
     } else if (el.id === 'scorpion') {
-        globalLocations[0].enemies.push(el);
+        globalLocations[1].enemies.push(el);
     }
 });
 
 // Наповнюємо локації предметами
-locations.forEach(el => {
-    if (el.name === 'cache') {
+locations.forEach(location => {
+    if (location.name === 'cache') {
         items.forEach(item => {
             if (item.id === 'knifeCombat') {
-                el.items.push(item);
+                location.items.push(item);
             }
         })
         items.forEach(item => {
             if (item.id === 'helmetSport') {
-                el.items.push(item);
+                location.items.push(item);
             }
         })
         items.forEach(item => {
             if (item.id === 'firstAidKit') {
-                el.items.push(item);
+                location.items.push(item);
             }
         })
-    } else if (el.name === 'house1') {
+    } else if (location.name === 'house1') {
         items.forEach(item => {
             if (item.id === 'respirator') {
-                el.items.push(item);
+                location.items.push(item);
             }
         })
         items.forEach(item => {
             if (item.id === 'pistolRusty') {
-                el.items.push(item);
+                location.items.push(item);
             }
         })
         items.forEach(item => {
             if (item.id === 'bandage') {
-                el.items.push(item);
+                location.items.push(item);
             }
         })
         items.forEach(item => {
             if (item.id === 'crackers') {
-                el.items.push(item);
+                location.items.push(item);
             }
         })
-    } else if (el.name === 'cave') {
+    } else if (location.name === 'cave') {
         items.forEach(item => {
             if (item.id === 'pipe') {
-                el.items.push(item);
+                location.items.push(item);
             }
         })
         items.forEach(item => {
             if (item.id === 'knifeRusty') {
-                el.items.push(item);
+                location.items.push(item);
             }
         })
         items.forEach(item => {
             if (item.id === 'water') {
-                el.items.push(item);
+                location.items.push(item);
             }
         })
-    } else if (el.name === 'puddle') {
+    } else if (location.name === 'puddle') {
         items.forEach(item => {
             if (item.id === 'water') {
-                el.items.push(item);
+                location.items.push(item);
             }
         })
-    } else if (el.name === 'wilderness') {
+    } else if (location.name === 'wilderness') {
         items.forEach(item => {
             if (item.id === 'knifeRusty') {
-                el.items.push(item);
+                location.items.push(item);
             }
         })
         items.forEach(item => {
             if (item.id === 'nothing') {
-                el.items.push(item);
+                location.items.push(item);
             }
         })
     }
 });
 
 // Основні дії
-let currentGlobalLocation = globalLocations[0];
+let currentGlobalLocation = globalLocations[1];
 let currentLocation = locations[locations.length - 1];
 let countOfSearch = currentLocation.countOfSearch;
 let currentEnemy;
@@ -492,8 +519,11 @@ function search() {
     if (emptyCellsOfBackPack > 0) {
         alert();
         action();
-        if (currentEnemy) {
+        console.log(currentEnemy);
+        console.log(countOfSearch);
+        if (currentEnemy !== undefined) {
             items.forEach(item => {
+                console.log('ou');
                 if (item.name === currentEnemy.dropName) {
                     searchResult = item;
                 }
@@ -503,7 +533,7 @@ function search() {
             putInBackpack();
             currentEnemy = undefined;
         } else if (countOfSearch > 0) {
-            choiceResult(currentLocation.items.length);
+            searchResult = currentLocation.items[choiceResult(currentLocation.items.length)];
             countOfSearch -= 1;
             console.log(searchResult);
             if (searchResult.id !== 'nothing') {
@@ -528,16 +558,19 @@ function search() {
 };
 
 function alert() {
-    if (thirst <= 10) {
-        infoTextAlert.innerHTML = 'Ти хочеш пити, якщо рівень спраги зменьшиться менше 0, ти почнеш втрачати здоровя'
-    };
-    if (hunger <= 10) {
-        infoTextAlert.innerHTML = 'Ти хочеш їсти, якщо рівень голоду зменьшиться менше 0, ти почнеш втрачати здоровя'
-    };
+    if (hunger <= 10 && thirst <= 10) {
+        infoTextAlert.innerHTML = 'Ти хочеш їсти і пити, якщо рівень голоду чи спраги зменьшиться менше 0, ти почнеш втрачати здоровя. '
+    } else if (hunger <= 10) {
+        infoTextAlert.innerHTML = 'Ти хочеш їсти, якщо рівень голоду зменьшиться менше 0, ти почнеш втрачати здоровя. '
+    } else if (thirst <= 10) {
+        infoTextAlert.innerHTML = 'Ти хочеш пити, якщо рівень спраги зменьшиться менше 0, ти почнеш втрачати здоровя. '
+    } else {
+        infoTextAlert.innerHTML = ''
+    }
 };
 
 function action() {
-    hunger -= 3;
+    hunger -= 2;
     if (hunger < 0) {
         hunger = 0;
         health -= 5;
@@ -545,7 +578,7 @@ function action() {
     };
     hungerIndex.innerHTML = hunger;
 
-    thirst -= 5;
+    thirst -= 3;
     if (thirst < 0) {
         thirst = 0;
         health -= 5;
@@ -615,9 +648,10 @@ function choiceResult(amount) {
 
     for (let i = 0; i < arr.length; i++) {
         if (someRandomNumber <= arr[i]) {
-            searchResult = currentLocation.items[i];
-            currentEnemy = currentGlobalLocation.enemies[i];
-            break;
+            return i;
+            // searchResult = currentLocation.items[i];
+            // currentEnemy = currentGlobalLocation.enemies[i];
+            // break;
         }
     };
 };
@@ -640,7 +674,7 @@ function changeLocation() {
         addLog(currentLocation.message);
     } else {
         console.log('battle');
-        choiceResult(currentGlobalLocation.enemies.length);
+        currentEnemy = currentGlobalLocation.enemies[choiceResult(currentGlobalLocation.enemies.length)];
         enemyHealth = currentEnemy.health;
         infoTextLocation.innerHTML = currentEnemy.message;
         infoTextSearch.innerHTML = '';
@@ -691,9 +725,12 @@ function attack() {
 
 function avoid() {
     battleFinish();
-    infoTextLocation.innerHTML = `Ти втік від ${currentEnemy.name}.`;
-    addLog(`Ти втік від ${currentEnemy.name}.`);
+    currentLocation = currentGlobalLocation.locations[currentGlobalLocation.locations.length - 1];
+    countOfSearch = currentLocation.countOfSearch;
+    infoTextLocation.innerHTML = `Ти втік від ${currentEnemy.name}. ${currentLocation.message}`;
+    addLog(`Ти втік від ${currentEnemy.name}. ${currentLocation.message}`);
     currentEnemy = undefined;
+    console.log(currentEnemy);
 };
 
 avoidBtn.addEventListener('click', avoid);
@@ -863,6 +900,8 @@ function deleteItem() {
         emptyCellsOfBackPack += 1;
     } else if (selectedItemInHTML.classList.contains('equipment-weapon')) {
         equippedWeaponArr[0] = undefined;
+        user.minDamage = 1;
+        user.maxDamage = 2;
     } else if (selectedItemInHTML.classList.contains('equipment-helmet')) {
         equippedHelmetArr[0] = undefined;
     } else if (selectedItemInHTML.classList.contains('equipment-mask')) {
@@ -871,7 +910,7 @@ function deleteItem() {
         equippedArmorArr[0] = undefined;
     } else if (selectedItemInHTML.classList.contains('equipment-backpack')) {
         equippedBackpackArr[0] = undefined;
-    } 
+    }
     selectedItem = undefined;
     selectedItemInHTML.innerHTML = '';
     selectedItemInHTML.classList.remove('full');
@@ -918,6 +957,7 @@ function use() {
         thirstIndex.innerHTML = thirst;
         radiationIndex.innerHTML = radiation;
         deleteItem();
+        alert();
         return;
 
     } else if (selectedItem.class === 'weapon') {
@@ -928,7 +968,7 @@ function use() {
                 let saveItem = equippedWeaponArr[0];
                 equippedWeaponArr[0] = selectedItem;
                 equipmentWeapon.innerHTML = selectedItem.img;
-                
+
                 backpackArr[parseInt(selectedItemInHTML.id)] = saveItem;
                 selectedItemInHTML.innerHTML = saveItem.img;
                 saveItem = undefined;
