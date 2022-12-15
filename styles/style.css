@@ -1,0 +1,135 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    /* height: 100vh; */
+    margin: auto;
+}
+
+.indicators,
+.actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0 10px 0;
+    /* border: 1px solid red; */
+}
+.indicators div {
+    padding: 10px;
+    border: 1px solid red;
+}
+
+.health,
+.hunger,
+.thirst,
+.radiation {
+    display: flex;
+}
+
+.info {
+    width: 70%;
+    height: 200px;
+    margin: auto;
+    text-align: center;
+    border: 1px solid red;
+}
+
+.actions-btn {
+    padding: 20px;
+    border: 1px solid red;
+}
+
+.details {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid red;
+    margin-bottom: 10px;
+    padding: 4px;
+}
+
+.details div {
+    display: flex;
+    border: 1px solid red;
+    padding: 4px;
+}
+
+.inventory {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    height: 250px;
+}
+
+.backpack {
+    width: 49%;
+    border: 1px solid red;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.backpack-item {
+    width: 40px;
+    height: 40px;
+    border: 1px solid red;
+    margin: 5px;
+}
+
+.backpack img {
+    padding: 2px;
+}
+
+.equipment {
+    width: 49%;
+    height: 20vh;
+    border: 1px solid red;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 10px;
+}
+.equipment div {
+    width: 40px;
+    height: 40px;
+    border: 1px solid red;
+    margin: 5px;
+}
+
+.backpack-buttons {
+    border: 1px solid red;
+    margin-bottom: 10px;
+    padding: 5px 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.event-log {
+    width: 100%;
+    height: 20vh;
+    border: 1px solid red;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.event-log p {
+    font-size: 16px;
+}
+
+.backpack .selected, 
+.equipment .selected {
+    border: 3px solid red;
+}
+
+.hidden {
+    display: none;
+}
+
+h1 {
+    font-size: 50px;
+}
+p {
+    font-size: 30px;
+}
