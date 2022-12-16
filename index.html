@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="modal-window">
+        <div>
+            <div class="modal-window-message"></div>
+            <button class="modal-window-btn" type="button">Ok</button>
+        </div>
+    </div>
+    <header>
+        <div class="container">
+            <div class="indicators">
+                <div class="health">
+                    <h2>Здоров'я :</h2>
+                    <h2 class="health-index"></h2>
+                </div>
+                <div class="hunger">
+                    <h2>Голод :</h2>
+                    <h2 class="hunger-index"></h2>
+                </div>
+                <div class="thirst">
+                    <h2>Спрага :</h2>
+                    <h2 class="thirst-index">100</h2>
+                </div>
+                <div class="radiation">
+                    <h2>Радіація :</h2>
+                    <h2 class="radiation-index">0</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="img"></div>
+        </div>
+        <div class="container">
+            <div class="info">
+                <h2 class="info-text-location">Ти прокинувся в своїй халупі. Варто обшукати приміщення перед виходом.
+                </h2>
+                <h2 class="info-text-search"></h2>
+                <h3 class="info-text-alert"></h3>
+            </div>
+        </div>
+        <div class="container">
+            <div class="actions">
+                <button class="actions-btn barter hidden" type="button">Торгувати</button>
+                <button class="actions-btn search" type="button">Обшукати</button>
+                <button class="actions-btn reid" type="button">Йти в рейд</button>
+                <button class="actions-btn attack hidden" type="button">Атакувати</button>
+                <button class="actions-btn avoid hidden" type="button">Втекти</button>
+                <button class="actions-btn change-location hidden" type="button">Йти далі</button>
+            </div>
+        </div>
+        <div class="container">
+            <div class="backpack-buttons">
+                <button class="use-btn" type="button">Використати</button>
+                <button class="apart-btn" type="button">Розібрати</button>
+                <button class="delete-btn" type="button">Викинути</button>
+            </div>
+        </div>
+        <div class="container">
+            <div class="inventory">
+                <div class="backpack"></div>
+                <div class="equipment">
+                    <div class="equipment-item equipment-weapon empty">weapon</div>
+                    <div class="equipment-item equipment-helmet empty">helmet</div>
+                    <div class="equipment-item equipment-mask empty">mask</div>
+                    <div class="equipment-item equipment-armor empty">armor</div>
+                    <div class="equipment-item equipment-backpack empty">backpack</div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="details">
+                <div class="scrap">
+                    <h4>Металолом :</h4>
+                    <h4 class="scrap-count"></h4>
+                </div>
+                <div class="electronis">
+                    <h4>Електроніка :</h4>
+                    <h4 class="electronics-count"></h4>
+                </div>
+                <div class="rags">
+                    <h4>Ганчір'я :</h4>
+                    <h4 class="rags-count"></h4>
+                </div>
+                <div class="rags">
+                    <h4>Медикаменти :</h4>
+                    <h4 class="medicines-count"></h4>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="event-log">
+                <p></p>
+            </div>
+        </div>
+    </header>
+
+    <script src="script/index.js"></script>
+</body>
+
+</html>
