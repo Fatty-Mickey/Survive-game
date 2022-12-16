@@ -1,6 +1,14 @@
 const modalWindow = document.querySelector('.modal-window')
 const modalWindowMessage = document.querySelector('.modal-window-message');
 const modalWindowBtn = document.querySelector('.modal-window-btn');
+const block1 = document.querySelector(('.block-1'));
+const block2 = document.querySelector(('.block-2'));
+const block3 = document.querySelector(('.block-3'));
+const inventory = document.querySelector('.inventory');
+const backpackButtons = document.querySelector('.backpack-buttons');
+
+const img = document.querySelector('.img');
+img.style.background = 'url(/img/fon/house0.jpg) center center/cover no-repeat';
 
 const questLine = [
     {
@@ -379,6 +387,7 @@ const locations = [
         dropChanceIndex: 1,
         countOfSearch: 2,
         items: [],
+        img: '',
     },
     {
         id: 'house1',
@@ -552,6 +561,7 @@ console.log(currentLocation);
 const reidhBtn = document.querySelector('.reid');
 const barterBtn = document.querySelector('.barter');
 const searchBtn = document.querySelector('.search');
+const backpackrBtn = document.querySelector('.backpack-btn');
 const changeLocationBtn = document.querySelector('.change-location');
 const attackBtn = document.querySelector('.attack');
 const avoidBtn = document.querySelector('.avoid');
@@ -560,6 +570,12 @@ const infoTextLocation = document.querySelector('.info-text-location');
 const infoTextSearch = document.querySelector('.info-text-search');
 const infoTextAlert = document.querySelector('.info-text-alert');
 const eventLog = document.querySelector('.event-log');
+
+function backpackUse() {
+    console.log(1);
+    block2.classList.toggle('hidden');
+    block3.classList.toggle('hidden');
+};
 
 function reidStart() {
     reidhBtn.classList.add('hidden');
@@ -605,6 +621,8 @@ function search() {
                 infoTextSearch.innerHTML = 'Ти знайшов ' + searchResult.name + '.';
                 if (countOfSearch > 0) {
                     infoTextSearch.innerHTML += ' Варто пошукати ще.'
+                } else {
+                    infoTextSearch.innerHTML += ' Тут нічого не залишилось, варто йти далі.'
                 }
                 addLog('Ти знайшов ' + searchResult.name + '.');
                 putInBackpack();
@@ -798,6 +816,7 @@ function avoid() {
     console.log(currentEnemy);
 };
 
+backpackrBtn.addEventListener('click', backpackUse)
 reidhBtn.addEventListener('click', reidStart)
 avoidBtn.addEventListener('click', avoid);
 attackBtn.addEventListener('click', attack);
