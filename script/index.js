@@ -5,7 +5,7 @@ const modalWindowBtn = document.querySelector('.modal-window-btn');
 const questLine = [
     {
         id: 'start',
-        message: `Це квест-виживання у постапокаліптичному світі. Твоя історія починається у старій халупі в пустелі - це твій дім. Ти пригадуєш, що напередодні домовився зі старим По з хутора неподалік про зустріч. Варто обшукати халупу перед виходом.`,
+        message: `Це квест-виживання у постапокаліптичному світі. Твоя історія починається у старій халупі в пустелі - це твій дім. Ти пригадуєш, що напередодні домовився зі старим По з хутора неподалік про зустріч.`,
 
     },
 ];
@@ -339,15 +339,17 @@ const enemies = [
 // Створюємо глобальні локації
 const globalLocations = [
     {
+        id: 'firstHouse',
         name: 'firstHouse',
         message: 'Ти в своєму будинку. ',
         type: 'peaceful',
         // findLocationChance: 100,
         // battleChance: 0,
-        // locations: [],
+        locations: [],
         // enemies: [],
     },
     {
+        id: 'nearFirstHouse',
         name: 'nearFirstHouse',
         type: 'seekAndFight',
         findLocationChance: 70,
@@ -360,6 +362,7 @@ const globalLocations = [
 // Створюємо локації
 const locations = [
     {
+        id: 'cache',
         name: 'cache',
         message: 'Ти знайшов чиюсь схованку ...',
         findChance: 10,
@@ -368,6 +371,17 @@ const locations = [
         items: [],
     },
     {
+        id: 'house0',
+        name: 'house0',
+        message: 'Ти натрапив на стару халупу ...',
+        findChance: 30,
+        possibleItems: [],
+        dropChanceIndex: 1,
+        countOfSearch: 2,
+        items: [],
+    },
+    {
+        id: 'house1',
         name: 'house1',
         message: 'Ти натрапив на стару халупу ...',
         findChance: 30,
@@ -377,6 +391,7 @@ const locations = [
         items: [],
     },
     {
+        id: 'cave',
         name: 'cave',
         message: 'Перед тобою печера ...',
         findChance: 60,
@@ -386,6 +401,7 @@ const locations = [
         items: [],
     },
     {
+        id: 'puddle',
         name: 'puddle',
         message: 'Ти знайшов брудну калюжу, тут можна набрати води ...',
         findChance: 80,
@@ -395,6 +411,7 @@ const locations = [
         items: [],
     },
     {
+        id: 'wilderness',
         name: 'wilderness',
         message: 'Навколо тебе пустеля ...',
         findChance: 100,
@@ -405,10 +422,15 @@ const locations = [
     },
 ];
 
-// Наповнюємо глобальну локацію локаціями
-locations.forEach(el => {
-    if (el.name === 'cache' || el.name === 'house1' || el.name === 'cave' || el.name === 'puddle' || el.name === 'wilderness') {
-        globalLocations[1].locations.push(el);
+// Наповнюємо глобальні локації локаціями
+locations.forEach(location => {
+    if (location.id === 'house0') {
+        globalLocations[0].locations.push(location);
+    }
+});
+locations.forEach(location => {
+    if (location.id === 'cache' || location.id === 'house1' || location.id === 'cave' || location.id === 'puddle' || location.id === 'wilderness') {
+        globalLocations[1].locations.push(location);
     }
 });
 
@@ -436,6 +458,27 @@ locations.forEach(location => {
         })
         items.forEach(item => {
             if (item.id === 'firstAidKit') {
+                location.items.push(item);
+            }
+        })
+    } else if (location.name === 'house0') {
+        items.forEach(item => {
+            if (item.id === 'respirator') {
+                location.items.push(item);
+            }
+        })
+        items.forEach(item => {
+            if (item.id === 'pistolRusty') {
+                location.items.push(item);
+            }
+        })
+        items.forEach(item => {
+            if (item.id === 'bandage') {
+                location.items.push(item);
+            }
+        })
+        items.forEach(item => {
+            if (item.id === 'crackers') {
                 location.items.push(item);
             }
         })
@@ -497,14 +540,17 @@ locations.forEach(location => {
 });
 
 // Основні дії
-let currentGlobalLocation = globalLocations[1];
-let currentLocation = locations[locations.length - 1];
+let currentGlobalLocation = globalLocations[0];
+let currentLocation = currentGlobalLocation.locations[currentGlobalLocation.locations.length - 1];
 let countOfSearch = currentLocation.countOfSearch;
 let currentEnemy;
 let enemyHealth;
 let searchResult;
 let log = currentLocation.message;
+console.log(currentLocation);
 
+const reidhBtn = document.querySelector('.reid');
+const barterBtn = document.querySelector('.barter');
 const searchBtn = document.querySelector('.search');
 const changeLocationBtn = document.querySelector('.change-location');
 const attackBtn = document.querySelector('.attack');
@@ -514,6 +560,25 @@ const infoTextLocation = document.querySelector('.info-text-location');
 const infoTextSearch = document.querySelector('.info-text-search');
 const infoTextAlert = document.querySelector('.info-text-alert');
 const eventLog = document.querySelector('.event-log');
+
+function reidStart() {
+    reidhBtn.classList.add('hidden');
+    barterBtn.classList.add('hidden');
+    searchBtn.classList.remove('hidden');
+    changeLocationBtn.classList.remove('hidden');
+    infoTextSearch.innerHTML = '';
+    
+    for (let i = 0; i < globalLocations.length; i++) {
+        if (currentGlobalLocation.id === globalLocations[i].id) {
+            currentGlobalLocation = globalLocations[i + 1];
+            console.log(currentGlobalLocation);
+            currentLocation = currentGlobalLocation.locations[currentGlobalLocation.locations.length - 1];
+            console.log(currentGlobalLocation.locations);
+            infoTextLocation.innerHTML = currentLocation.message;
+            break;
+        }        
+    }
+};
 
 function search() {
     if (emptyCellsOfBackPack > 0) {
@@ -733,6 +798,7 @@ function avoid() {
     console.log(currentEnemy);
 };
 
+reidhBtn.addEventListener('click', reidStart)
 avoidBtn.addEventListener('click', avoid);
 attackBtn.addEventListener('click', attack);
 changeLocationBtn.addEventListener('click', changeLocation);
