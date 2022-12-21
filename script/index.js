@@ -76,6 +76,12 @@ let emptyCellsOfBackPack = 0;
         backpack.innerHTML += `<div class="backpack-item empty" id="${i}-backpack-item"></div>`;
         emptyCellsOfBackPack += 1;
     }
+    for (let i = 0; i < (25 - user.backpackSize); i++) {
+        backpack.innerHTML += `
+        <div class="backpack-item close" id="${i + user.backpackSize}-backpack-item">
+            <img src="/img/close.svg" alt="">
+        </div>`;        
+    }
 })();
 const backpackArr = [];
 for (let i = 0; i < user.backpackSize; i++) {

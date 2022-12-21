@@ -10,7 +10,8 @@
 body {
     position: relative;
     height: 100vh;
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    background-color: #383838;
 }
 
 .modal-window {
@@ -25,7 +26,7 @@ body {
 
 .modal-window>div {
     background-color: #ffffff;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     padding: 30px;
     text-align: center;
     font-size: 16px;
@@ -45,13 +46,12 @@ body {
 
 .container {
     max-width: 1200px;
-    /* height: 100vh; */
     margin: auto;
 }
 
 .img {
     /* width: 90%; */
-    height: 20vh;
+    height: 24vh;
     /* border: 1px solid red; */
     overflow: hidden;
     margin: auto;
@@ -75,7 +75,7 @@ body {
 }
 
 .indicators div {
-    height: 5vh;
+    height: 3vh;
     align-items: center;
 }
 
@@ -101,9 +101,30 @@ body {
     justify-content: space-between;
 }
 
+.equipment {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 10px;
+}
+
+.equipment div {
+    width: 20%;
+    height: 7vh;
+    background: url(../img/euq-item-fon.png) center no-repeat;
+    background-size: 100% 100% ; 
+    color: #3a981c;
+    font-size: 10px;
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .block-2, 
 .block-3 {
-    height: 60vh;
+    height: 47vh;
 }
 
 .img-fon {
@@ -112,11 +133,9 @@ body {
     padding: 1% 4%;
 }
 
-
-
 .info {
     /* width: 96%; */
-    height: 40vh;
+    height: 39vh;
     margin: auto;
     padding: 25px 30px;
     /* border: 1px solid red; */
@@ -128,6 +147,7 @@ body {
 }
 
 .actions-btn {
+    height: 8vh;
     width: 50%;
     padding: 10px;
     /* border: 1px solid red; */
@@ -139,6 +159,7 @@ body {
 }
 
 .details {
+    height: 4vh;
     display: flex;
     justify-content: space-between;
     /* margin-bottom: 10px; */
@@ -148,60 +169,64 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid red;
+    justify-content: center;
+    /* border: 1px solid red; */
     padding: 0 2px;
     width: 24%;
     font-size: 8px;
+    background: url(../img/details-fon.png) center no-repeat;
+    background-size: 100% 100% ; 
 }
 
 .details p {
     font-size: 10px;
     font-weight: bold;
+    color: #3a981c;
 }
 
 .inventory {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /* align-items: flex-start; */
+    /* justify-content: start; */
     /* margin-bottom: 10px; */
 
 }
 
 .backpack {
-    padding: 5px;
-    border: 1px solid red;
+    height: 35vh;
+    /* padding: 5px; */
+    /* border: 1px solid red; */
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-start;
 }
 
 
 .backpack-item {
-    width: 40px;
-    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    /* height: 7vh; */
+    height: 20%;
     /* border: 1px solid red; */
     /* margin: 5px; */
-    background: url(../img/img-fon-backpack-item.png) center no-repeat;
+    background: url(../img/backpack-item-fon-2.png) center no-repeat;
     background-size: 100% 100% ; 
 }
 
-.backpack img {
-    padding: 2px;
+.close img{
+
 }
 
-.equipment {
-    padding: 5px;
-    border: 1px solid red;
-    display: flex;
-    flex-wrap: wrap;
-    font-size: 10px;
-    /* margin-bottom: 10px; */
+.backpack img {
+    /* padding: 10px; */
+    width: 75%;
+    height: 75%;
 }
-.equipment div {
-    width: 40px;
-    height: 40px;
-    border: 1px solid red;
-    margin: 5px;
-}
+
+
 
 .backpack-buttons {
     /* border: 1px solid red; */
@@ -218,8 +243,8 @@ body {
 
 .event-log {
     width: 100%;
-    height: 14vh;
-    border: 1px solid red;
+    height: 13vh;
+    /* border: 1px solid red; */
     padding: 5px;
     overflow: hidden;
 }
@@ -230,7 +255,7 @@ body {
 
 .backpack .selected, 
 .equipment .selected {
-    border: 3px solid red;
+    border: 3px solid black;
 }
 
 .menu-buttons {
