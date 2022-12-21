@@ -9,7 +9,7 @@
 
 body {
     position: relative;
-    max-height: 100vh;
+    height: 100vh;
     border: 1px solid black;
 }
 
@@ -18,9 +18,9 @@ body {
     height: 100vh;
     background-color: grey;
     position: absolute;
-    padding: 30% 10%;
-    display: flex;
-    flex-direction: column;
+    padding: 30% 10% 30% 10%;
+    /* display: flex; */
+    /* flex-direction: column; */
 }
 
 .modal-window>div {
@@ -39,7 +39,7 @@ body {
     /* margin-top: 20px; */
     padding: 20px;
     width: 120px;
-    margin: auto;
+    /* margin: auto; */
     font-size: 20px;
 }
 
@@ -47,6 +47,16 @@ body {
     max-width: 1200px;
     /* height: 100vh; */
     margin: auto;
+}
+
+.img {
+    /* width: 90%; */
+    height: 20vh;
+    /* border: 1px solid red; */
+    overflow: hidden;
+    margin: auto;
+    border-radius: 5%;
+    /* margin-bottom: 10px; */
 }
 
 .indicators-box {
@@ -62,30 +72,20 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* padding: 0 0 10px 0; */
 }
 
 .indicators div {
-    /* padding: 0 3px; */
-    border: 1px solid black;
+    height: 5vh;
+    align-items: center;
 }
-
-/* .left div {
-    justify-content: left;
-}
-
-.right div {
-    justify-content: right;
-} */
 
 .health,
 .hunger,
 .thirst,
 .radiation {
-    /* border: 1px solid red; */
     display: flex;
     justify-content: center;
-    background: url(./img/img-fon.png) center no-repeat;
+    background: url(../img/img-fon.png) center no-repeat;
     background-size: 100% 100% ;  
     color: #3a981c;
 }
@@ -99,30 +99,20 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    /* padding: 0 0 10px 0; */
 }
 
 .block-2, 
 .block-3 {
-    /* border: 1px solid black; */
-    min-height: 400px;
+    height: 60vh;
 }
 
 .img-fon {
-    background: url(/img/img-fon.png) center no-repeat;
+    background: url(../img/img-fon.png) center no-repeat;
     background-size: 100% 100% ;  
     padding: 1% 4%;
 }
 
-.img {
-    /* width: 90%; */
-    height: 20vh;
-    /* border: 1px solid red; */
-    overflow: hidden;
-    margin: auto;
-    border-radius: 5%;
-    /* margin-bottom: 10px; */
-}
+
 
 .info {
     /* width: 96%; */
@@ -131,8 +121,8 @@ body {
     padding: 25px 30px;
     /* border: 1px solid red; */
     font-size: 12px;
-    margin-bottom: 10px;
-    background: url(/img/fon/magazine.jpg) center no-repeat;
+    /* margin-bottom: 10px; */
+    background: url(../img/fon/magazine.jpg) center no-repeat;
     background-size: 100% 100% ;   
     color: #3a981c;
 }
@@ -141,7 +131,7 @@ body {
     width: 50%;
     padding: 10px;
     /* border: 1px solid red; */
-    background: url(/img/action-btn.png) center no-repeat;
+    background: url(../img/action-btn.png) center no-repeat;
     background-size: 100% 100% ; 
     font-size: 18px;
     font-weight: bold;
@@ -151,7 +141,7 @@ body {
 .details {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
 }
 
 .details div {
@@ -173,7 +163,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
 
 }
 
@@ -188,8 +178,10 @@ body {
 .backpack-item {
     width: 40px;
     height: 40px;
-    border: 1px solid red;
-    margin: 5px;
+    /* border: 1px solid red; */
+    /* margin: 5px; */
+    background: url(../img/img-fon-backpack-item.png) center no-repeat;
+    background-size: 100% 100% ; 
 }
 
 .backpack img {
@@ -202,7 +194,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     font-size: 10px;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
 }
 .equipment div {
     width: 40px;
@@ -250,11 +242,19 @@ body {
 .menu-btn {
     font-size: 16px;
     width: 20%;
-    min-height: 8vh;
-    background: url(/img/menu-btn.png) center no-repeat;
+    height: 8vh;
+    background: url(../img/menu-btn-2.png) center no-repeat;
     background-size: 100% 100%;
+    padding: 10px 5px  2px  5px;
 }
 
+.backpack-btn{
+    
+}
+
+.menu-buttons>button>img {
+    height: 80%;
+}
 .hidden {
     display: none;
 }
