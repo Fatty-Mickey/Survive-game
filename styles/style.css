@@ -53,20 +53,20 @@ body {
     width: 100%;
     margin: auto;
     display: flex;
-    padding: 5px 0;
+    /* padding: 5px 0; */
 }
 
 .indicators {
-    width: 49%;
+    width: 50%;
     margin: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 0 0 10px 0;
+    /* padding: 0 0 10px 0; */
 }
 
 .indicators div {
-    padding: 0 3px;
+    /* padding: 0 3px; */
     border: 1px solid black;
 }
 
@@ -85,7 +85,9 @@ body {
     /* border: 1px solid red; */
     display: flex;
     justify-content: center;
-
+    background: url(/img/img-fon.png) center no-repeat;
+    background-size: 100% 100% ;  
+    color: #3a981c;
 }
 
 .indicators p {
@@ -97,7 +99,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding: 0 0 10px 0;
+    /* padding: 0 0 10px 0; */
 }
 
 .block-2, 
@@ -210,11 +212,16 @@ body {
 }
 
 .backpack-buttons {
-    border: 1px solid red;
-    margin-bottom: 10px;
-    padding: 5px 0;
+    /* border: 1px solid red; */
+    /* margin-bottom: 10px; */
+    /* padding: 5px 0; */
     display: flex;
-    justify-content: space-around;
+    /* justify-content: space-around; */
+}
+
+.backpack-buttons>button {
+    width: 33.3%;
+    /* padding: 2px; */
 }
 
 .event-log {
