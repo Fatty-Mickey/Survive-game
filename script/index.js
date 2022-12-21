@@ -80,7 +80,7 @@ let emptyCellsOfBackPack = 0;
         backpack.innerHTML += `
         <div class="backpack-item close" id="${i + user.backpackSize}-backpack-item">
             <img src="/img/close.svg" alt="">
-        </div>`;        
+        </div>`;
     }
 })();
 const backpackArr = [];
@@ -567,20 +567,31 @@ console.log(currentLocation);
 const reidhBtn = document.querySelector('.reid');
 const barterBtn = document.querySelector('.barter');
 const searchBtn = document.querySelector('.search');
-const backpackrBtn = document.querySelector('.backpack-btn');
 const changeLocationBtn = document.querySelector('.change-location');
 const attackBtn = document.querySelector('.attack');
 const avoidBtn = document.querySelector('.avoid');
+
+// Menu buttons
+const logBtn = document.querySelector('.log-btn');
+const backpackBtn = document.querySelector('.backpack-btn');
+const userBtn = document.querySelector('.user-btn');
+const mapBtn = document.querySelector('.map-btn');
+const settingsBtn = document.querySelector('.backpack-btn');
 
 const infoTextLocation = document.querySelector('.info-text-location');
 const infoTextSearch = document.querySelector('.info-text-search');
 const infoTextAlert = document.querySelector('.info-text-alert');
 const eventLog = document.querySelector('.event-log');
 
+function logUse() {
+    block2.classList.remove('hidden');
+    block3.classList.add('hidden');
+};
+
 function backpackUse() {
-    console.log(1);
-    block2.classList.toggle('hidden');
-    block3.classList.toggle('hidden');
+    // console.log(1);
+    block2.classList.add('hidden');
+    block3.classList.remove('hidden');
 };
 
 function reidStart() {
@@ -589,7 +600,7 @@ function reidStart() {
     searchBtn.classList.remove('hidden');
     changeLocationBtn.classList.remove('hidden');
     infoTextSearch.innerHTML = '';
-    
+
     for (let i = 0; i < globalLocations.length; i++) {
         if (currentGlobalLocation.id === globalLocations[i].id) {
             currentGlobalLocation = globalLocations[i + 1];
@@ -598,7 +609,7 @@ function reidStart() {
             console.log(currentGlobalLocation.locations);
             infoTextLocation.innerHTML = currentLocation.message;
             break;
-        }        
+        }
     }
 };
 
@@ -822,7 +833,8 @@ function avoid() {
     console.log(currentEnemy);
 };
 
-backpackrBtn.addEventListener('click', backpackUse)
+logBtn.addEventListener('click', logUse)
+backpackBtn.addEventListener('click', backpackUse)
 reidhBtn.addEventListener('click', reidStart)
 avoidBtn.addEventListener('click', avoid);
 attackBtn.addEventListener('click', attack);

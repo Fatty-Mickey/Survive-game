@@ -22,26 +22,27 @@ body {
     padding: 30% 10% 30% 10%;
     /* display: flex; */
     /* flex-direction: column; */
+    background: url(../img/fon/start-modal-2.png);
+    background-size: 100% 100%;
 }
 
-.modal-window>div {
-    background-color: #ffffff;
-    /* border: 1px solid black; */
-    padding: 30px;
+.modal-window > div {
+    padding: 5px 15px 5px 30px;
     text-align: center;
     font-size: 16px;
 }
 
-.modal-window-message{
-    margin-bottom: 30px;
+.modal-window-message {
+    margin-bottom: 250px;
+    color: #3a981c;
+    padding: 20px 15px;
 }
 
 .modal-window-btn {
-    /* margin-top: 20px; */
-    padding: 20px;
-    width: 120px;
-    /* margin: auto; */
-    font-size: 20px;
+    border: none;
+    border-radius: 6px;
+    margin: auto;
+
 }
 
 .container {
@@ -86,7 +87,7 @@ body {
     display: flex;
     justify-content: center;
     background: url(../img/img-fon.png) center no-repeat;
-    background-size: 100% 100% ;  
+    background-size: 100% 100%;
     color: #3a981c;
 }
 
@@ -111,7 +112,7 @@ body {
     width: 20%;
     height: 7vh;
     background: url(../img/euq-item-fon.png) center no-repeat;
-    background-size: 100% 100% ; 
+    background-size: 100% 100%;
     color: #3a981c;
     font-size: 10px;
     padding: 15px;
@@ -122,14 +123,14 @@ body {
     justify-content: center;
 }
 
-.block-2, 
+.block-2,
 .block-3 {
     height: 47vh;
 }
 
 .img-fon {
     background: url(../img/img-fon.png) center no-repeat;
-    background-size: 100% 100% ;  
+    background-size: 100% 100%;
     padding: 1% 4%;
 }
 
@@ -142,7 +143,7 @@ body {
     font-size: 12px;
     /* margin-bottom: 10px; */
     background: url(../img/fon/magazine.jpg) center no-repeat;
-    background-size: 100% 100% ;   
+    background-size: 100% 100%;
     color: #3a981c;
 }
 
@@ -152,7 +153,7 @@ body {
     padding: 10px;
     /* border: 1px solid red; */
     background: url(../img/action-btn.png) center no-repeat;
-    background-size: 100% 100% ; 
+    background-size: 100% 100%;
     font-size: 18px;
     font-weight: bold;
     color: #e4d80c;
@@ -175,7 +176,7 @@ body {
     width: 24%;
     font-size: 8px;
     background: url(../img/details-fon.png) center no-repeat;
-    background-size: 100% 100% ; 
+    background-size: 100% 100%;
 }
 
 .details p {
@@ -190,7 +191,6 @@ body {
     /* align-items: flex-start; */
     /* justify-content: start; */
     /* margin-bottom: 10px; */
-
 }
 
 .backpack {
@@ -202,7 +202,6 @@ body {
     align-items: flex-start;
 }
 
-
 .backpack-item {
     display: flex;
     justify-content: center;
@@ -213,11 +212,10 @@ body {
     /* border: 1px solid red; */
     /* margin: 5px; */
     background: url(../img/backpack-item-fon-2.png) center no-repeat;
-    background-size: 100% 100% ; 
+    background-size: 100% 100%;
 }
 
-.close img{
-
+.close img {
 }
 
 .backpack img {
@@ -225,8 +223,6 @@ body {
     width: 75%;
     height: 75%;
 }
-
-
 
 .backpack-buttons {
     /* border: 1px solid red; */
@@ -236,7 +232,7 @@ body {
     /* justify-content: space-around; */
 }
 
-.backpack-buttons>button {
+.backpack-buttons > button {
     width: 33.3%;
     /* padding: 2px; */
 }
@@ -253,7 +249,7 @@ body {
     font-size: 12px;
 }
 
-.backpack .selected, 
+.backpack .selected,
 .equipment .selected {
     border: 3px solid black;
 }
@@ -270,14 +266,13 @@ body {
     height: 8vh;
     background: url(../img/menu-btn-2.png) center no-repeat;
     background-size: 100% 100%;
-    padding: 10px 5px  2px  5px;
+    padding: 10px 5px 2px 5px;
 }
 
-.backpack-btn{
-    
+.backpack-btn {
 }
 
-.menu-buttons>button>img {
+.menu-buttons > button > img {
     height: 80%;
 }
 .hidden {
@@ -290,4 +285,3 @@ h1 {
 p {
     /* font-size: 30px; */
 }
-
