@@ -85,7 +85,7 @@ body {
     /* border: 1px solid red; */
     display: flex;
     justify-content: center;
-    background: url(/img/img-fon.png) center no-repeat;
+    background: url(./img/img-fon.png) center no-repeat;
     background-size: 100% 100% ;  
     color: #3a981c;
 }
