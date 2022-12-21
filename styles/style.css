@@ -9,6 +9,8 @@
 
 body {
     position: relative;
+    max-height: 100vh;
+    border: 1px solid black;
 }
 
 .modal-window {
@@ -101,33 +103,47 @@ body {
 .block-2, 
 .block-3 {
     /* border: 1px solid black; */
-    min-height: 600px;
+    min-height: 400px;
+}
+
+.img-fon {
+    background: url(/img/img-fon.png) center no-repeat;
+    background-size: 100% 100% ;  
+    padding: 1% 4%;
 }
 
 .img {
-    width: 90%;
-    height: 40vh;
-    border: 1px solid red;
+    /* width: 90%; */
+    height: 20vh;
+    /* border: 1px solid red; */
     overflow: hidden;
     margin: auto;
-    /* background: url(/img/fon/house0.jpg) center center/cover no-repeat; */
-    margin-bottom: 10px;
+    border-radius: 5%;
+    /* margin-bottom: 10px; */
 }
 
 .info {
-    width: 90%;
-    height: 140px;
+    /* width: 96%; */
+    height: 40vh;
     margin: auto;
-    padding: 3px;
-    border: 1px solid red;
+    padding: 25px 30px;
+    /* border: 1px solid red; */
     font-size: 12px;
     margin-bottom: 10px;
+    background: url(/img/fon/magazine.jpg) center no-repeat;
+    background-size: 100% 100% ;   
+    color: #3a981c;
 }
 
 .actions-btn {
-    width: 30%;
+    width: 50%;
     padding: 10px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
+    background: url(/img/action-btn.png) center no-repeat;
+    background-size: 100% 100% ; 
+    font-size: 18px;
+    font-weight: bold;
+    color: #e4d80c;
 }
 
 .details {
@@ -203,7 +219,7 @@ body {
 
 .event-log {
     width: 100%;
-    height: 20vh;
+    height: 14vh;
     border: 1px solid red;
     padding: 5px;
     overflow: hidden;
@@ -216,6 +232,20 @@ body {
 .backpack .selected, 
 .equipment .selected {
     border: 3px solid red;
+}
+
+.menu-buttons {
+    display: flex;
+    justify-content: space-between;
+    /* max-width: 100%; */
+}
+
+.menu-btn {
+    font-size: 16px;
+    width: 20%;
+    min-height: 8vh;
+    background: url(/img/menu-btn.png) center no-repeat;
+    background-size: 100% 100%;
 }
 
 .hidden {
