@@ -10,6 +10,8 @@ const backpackButtons = document.querySelector('.backpack-buttons');
 const img = document.querySelector('.img');
 img.style.background = 'url(/img/locations/house0.jpg) center center/cover no-repeat';
 
+const itemDescription = document.querySelector('.item-description');
+
 const questLine = [
     {
         id: 'start',
@@ -108,8 +110,8 @@ const items = [
         ragsPartsMax: 8,
         medicinesPartsMin: 0,
         medicinesPartsMax: 0,
-
         class: 'armor',
+        description: '<p>Бронежилет FBI</p>',
     },
     {
         id: 'helmetSport',
@@ -127,8 +129,8 @@ const items = [
         ragsPartsMax: 4,
         medicinesPartsMin: 0,
         medicinesPartsMax: 0,
-
         class: 'helmet',
+        description: '<p>Спортивний шолом</p>',
     },
     {
         id: 'respirator',
@@ -146,8 +148,8 @@ const items = [
         ragsPartsMax: 4,
         medicinesPartsMin: 0,
         medicinesPartsMax: 0,
-
         class: 'mask',
+        description: '<p>Респіратор</p>',
     },
     {
         id: 'meatRaw',
@@ -165,8 +167,8 @@ const items = [
         ragsPartsMax: 0,
         medicinesPartsMin: 0,
         medicinesPartsMax: 0,
-
         class: 'useOnYourself',
+        description: "<p>Сире м\'ясо</p><p>Ефекти: Здоров'я +5; Ситість +30</p>",
         healthEffect: 5,
         hungerEffect: 30,
         thirstEffect: 0,
@@ -188,8 +190,8 @@ const items = [
         ragsPartsMax: 0,
         medicinesPartsMin: 0,
         medicinesPartsMax: 0,
-
         class: 'weapon',
+        description: '<p>Іржавий пістолет</p>',
         minDamage: 4,
         maxDamage: 6,
     },
@@ -209,8 +211,8 @@ const items = [
         ragsPartsMax: 0,
         medicinesPartsMin: 0,
         medicinesPartsMax: 0,
-
         class: 'weapon',
+        description: '<p>Бойовий ніж</p>',
         minDamage: 6,
         maxDamage: 9,
     },
@@ -230,8 +232,8 @@ const items = [
         ragsPartsMax: 0,
         medicinesPartsMin: 1,
         medicinesPartsMax: 5,
-
         class: 'useOnYourself',
+        description: '<p>Аптечка</p>',
         healthEffect: 80,
         hungerEffect: -20,
         thirstEffect: -20,
@@ -253,8 +255,8 @@ const items = [
         ragsPartsMax: 2,
         medicinesPartsMin: 1,
         medicinesPartsMax: 3,
-
         class: 'useOnYourself',
+        description: '<p>Саморобні ліки</p>',
         healthEffect: 30,
         hungerEffect: 0,
         thirstEffect: 0,
@@ -276,8 +278,8 @@ const items = [
         ragsPartsMax: 0,
         medicinesPartsMin: 0,
         medicinesPartsMax: 0,
-
         class: 'weapon',
+        description: '<p>Іржавий ніж</p>',
         minDamage: 2,
         maxDamage: 4,
     },
@@ -297,8 +299,8 @@ const items = [
         ragsPartsMax: 0,
         medicinesPartsMin: 0,
         medicinesPartsMax: 0,
-
         class: 'weapon',
+        description: '<p>Шматок арматури</p>',
         minDamage: 3,
         maxDamage: 5,
     },
@@ -318,8 +320,8 @@ const items = [
         ragsPartsMax: 0,
         medicinesPartsMin: 0,
         medicinesPartsMax: 0,
-
         class: 'useOnYourself',
+        description: '<p>Запліснявілі сухарі</p>',
         healthEffect: 5,
         hungerEffect: 30,
         thirstEffect: -15,
@@ -341,8 +343,8 @@ const items = [
         ragsPartsMax: 0,
         medicinesPartsMin: 0,
         medicinesPartsMax: 0,
-
         class: 'useOnYourself',
+        description: '<p>Пляшка води</p>',
         healthEffect: 5,
         hungerEffect: 0,
         thirstEffect: 50,
@@ -913,11 +915,15 @@ const settingsBtn = document.querySelector('.backpack-btn');
 function logUse() {
     block2.classList.remove('hidden');
     block3.classList.add('hidden');
+    img.classList.remove('hidden');
+    itemDescription.classList.add('hidden');
 };
 
 function backpackUse() {
     block2.classList.add('hidden');
     block3.classList.remove('hidden');
+    itemDescription.classList.remove('hidden');
+    img.classList.add('hidden');
 };
 
 logBtn.addEventListener('click', logUse);
@@ -944,6 +950,7 @@ backpackItem0.addEventListener('click', el => {
     selectedItemInHTML = backpackItem0;
     selectedItem = backpackArr[0];
     selectedItemInHTML.classList.add('selected');
+    itemDescription.innerHTML = selectedItem.description;
 });
 
 backpackItem1.addEventListener('click', el => {
@@ -951,6 +958,7 @@ backpackItem1.addEventListener('click', el => {
     selectedItemInHTML = backpackItem1;
     selectedItem = backpackArr[1];
     selectedItemInHTML.classList.add('selected');
+    itemDescription.innerHTML = selectedItem.description;
 });
 
 backpackItem2.addEventListener('click', el => {
@@ -958,6 +966,7 @@ backpackItem2.addEventListener('click', el => {
     selectedItemInHTML = backpackItem2;
     selectedItem = backpackArr[2];
     selectedItemInHTML.classList.add('selected');
+    itemDescription.innerHTML = selectedItem.description;
 });
 
 backpackItem3.addEventListener('click', el => {
@@ -965,6 +974,7 @@ backpackItem3.addEventListener('click', el => {
     selectedItemInHTML = backpackItem3;
     selectedItem = backpackArr[3];
     selectedItemInHTML.classList.add('selected');
+    itemDescription.innerHTML = selectedItem.description;
 });
 
 backpackItem4.addEventListener('click', el => {
@@ -972,6 +982,7 @@ backpackItem4.addEventListener('click', el => {
     selectedItemInHTML = backpackItem4;
     selectedItem = backpackArr[4];
     selectedItemInHTML.classList.add('selected');
+    itemDescription.innerHTML = selectedItem.description;
 });
 
 backpackItem5.addEventListener('click', el => {
@@ -979,6 +990,7 @@ backpackItem5.addEventListener('click', el => {
     selectedItemInHTML = backpackItem5;
     selectedItem = backpackArr[5];
     selectedItemInHTML.classList.add('selected');
+    itemDescription.innerHTML = selectedItem.description;
 });
 
 backpackItem6.addEventListener('click', el => {
@@ -986,6 +998,7 @@ backpackItem6.addEventListener('click', el => {
     selectedItemInHTML = backpackItem6;
     selectedItem = backpackArr[6];
     selectedItemInHTML.classList.add('selected');
+    itemDescription.innerHTML = selectedItem.description;
 });
 
 backpackItem7.addEventListener('click', el => {
@@ -993,6 +1006,7 @@ backpackItem7.addEventListener('click', el => {
     selectedItemInHTML = backpackItem7;
     selectedItem = backpackArr[7];
     selectedItemInHTML.classList.add('selected');
+    itemDescription.innerHTML = selectedItem.description;
 });
 
 backpackItem8.addEventListener('click', el => {
@@ -1000,6 +1014,7 @@ backpackItem8.addEventListener('click', el => {
     selectedItemInHTML = backpackItem8;
     selectedItem = backpackArr[8];
     selectedItemInHTML.classList.add('selected');
+    itemDescription.innerHTML = selectedItem.description;
 });
 
 backpackItem9.addEventListener('click', el => {
@@ -1007,6 +1022,7 @@ backpackItem9.addEventListener('click', el => {
     selectedItemInHTML = backpackItem9;
     selectedItem = backpackArr[9];
     selectedItemInHTML.classList.add('selected');
+    itemDescription.innerHTML = selectedItem.description;
 });
 
 const equipment = document.querySelector('.equipment');
@@ -1028,6 +1044,7 @@ equipmentWeapon.addEventListener('click', function () {
     selectedItemInHTML = equipmentWeapon;
     selectedItem = equippedWeaponArr[0];
     selectedItemInHTML.classList.add('selected');
+    itemDescription.innerHTML = selectedItem.description;
 });
 
 equipmentHelmet.addEventListener('click', function () {
@@ -1035,6 +1052,7 @@ equipmentHelmet.addEventListener('click', function () {
     selectedItemInHTML = equipmentHelmet;
     selectedItem = equippedHelmetArr[0];
     selectedItemInHTML.classList.add('selected');
+    itemDescription.innerHTML = selectedItem.description;
 });
 
 equipmentMask.addEventListener('click', function () {
@@ -1042,6 +1060,7 @@ equipmentMask.addEventListener('click', function () {
     selectedItemInHTML = equipmentMask;
     selectedItem = equippedMaskArr[0];
     selectedItemInHTML.classList.add('selected');
+    itemDescription.innerHTML = selectedItem.description;
 });
 
 equipmentArmor.addEventListener('click', function () {
@@ -1049,6 +1068,7 @@ equipmentArmor.addEventListener('click', function () {
     selectedItemInHTML = equipmentArmor;
     selectedItem = equippedArmorArr[0];
     selectedItemInHTML.classList.add('selected');
+    itemDescription.innerHTML = selectedItem.description;
 });
 
 equipmentBackpack.addEventListener('click', function () {
@@ -1056,6 +1076,7 @@ equipmentBackpack.addEventListener('click', function () {
     selectedItemInHTML = equipmentBackpack;
     selectedItem = equippedBackpackArr[0];
     selectedItemInHTML.classList.add('selected');
+    itemDescription.innerHTML = selectedItem.description;
 });
 
 // function select() {
@@ -1098,6 +1119,7 @@ function deleteItem() {
     }
     selectedItem = undefined;
     selectedItemInHTML.innerHTML = '';
+    itemDescription.innerHTML = '';
     selectedItemInHTML.classList.remove('full');
     selectedItemInHTML.classList.add('empty');
     selectedItemInHTML.classList.remove('selected');

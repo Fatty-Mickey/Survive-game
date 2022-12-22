@@ -52,16 +52,17 @@ body {
     margin: auto;
 }
 
-.img {
-    /* width: 90%; */
+.img,
+.item-description {
     height: 24vh;
-    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
     margin: auto;
     border-radius: 5%;
-    /* margin-bottom: 10px; */
-
-    /* background: url(../img/enemies/rat.jpg); */
+    color: #3a981c;
 }
 
 .exp {
@@ -146,7 +147,9 @@ body {
     font-weight: bold;
     /* font-size: 10px; */
 }
-
+.indicators img {
+    height: 90%;
+}
 .actions {
     display: flex;
     flex-wrap: wrap;
