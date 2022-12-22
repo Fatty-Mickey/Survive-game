@@ -93,6 +93,8 @@ const items = [
     {
         id: 'armorFBI',
         name: 'Бронежилет FBI',
+        rareness: 'unusual',
+        rarenessColor: '#37f713',
         dropChance: 50,
         img: '<img src="img/item-icon/armor-fbi.svg" alt="">',
         scrapPartsMin: 4,
@@ -109,6 +111,8 @@ const items = [
     {
         id: 'helmetSport',
         name: 'Спортивний шолом',
+        rareness: 'unusual',
+        rarenessColor: '#37f713',
         dropChance: 100,
         img: '<img src="img/item-icon/helmet-sport.svg" alt="">',
         scrapPartsMin: 1,
@@ -125,6 +129,8 @@ const items = [
     {
         id: 'respirator',
         name: 'Респіратор',
+        rareness: 'regular',
+        rarenessColor: '#fff',
         dropChance: 100,
         img: '<img src="img/item-icon/mask-respirator.svg" alt="">',
         scrapPartsMin: 0,
@@ -141,6 +147,8 @@ const items = [
     {
         id: 'meatRaw',
         name: 'Сире м\'ясо',
+        rareness: 'regular',
+        rarenessColor: '#fff',
         dropChance: 0,
         img: '<img class="backpack-item-img" src="img/item-icon/meat-raw.svg" alt="">',
         scrapPartsMin: 0,
@@ -161,6 +169,8 @@ const items = [
     {
         id: 'pistolRusty',
         name: 'Іржавий пістолет',
+        rareness: 'regular',
+        rarenessColor: '#fff',
         dropChance: 5,
         img: '<img class="backpack-item-img" src="img/item-icon/pistol-rusty.svg" alt="">',
         scrapPartsMin: 1,
@@ -179,6 +189,8 @@ const items = [
     {
         id: 'knifeCombat',
         name: 'Бойовий ніж',
+        rareness: 'unusual',
+        rarenessColor: '#37f713',
         dropChance: 10,
         img: '<img class="backpack-item-img" src="img/item-icon/knife-combat.svg" alt="">',
         scrapPartsMin: 3,
@@ -197,6 +209,8 @@ const items = [
     {
         id: 'firstAidKit',
         name: 'Аптечка',
+        rareness: 'unusual',
+        rarenessColor: '#37f713',
         dropChance: 15,
         img: '<img class="backpack-item-img" src="img/item-icon/first-aid-kit.svg" alt="">',
         scrapPartsMin: 0,
@@ -217,8 +231,11 @@ const items = [
     {
         id: 'bandage',
         name: 'Бинт',
+        rareness: 'regular',
+        rarenessColor: '#fff',
         dropChance: 20,
-        img: '<img class="backpack-item-img" src="img/item-icon/bandage.svg" alt="">',
+        // img: '<img class="backpack-item-img" src="img/item-icon/bandage.svg" alt="">',
+        img: '<img class="backpack-item-img" src="img/f2-items/Chem-Powder.webp" alt="">',
         scrapPartsMin: 0,
         scrapPartsMax: 0,
         electronicsPartsMin: 0,
@@ -237,6 +254,8 @@ const items = [
     {
         id: 'knifeRusty',
         name: 'Іржавий ніж',
+        rareness: 'regular',
+        rarenessColor: '#fff',
         dropChance: 25,
         img: '<img class="backpack-item-img" src="img/item-icon/knife-rusty.svg" alt="">',
         scrapPartsMin: 1,
@@ -255,6 +274,8 @@ const items = [
     {
         id: 'pipe',
         name: 'Шматок арматури',
+        rareness: 'regular',
+        rarenessColor: '#fff',
         dropChance: 40,
         img: '<img class="backpack-item-img" src="img/item-icon/pipe.svg" alt="">',
         scrapPartsMin: 1,
@@ -273,6 +294,8 @@ const items = [
     {
         id: 'crackers',
         name: 'Запліснявілі сухарі',
+        rareness: 'regular',
+        rarenessColor: '#fff',
         dropChance: 60,
         img: '<img class="backpack-item-img" src="img/item-icon/crackers.svg" alt="">',
         scrapPartsMin: 0,
@@ -293,6 +316,8 @@ const items = [
     {
         id: 'water',
         name: 'Пляшка води',
+        rareness: 'regular',
+        rarenessColor: '#fff',
         dropChance: 80,
         img: '<img class="backpack-item-img" src="img/item-icon/bottle-of-water.svg" alt="">',
         scrapPartsMin: 0,
@@ -554,6 +579,9 @@ locations.forEach(location => {
     }
 });
 
+// Починаємо відлік часу
+let curentDate = new Date(2211, 0, 1, 0, 0);
+
 // Основні дії
 let currentGlobalLocation = globalLocations[0];
 let currentLocation = currentGlobalLocation.locations[currentGlobalLocation.locations.length - 1];
@@ -562,7 +590,6 @@ let currentEnemy;
 let enemyHealth;
 let searchResult;
 let log = currentLocation.message;
-console.log(currentLocation);
 
 const reidhBtn = document.querySelector('.reid');
 const barterBtn = document.querySelector('.barter');
@@ -595,77 +622,81 @@ function backpackUse() {
 };
 
 function reidStart() {
+    curentDate.setHours(curentDate.getHours() + 1);
     reidhBtn.classList.add('hidden');
     barterBtn.classList.add('hidden');
     searchBtn.classList.remove('hidden');
     changeLocationBtn.classList.remove('hidden');
-    infoTextSearch.innerHTML = '';
+    // infoTextSearch.innerHTML = '';
 
     for (let i = 0; i < globalLocations.length; i++) {
         if (currentGlobalLocation.id === globalLocations[i].id) {
             currentGlobalLocation = globalLocations[i + 1];
-            console.log(currentGlobalLocation);
             currentLocation = currentGlobalLocation.locations[currentGlobalLocation.locations.length - 1];
-            console.log(currentGlobalLocation.locations);
-            infoTextLocation.innerHTML = currentLocation.message;
+            // infoTextLocation.innerHTML = currentLocation.message;
+            addLog(currentLocation.message)
             break;
         }
     }
 };
 
 function search() {
+    curentDate.setMinutes(curentDate.getMinutes() + 15);
     if (emptyCellsOfBackPack > 0) {
         alert();
         action();
-        console.log(currentEnemy);
-        console.log(countOfSearch);
         if (currentEnemy !== undefined) {
             items.forEach(item => {
-                console.log('ou');
                 if (item.name === currentEnemy.dropName) {
                     searchResult = item;
                 }
             });
-            infoTextSearch.innerHTML = 'Ти знайшов ' + searchResult.name + '.'
-            addLog('Ти знайшов ' + searchResult.name + '.');
+            // infoTextSearch.innerHTML = 'Ти знайшов ' + searchResult.name + '.';
+            // addLog('Ти знайшов ' + searchResult.name + '.');
+            addLog(`Ти знайшов <span style="color:${searchResult.rarenessColor}">${searchResult.name}</span>.`)
             putInBackpack();
             currentEnemy = undefined;
         } else if (countOfSearch > 0) {
             searchResult = currentLocation.items[choiceResult(currentLocation.items.length)];
             countOfSearch -= 1;
-            console.log(searchResult);
             if (searchResult.id !== 'nothing') {
-                infoTextSearch.innerHTML = 'Ти знайшов ' + searchResult.name + '.';
+                // infoTextSearch.innerHTML = 'Ти знайшов ' + searchResult.name + '.';
                 if (countOfSearch > 0) {
-                    infoTextSearch.innerHTML += ' Варто пошукати ще.'
+                    // infoTextSearch.innerHTML += ' Варто пошукати ще.';
+                    addLog(`Ти знайшов <span class="item" style="color:${searchResult.rarenessColor}">${searchResult.name}</span>. Варто пошукати ще.`);
                 } else {
-                    infoTextSearch.innerHTML += ' Тут нічого не залишилось, варто йти далі.'
+                    // infoTextSearch.innerHTML += ' Тут нічого не залишилось, варто йти далі.';
+                    // addLog('Ти знайшов ' + searchResult.name + '. Тут нічого не залишилось, варто йти далі.');
+                    addLog(`Ти знайшов <span class="item" style="color:${searchResult.rarenessColor}">${searchResult.name}</span>. Тут нічого не залишилось, варто йти далі.`);
                 }
-                addLog('Ти знайшов ' + searchResult.name + '.');
+                // addLog('Ти знайшов ' + searchResult.name + '.');
                 putInBackpack();
             } else {
-                infoTextSearch.innerHTML = 'Ти нічого не знайшов.';
+                // infoTextSearch.innerHTML = 'Ти нічого не знайшов.';
                 addLog('Ти нічого не знайшов.');
             };
         } else {
-            infoTextSearch.innerHTML = 'Тут нічого не залишилось, варто йти далі.';
+            // infoTextSearch.innerHTML = 'Тут нічого не залишилось, варто йти далі.';
             addLog('Тут нічого не залишилось, варто йти далі.');
         }
     } else {
-        infoTextSearch.innerHTML = 'Рюкзак заповнений, потрібно звільнити місце';
+        // infoTextSearch.innerHTML = 'Рюкзак заповнений, потрібно звільнити місце';
         addLog('Рюкзак заповнений, потрібно звільнити місце');
     }
 };
 
 function alert() {
     if (hunger <= 10 && thirst <= 10) {
-        infoTextAlert.innerHTML = 'Ти хочеш їсти і пити, якщо рівень голоду чи спраги зменьшиться менше 0, ти почнеш втрачати здоровя. '
+        // infoTextAlert.innerHTML = 'Ти хочеш їсти і пити, якщо рівень голоду чи спраги зменьшиться менше 0, ти почнеш втрачати здоровя. ';
+        addLog('Ти хочеш їсти і пити, якщо рівень голоду чи спраги зменьшиться менше 0, ти почнеш втрачати здоровя. ');
     } else if (hunger <= 10) {
-        infoTextAlert.innerHTML = 'Ти хочеш їсти, якщо рівень голоду зменьшиться менше 0, ти почнеш втрачати здоровя. '
+        // infoTextAlert.innerHTML = 'Ти хочеш їсти, якщо рівень голоду зменьшиться менше 0, ти почнеш втрачати здоровя. ';
+        addLog('Ти хочеш їсти, якщо рівень голоду зменьшиться менше 0, ти почнеш втрачати здоровя. ');
     } else if (thirst <= 10) {
-        infoTextAlert.innerHTML = 'Ти хочеш пити, якщо рівень спраги зменьшиться менше 0, ти почнеш втрачати здоровя. '
+        // infoTextAlert.innerHTML = 'Ти хочеш пити, якщо рівень спраги зменьшиться менше 0, ти почнеш втрачати здоровя. ';
+        addLog('Ти хочеш пити, якщо рівень спраги зменьшиться менше 0, ти почнеш втрачати здоровя. ');
     } else {
-        infoTextAlert.innerHTML = ''
+        // infoTextAlert.innerHTML = '';
     }
 };
 
@@ -692,7 +723,12 @@ function action() {
 };
 
 function addLog(log) {
-    eventLog.innerHTML += `<p>${log}</p>`;
+    let hoursInHtml;
+    let minutesInHtml;
+    curentDate.getHours() < 10 ? hoursInHtml = `0${curentDate.getHours()}` : hoursInHtml = `${curentDate.getHours()}`;
+    curentDate.getMinutes() < 10 ? minutesInHtml = `0${curentDate.getMinutes()}` : minutesInHtml = `${curentDate.getMinutes()}`;
+    eventLog.innerHTML += `<p><span class="time">[${hoursInHtml}:${minutesInHtml}]</span> ${log}</p>`;
+    // Додати видалення логів після переповнення
 };
 
 function putInBackpack() {
@@ -759,6 +795,7 @@ function choiceResult(amount) {
 function changeLocation() {
     alert();
     action();
+    curentDate.setMinutes(curentDate.getMinutes() + 30);
 
     if (randomNumber() <= currentGlobalLocation.findLocationChance) {
         console.log('loca');
@@ -769,15 +806,14 @@ function changeLocation() {
                 break;
             }
         }
-        infoTextLocation.innerHTML = currentLocation.message;
-        infoTextSearch.innerHTML = '';
+        // infoTextLocation.innerHTML = currentLocation.message;
+        // infoTextSearch.innerHTML = '';
         addLog(currentLocation.message);
     } else {
-        console.log('battle');
         currentEnemy = currentGlobalLocation.enemies[choiceResult(currentGlobalLocation.enemies.length)];
         enemyHealth = currentEnemy.health;
-        infoTextLocation.innerHTML = currentEnemy.message;
-        infoTextSearch.innerHTML = '';
+        // infoTextLocation.innerHTML = currentEnemy.message;
+        // infoTextSearch.innerHTML = '';
         addLog(currentEnemy.message);
         battleStart();
     }
@@ -808,29 +844,30 @@ function battleFinish() {
 };
 
 function attack() {
+    curentDate.setMinutes(curentDate.getMinutes() + 2);
     const damageOfUser = userAttack();
     enemyHealth -= damageOfUser;
     const damageOfEnemy = enemyAttack();
     health -= damageOfEnemy;
     healthIndex.innerHTML = health;
-    infoTextLocation.innerHTML = `Ти атакуєш ворога(${damageOfUser}). ${currentEnemy.name} атакує тебе (${damageOfEnemy}).`;
+    // infoTextLocation.innerHTML = `Ти атакуєш ворога(${damageOfUser}). ${currentEnemy.name} атакує тебе (${damageOfEnemy}).`;
     addLog(`Ти атакуєш ворога(${damageOfUser}). ${currentEnemy.name} атакує тебе (${damageOfEnemy}).`);
 
     if (enemyHealth <= 0) {
-        infoTextLocation.innerHTML = `Ти вбив ворога. Варто обшукати.`;
+        // infoTextLocation.innerHTML = `Ти вбив ворога. Варто обшукати.`;
         addLog(`Ти вбив ворога. Варто обшукати.`);
         battleFinish();
     }
 };
 
 function avoid() {
+    curentDate.setMinutes(curentDate.getMinutes() + 10);
     battleFinish();
     currentLocation = currentGlobalLocation.locations[currentGlobalLocation.locations.length - 1];
     countOfSearch = currentLocation.countOfSearch;
-    infoTextLocation.innerHTML = `Ти втік від ${currentEnemy.name}. ${currentLocation.message}`;
+    // infoTextLocation.innerHTML = `Ти втік від ${currentEnemy.name}. ${currentLocation.message}`;
     addLog(`Ти втік від ${currentEnemy.name}. ${currentLocation.message}`);
     currentEnemy = undefined;
-    console.log(currentEnemy);
 };
 
 logBtn.addEventListener('click', logUse)
@@ -1064,9 +1101,7 @@ function use() {
         return;
 
     } else if (selectedItem.class === 'weapon') {
-        console.log('its weapon');
         if (equippedWeaponArr[0] !== undefined) {
-            console.log('weapon isnt empty');
             if (equippedWeaponArr[0] !== selectedItem) {
                 let saveItem = equippedWeaponArr[0];
                 equippedWeaponArr[0] = selectedItem;
@@ -1079,10 +1114,8 @@ function use() {
             }
         } else {
             equipmentWeapon.innerHTML = selectedItem.img;
-            console.log(1);
             equipmentWeapon.classList.remove('empty');
             equipmentWeapon.classList.add('full');
-            console.log(2);
             equippedWeaponArr[0] = selectedItem;
             deleteItem();
         }
@@ -1091,9 +1124,7 @@ function use() {
         return;
 
     } else if (selectedItem.class === 'helmet') {
-        console.log('its helmet');
         if (equippedHelmetArr[0] !== undefined) {
-            console.log('helmet isnt empty');
             if (equippedHelmetArr[0] !== selectedItem) {
                 let saveItem = equippedHelmetArr[0];
                 equippedHelmetArr[0] = selectedItem;
@@ -1111,9 +1142,7 @@ function use() {
         return;
 
     } else if (selectedItem.class === 'mask') {
-        console.log('its mask');
         if (equippedMaskArr[0] !== undefined) {
-            console.log('mask isnt empty');
             if (equippedMaskArr[0] !== selectedItem) {
                 let saveItem = equippedMaskArr[0];
                 equippedMaskArr[0] = selectedItem;
@@ -1131,9 +1160,7 @@ function use() {
         return;
 
     } else if (selectedItem.class === 'armor') {
-        console.log('its armor');
         if (equippedArmorArr[0] !== undefined) {
-            console.log('armor isnt empty');
             if (equippedArmorArr[0] !== selectedItem) {
                 let saveItem = equippedArmorArr[0];
                 equippedArmorArr[0] = selectedItem;
@@ -1150,9 +1177,7 @@ function use() {
         }
         return;
     } else if (selectedItem.class === 'backpack') {
-        console.log('its backpack');
         if (equippedBackpackArr[0] !== undefined) {
-            console.log('backpack isnt empty');
             if (equippedBackpackArr[0] !== selectedItem) {
                 let saveItem = equippedBackpackArr[0];
                 equippedBackpackArr[0] = selectedItem;

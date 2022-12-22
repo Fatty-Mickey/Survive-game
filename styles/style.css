@@ -6,6 +6,9 @@
     font-size: 16px;
     font-weight: 400;
 }
+button {
+    border-radius: 7%;
+}
 
 body {
     position: relative;
@@ -138,13 +141,37 @@ body {
     /* width: 96%; */
     height: 39vh;
     margin: auto;
-    padding: 25px 30px;
+    padding: 30px 35px;
     /* border: 1px solid red; */
     font-size: 12px;
     /* margin-bottom: 10px; */
     background: url(../img/fon/magazine.jpg) center no-repeat;
     background-size: 100% 100%;
     color: #3a981c;
+}
+
+.event-log {
+
+    height: 32vh;
+
+    overflow: hidden;
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.event-log p {
+    font-size: 12px;
+}
+
+.item {
+    font-size: 12px;    
+}
+
+.time {
+    font-size: 10px;
+    color: #fff;
 }
 
 .actions-btn {
@@ -237,17 +264,7 @@ body {
     /* padding: 2px; */
 }
 
-.event-log {
-    width: 100%;
-    height: 13vh;
-    /* border: 1px solid red; */
-    padding: 5px;
-    overflow: hidden;
-}
 
-.event-log p {
-    font-size: 12px;
-}
 
 .backpack .selected,
 .equipment .selected {
