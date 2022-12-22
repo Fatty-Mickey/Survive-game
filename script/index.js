@@ -30,6 +30,8 @@ function randomNumber() {
 // Створюємо юзера
 const user = {
     name: '',
+    level: 1,
+    experience: 0,
     backpackSize: 10,
     minDamage: 1,
     maxDamage: 2,
@@ -37,6 +39,7 @@ const user = {
     maxHunger: 100,
     maxThirst: 100,
 };
+
 const healthIndex = document.querySelector('.health-index');
 const hungerIndex = document.querySelector('.hunger-index');
 const thirstIndex = document.querySelector('.thirst-index');
@@ -360,6 +363,7 @@ const enemies = [
         name: 'Мутований пацюк',
         message: 'Ти втрапив у засітку мутованого пацюка',
         health: 10,
+        exp: 1000,
         minDamage: 3,
         maxDamage: 6,
         dropName: 'Сире м\'ясо',
@@ -369,6 +373,7 @@ const enemies = [
         name: 'Мутований скорпіон',
         message: 'Ти втрапив у засітку мутованого скорпіона',
         health: 15,
+        exp: 1000,
         minDamage: 5,
         maxDamage: 8,
         dropName: 'Сире м\'ясо',
@@ -581,6 +586,13 @@ locations.forEach(location => {
 
 // Починаємо відлік часу
 let curentDate = new Date(2211, 0, 1, 0, 0);
+const date = document.querySelector('.date');
+function displayCurentDate() {
+    let currentMonthName = curentDate.toString().split(' ')[1];
+    date.innerHTML = `${curentDate.getDate()} ${currentMonthName}, ${curentDate.getFullYear()}`;
+};
+displayCurentDate();
+
 
 // Основні дії
 let currentGlobalLocation = globalLocations[0];
@@ -591,6 +603,7 @@ let enemyHealth;
 let searchResult;
 let log = currentLocation.message;
 
+// Кнопки дій
 const reidhBtn = document.querySelector('.reid');
 const barterBtn = document.querySelector('.barter');
 const searchBtn = document.querySelector('.search');
@@ -598,42 +611,50 @@ const changeLocationBtn = document.querySelector('.change-location');
 const attackBtn = document.querySelector('.attack');
 const avoidBtn = document.querySelector('.avoid');
 
-// Menu buttons
-const logBtn = document.querySelector('.log-btn');
-const backpackBtn = document.querySelector('.backpack-btn');
-const userBtn = document.querySelector('.user-btn');
-const mapBtn = document.querySelector('.map-btn');
-const settingsBtn = document.querySelector('.backpack-btn');
-
-const infoTextLocation = document.querySelector('.info-text-location');
-const infoTextSearch = document.querySelector('.info-text-search');
-const infoTextAlert = document.querySelector('.info-text-alert');
 const eventLog = document.querySelector('.event-log');
+const expCount = document.querySelector('.exp-count');
+const level = document.querySelector('.level');
 
-function logUse() {
-    block2.classList.remove('hidden');
-    block3.classList.add('hidden');
-};
+// const infoTextLocation = document.querySelector('.info-text-location');
+// const infoTextSearch = document.querySelector('.info-text-search');
+// const infoTextAlert = document.querySelector('.info-text-alert');
 
-function backpackUse() {
-    // console.log(1);
-    block2.classList.add('hidden');
-    block3.classList.remove('hidden');
+
+function addExperience(value) {
+    let n;
+    value === 'regular' ? n = 5 :
+        value === 'unusual' ? n = 15 : n = value;        
+    user.experience += n;
+    console.log(user.experience);
+    let expToNextLevel = (user.level + 1) * user.level / 2 * 1000;
+    if (user.experience >= expToNextLevel) {
+        user.level += 1;
+        expToNextLevel = (user.level + 1) * user.level / 2 * 1000;
+    }
+    level.innerHTML = `Рівень: ${user.level}. ${user.experience}/${expToNextLevel}`;
+
+    const expFull = document.querySelector('.exp-full');
+    const expEmpty = document.querySelector('.exp-empty');
+    let expFullWidth = user.experience / expToNextLevel * 100;
+    let expEmptyWidth = 100 - expFullWidth;
+
+    expFull.style.width = `${expFullWidth}%`;
+    expEmpty.style.width = `${expEmptyWidth}%`;
 };
+addExperience(0);
 
 function reidStart() {
     curentDate.setHours(curentDate.getHours() + 1);
+    displayCurentDate();
     reidhBtn.classList.add('hidden');
     barterBtn.classList.add('hidden');
     searchBtn.classList.remove('hidden');
     changeLocationBtn.classList.remove('hidden');
-    // infoTextSearch.innerHTML = '';
 
     for (let i = 0; i < globalLocations.length; i++) {
         if (currentGlobalLocation.id === globalLocations[i].id) {
             currentGlobalLocation = globalLocations[i + 1];
             currentLocation = currentGlobalLocation.locations[currentGlobalLocation.locations.length - 1];
-            // infoTextLocation.innerHTML = currentLocation.message;
             addLog(currentLocation.message)
             break;
         }
@@ -642,6 +663,8 @@ function reidStart() {
 
 function search() {
     curentDate.setMinutes(curentDate.getMinutes() + 15);
+    displayCurentDate();
+
     if (emptyCellsOfBackPack > 0) {
         alert();
         action();
@@ -651,52 +674,38 @@ function search() {
                     searchResult = item;
                 }
             });
-            // infoTextSearch.innerHTML = 'Ти знайшов ' + searchResult.name + '.';
-            // addLog('Ти знайшов ' + searchResult.name + '.');
-            addLog(`Ти знайшов <span style="color:${searchResult.rarenessColor}">${searchResult.name}</span>.`)
+            addLog(`Ти знайшов <span class="item" style="color:${searchResult.rarenessColor}">${searchResult.name}</span>. Тут нічого не залишилось, варто йти далі.`)
             putInBackpack();
             currentEnemy = undefined;
         } else if (countOfSearch > 0) {
             searchResult = currentLocation.items[choiceResult(currentLocation.items.length)];
             countOfSearch -= 1;
             if (searchResult.id !== 'nothing') {
-                // infoTextSearch.innerHTML = 'Ти знайшов ' + searchResult.name + '.';
                 if (countOfSearch > 0) {
-                    // infoTextSearch.innerHTML += ' Варто пошукати ще.';
                     addLog(`Ти знайшов <span class="item" style="color:${searchResult.rarenessColor}">${searchResult.name}</span>. Варто пошукати ще.`);
                 } else {
-                    // infoTextSearch.innerHTML += ' Тут нічого не залишилось, варто йти далі.';
-                    // addLog('Ти знайшов ' + searchResult.name + '. Тут нічого не залишилось, варто йти далі.');
                     addLog(`Ти знайшов <span class="item" style="color:${searchResult.rarenessColor}">${searchResult.name}</span>. Тут нічого не залишилось, варто йти далі.`);
                 }
-                // addLog('Ти знайшов ' + searchResult.name + '.');
                 putInBackpack();
+                addExperience(searchResult.rareness);
             } else {
-                // infoTextSearch.innerHTML = 'Ти нічого не знайшов.';
                 addLog('Ти нічого не знайшов.');
             };
         } else {
-            // infoTextSearch.innerHTML = 'Тут нічого не залишилось, варто йти далі.';
             addLog('Тут нічого не залишилось, варто йти далі.');
         }
     } else {
-        // infoTextSearch.innerHTML = 'Рюкзак заповнений, потрібно звільнити місце';
         addLog('Рюкзак заповнений, потрібно звільнити місце');
     }
 };
 
 function alert() {
     if (hunger <= 10 && thirst <= 10) {
-        // infoTextAlert.innerHTML = 'Ти хочеш їсти і пити, якщо рівень голоду чи спраги зменьшиться менше 0, ти почнеш втрачати здоровя. ';
         addLog('Ти хочеш їсти і пити, якщо рівень голоду чи спраги зменьшиться менше 0, ти почнеш втрачати здоровя. ');
     } else if (hunger <= 10) {
-        // infoTextAlert.innerHTML = 'Ти хочеш їсти, якщо рівень голоду зменьшиться менше 0, ти почнеш втрачати здоровя. ';
         addLog('Ти хочеш їсти, якщо рівень голоду зменьшиться менше 0, ти почнеш втрачати здоровя. ');
     } else if (thirst <= 10) {
-        // infoTextAlert.innerHTML = 'Ти хочеш пити, якщо рівень спраги зменьшиться менше 0, ти почнеш втрачати здоровя. ';
         addLog('Ти хочеш пити, якщо рівень спраги зменьшиться менше 0, ти почнеш втрачати здоровя. ');
-    } else {
-        // infoTextAlert.innerHTML = '';
     }
 };
 
@@ -785,9 +794,6 @@ function choiceResult(amount) {
     for (let i = 0; i < arr.length; i++) {
         if (someRandomNumber <= arr[i]) {
             return i;
-            // searchResult = currentLocation.items[i];
-            // currentEnemy = currentGlobalLocation.enemies[i];
-            // break;
         }
     };
 };
@@ -796,6 +802,7 @@ function changeLocation() {
     alert();
     action();
     curentDate.setMinutes(curentDate.getMinutes() + 30);
+    displayCurentDate();
 
     if (randomNumber() <= currentGlobalLocation.findLocationChance) {
         console.log('loca');
@@ -806,14 +813,10 @@ function changeLocation() {
                 break;
             }
         }
-        // infoTextLocation.innerHTML = currentLocation.message;
-        // infoTextSearch.innerHTML = '';
         addLog(currentLocation.message);
     } else {
         currentEnemy = currentGlobalLocation.enemies[choiceResult(currentGlobalLocation.enemies.length)];
         enemyHealth = currentEnemy.health;
-        // infoTextLocation.innerHTML = currentEnemy.message;
-        // infoTextSearch.innerHTML = '';
         addLog(currentEnemy.message);
         battleStart();
     }
@@ -845,6 +848,8 @@ function battleFinish() {
 
 function attack() {
     curentDate.setMinutes(curentDate.getMinutes() + 2);
+    displayCurentDate();
+
     const damageOfUser = userAttack();
     enemyHealth -= damageOfUser;
     const damageOfEnemy = enemyAttack();
@@ -856,12 +861,14 @@ function attack() {
     if (enemyHealth <= 0) {
         // infoTextLocation.innerHTML = `Ти вбив ворога. Варто обшукати.`;
         addLog(`Ти вбив ворога. Варто обшукати.`);
+        addExperience(currentEnemy.exp)
         battleFinish();
     }
 };
 
 function avoid() {
     curentDate.setMinutes(curentDate.getMinutes() + 10);
+    displayCurentDate();
     battleFinish();
     currentLocation = currentGlobalLocation.locations[currentGlobalLocation.locations.length - 1];
     countOfSearch = currentLocation.countOfSearch;
@@ -870,13 +877,31 @@ function avoid() {
     currentEnemy = undefined;
 };
 
-logBtn.addEventListener('click', logUse)
-backpackBtn.addEventListener('click', backpackUse)
-reidhBtn.addEventListener('click', reidStart)
+reidhBtn.addEventListener('click', reidStart);
 avoidBtn.addEventListener('click', avoid);
 attackBtn.addEventListener('click', attack);
 changeLocationBtn.addEventListener('click', changeLocation);
 searchBtn.addEventListener('click', search);
+
+// Кнопки основного меню
+const logBtn = document.querySelector('.log-btn');
+const backpackBtn = document.querySelector('.backpack-btn');
+const userBtn = document.querySelector('.user-btn');
+const mapBtn = document.querySelector('.map-btn');
+const settingsBtn = document.querySelector('.backpack-btn');
+
+function logUse() {
+    block2.classList.remove('hidden');
+    block3.classList.add('hidden');
+};
+
+function backpackUse() {
+    block2.classList.add('hidden');
+    block3.classList.remove('hidden');
+};
+
+logBtn.addEventListener('click', logUse);
+backpackBtn.addEventListener('click', backpackUse);
 
 // Виділення предмета (спробувати зменшити код від дублювання)
 let selectedItemInHTML;

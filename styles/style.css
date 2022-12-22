@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Roboto", sans-serif;
-    font-size: 16px;
+    /* font-size: 16px; */
     font-weight: 400;
 }
 button {
@@ -45,7 +45,6 @@ body {
     border: none;
     border-radius: 6px;
     margin: auto;
-
 }
 
 .container {
@@ -61,6 +60,53 @@ body {
     margin: auto;
     border-radius: 5%;
     /* margin-bottom: 10px; */
+}
+
+.exp {
+    height: 1vh;
+    border: 1px solid black;
+    display: flex;
+    /* padding-left: 2%; */
+    align-items: center;
+    color: #3a981c;
+    font-size: 8px;
+
+    /* background: url(../img/fon/exp-emty.png); */
+    /* background-size: 100% 100%; */
+}
+
+.exp-count {
+    width: 100%;
+    display: flex;
+}
+.exp-full {
+    height: 1vh;
+    width: 0%;
+    background: url(../img/fon/exp-full.png) left;
+    background-size: auto 100%;
+}
+.exp-empty {
+    height: 1vh;
+    width: 100%;
+    background: url(../img/fon/exp-empty.png) right;
+    background-size: auto 100%;
+}
+
+.level-and-date {
+    display: flex;
+    justify-content: space-between;
+}
+
+.date,
+.level {
+    height: 1vh;
+    /* width: 50%; */
+    /* border: 1px solid black; */
+    color: #3a981c;
+    font-size: 8px;
+    display: flex;
+    padding-left: 2%;
+    align-items: center;
 }
 
 .indicators-box {
@@ -79,7 +125,7 @@ body {
 }
 
 .indicators div {
-    height: 3vh;
+    height: 2vh;
     align-items: center;
 }
 
@@ -151,7 +197,6 @@ body {
 }
 
 .event-log {
-
     height: 32vh;
 
     overflow: hidden;
@@ -166,7 +211,7 @@ body {
 }
 
 .item {
-    font-size: 12px;    
+    font-size: 12px;
 }
 
 .time {
@@ -263,8 +308,6 @@ body {
     width: 33.3%;
     /* padding: 2px; */
 }
-
-
 
 .backpack .selected,
 .equipment .selected {
