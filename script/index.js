@@ -437,7 +437,6 @@ const locations = [
         dropChanceIndex: 1,
         countOfSearch: 2,
         items: [],
-        img: '',
     },
     {
         id: 'house1',
@@ -582,7 +581,7 @@ locations.forEach(location => {
                 location.items.push(item);
             }
         })
-    } else if (location.name === 'puddle') {
+    } else if (location.name === 'waterSource') {
         items.forEach(item => {
             if (item.id === 'water') {
                 location.items.push(item);
