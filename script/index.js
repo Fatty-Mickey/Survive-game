@@ -8,7 +8,7 @@ const inventory = document.querySelector('.inventory');
 const backpackButtons = document.querySelector('.backpack-buttons');
 
 const img = document.querySelector('.img');
-img.style.background = 'url(/img/fon/house0.jpg) center center/cover no-repeat';
+img.style.background = 'url(/img/locations/house0.jpg) center center/cover no-repeat';
 
 const questLine = [
     {
@@ -117,7 +117,8 @@ const items = [
         rareness: 'unusual',
         rarenessColor: '#37f713',
         dropChance: 100,
-        img: '<img src="img/item-icon/helmet-sport.svg" alt="">',
+        // img: '<img src="img/item-icon/helmet-sport.svg" alt="">',
+        img: '<img class="backpack-item-img" src="img/f2-items/helmetSport.webp" alt="">',
         scrapPartsMin: 1,
         scrapPartsMax: 4,
         electronicsPartsMin: 0,
@@ -135,7 +136,8 @@ const items = [
         rareness: 'regular',
         rarenessColor: '#fff',
         dropChance: 100,
-        img: '<img src="img/item-icon/mask-respirator.svg" alt="">',
+        // img: '<img src="img/item-icon/mask-respirator.svg" alt="">',
+        img: '<img class="backpack-item-img" src="img/f2-items/respirator.webp" alt="">',
         scrapPartsMin: 0,
         scrapPartsMax: 0,
         electronicsPartsMin: 0,
@@ -153,7 +155,8 @@ const items = [
         rareness: 'regular',
         rarenessColor: '#fff',
         dropChance: 0,
-        img: '<img class="backpack-item-img" src="img/item-icon/meat-raw.svg" alt="">',
+        // img: '<img class="backpack-item-img" src="img/item-icon/meat-raw.svg" alt="">',
+        img: '<img class="backpack-item-img" src="img/f2-items/meatRaw.webp" alt="">',
         scrapPartsMin: 0,
         scrapPartsMax: 0,
         electronicsPartsMin: 0,
@@ -175,7 +178,8 @@ const items = [
         rareness: 'regular',
         rarenessColor: '#fff',
         dropChance: 5,
-        img: '<img class="backpack-item-img" src="img/item-icon/pistol-rusty.svg" alt="">',
+        // img: '<img class="backpack-item-img" src="img/item-icon/pistol-rusty.svg" alt="">',
+        img: '<img class="backpack-item-img" src="img/f2-items/pistolRusty.webp" alt="">',
         scrapPartsMin: 1,
         scrapPartsMax: 3,
         electronicsPartsMin: 0,
@@ -195,7 +199,8 @@ const items = [
         rareness: 'unusual',
         rarenessColor: '#37f713',
         dropChance: 10,
-        img: '<img class="backpack-item-img" src="img/item-icon/knife-combat.svg" alt="">',
+        // img: '<img class="backpack-item-img" src="img/item-icon/knife-combat.svg" alt="">',
+        img: '<img class="backpack-item-img" src="img/f2-items/knifeCombat.webp" alt="">',
         scrapPartsMin: 3,
         scrapPartsMax: 5,
         electronicsPartsMin: 0,
@@ -215,7 +220,8 @@ const items = [
         rareness: 'unusual',
         rarenessColor: '#37f713',
         dropChance: 15,
-        img: '<img class="backpack-item-img" src="img/item-icon/first-aid-kit.svg" alt="">',
+        // img: '<img class="backpack-item-img" src="img/item-icon/first-aid-kit.svg" alt="">',
+        img: '<img class="backpack-item-img" src="img/f2-items/firstAidKit.webp" alt="">',
         scrapPartsMin: 0,
         scrapPartsMax: 0,
         electronicsPartsMin: 0,
@@ -232,13 +238,13 @@ const items = [
         radiationEffect: 0,
     },
     {
-        id: 'bandage',
-        name: 'Бинт',
+        id: 'homemadeMedicine',
+        name: 'Саморобні ліки',
         rareness: 'regular',
         rarenessColor: '#fff',
         dropChance: 20,
         // img: '<img class="backpack-item-img" src="img/item-icon/bandage.svg" alt="">',
-        img: '<img class="backpack-item-img" src="img/f2-items/Chem-Powder.webp" alt="">',
+        img: '<img class="backpack-item-img" src="img/f2-items/homemadeMedicine.webp" alt="">',
         scrapPartsMin: 0,
         scrapPartsMax: 0,
         electronicsPartsMin: 0,
@@ -260,7 +266,8 @@ const items = [
         rareness: 'regular',
         rarenessColor: '#fff',
         dropChance: 25,
-        img: '<img class="backpack-item-img" src="img/item-icon/knife-rusty.svg" alt="">',
+        // img: '<img class="backpack-item-img" src="img/item-icon/knife-rusty.svg" alt="">',
+        img: '<img class="backpack-item-img" src="img/f2-items/knifeRusty.webp" alt="">',
         scrapPartsMin: 1,
         scrapPartsMax: 3,
         electronicsPartsMin: 0,
@@ -275,12 +282,13 @@ const items = [
         maxDamage: 4,
     },
     {
-        id: 'pipe',
+        id: 'metalPole',
         name: 'Шматок арматури',
         rareness: 'regular',
         rarenessColor: '#fff',
         dropChance: 40,
-        img: '<img class="backpack-item-img" src="img/item-icon/pipe.svg" alt="">',
+        // img: '<img class="backpack-item-img" src="img/item-icon/pipe.svg" alt="">',
+        img: '<img class="backpack-item-img" src="img/f2-items/metalPole.webp" alt="">',
         scrapPartsMin: 1,
         scrapPartsMax: 3,
         electronicsPartsMin: 0,
@@ -300,7 +308,8 @@ const items = [
         rareness: 'regular',
         rarenessColor: '#fff',
         dropChance: 60,
-        img: '<img class="backpack-item-img" src="img/item-icon/crackers.svg" alt="">',
+        // img: '<img class="backpack-item-img" src="img/item-icon/crackers.svg" alt="">',
+        img: '<img class="backpack-item-img" src="img/f2-items/crackers.webp" alt="">',
         scrapPartsMin: 0,
         scrapPartsMax: 0,
         electronicsPartsMin: 0,
@@ -322,7 +331,8 @@ const items = [
         rareness: 'regular',
         rarenessColor: '#fff',
         dropChance: 80,
-        img: '<img class="backpack-item-img" src="img/item-icon/bottle-of-water.svg" alt="">',
+        // img: '<img class="backpack-item-img" src="img/item-icon/bottle-of-water.svg" alt="">',
+        img: '<img class="backpack-item-img" src="img/f2-items/water.webp" alt="">',
         scrapPartsMin: 0,
         scrapPartsMax: 0,
         electronicsPartsMin: 0,
@@ -361,6 +371,7 @@ const enemies = [
     {
         id: 'rat',
         name: 'Мутований пацюк',
+        img: 'url(../img/enemies/rat.jpg) center center/cover no-repeat',
         message: 'Ти втрапив у засітку мутованого пацюка',
         health: 10,
         exp: 1000,
@@ -371,6 +382,7 @@ const enemies = [
     {
         id: 'scorpion',
         name: 'Мутований скорпіон',
+        img: 'url(../img/enemies/scorpion.jpg) center center/cover no-repeat',
         message: 'Ти втрапив у засітку мутованого скорпіона',
         health: 15,
         exp: 1000,
@@ -408,6 +420,7 @@ const locations = [
     {
         id: 'cache',
         name: 'cache',
+        img: 'url(../img/locations/cache.jpg) center center/cover no-repeat',
         message: 'Ти знайшов чиюсь схованку ...',
         findChance: 10,
         dropChanceIndex: 1,
@@ -417,6 +430,7 @@ const locations = [
     {
         id: 'house0',
         name: 'house0',
+        img: 'url(../img/locations/house0.jpg) center center/cover no-repeat',
         message: 'Ти натрапив на стару халупу ...',
         findChance: 30,
         possibleItems: [],
@@ -428,6 +442,7 @@ const locations = [
     {
         id: 'house1',
         name: 'house1',
+        img: 'url(../img/locations/house1.jpg) center center/cover no-repeat',
         message: 'Ти натрапив на стару халупу ...',
         findChance: 30,
         possibleItems: [],
@@ -438,6 +453,7 @@ const locations = [
     {
         id: 'cave',
         name: 'cave',
+        img: 'url(../img/locations/cave.jpg) center center/cover no-repeat', 
         message: 'Перед тобою печера ...',
         findChance: 60,
         possibleItems: [],
@@ -446,9 +462,10 @@ const locations = [
         items: [],
     },
     {
-        id: 'puddle',
-        name: 'puddle',
-        message: 'Ти знайшов брудну калюжу, тут можна набрати води ...',
+        id: 'waterSource',
+        name: 'waterSource',
+        message: 'Ти знайшов джерело, тут можна набрати води ...',
+        img: 'url(../img/locations/waterSource.jpg) center center/cover no-repeat', 
         findChance: 80,
         possibleItems: [],
         dropChanceIndex: 1,
@@ -459,6 +476,7 @@ const locations = [
         id: 'wilderness',
         name: 'wilderness',
         message: 'Навколо тебе пустеля ...',
+        img: 'url(../img/locations/wilderness.jpg) center center/cover no-repeat', 
         findChance: 100,
         possibleItems: [],
         dropChanceIndex: 1,
@@ -474,7 +492,7 @@ locations.forEach(location => {
     }
 });
 locations.forEach(location => {
-    if (location.id === 'cache' || location.id === 'house1' || location.id === 'cave' || location.id === 'puddle' || location.id === 'wilderness') {
+    if (location.id === 'cache' || location.id === 'house1' || location.id === 'cave' || location.id === 'waterSource' || location.id === 'wilderness') {
         globalLocations[1].locations.push(location);
     }
 });
@@ -518,7 +536,7 @@ locations.forEach(location => {
             }
         })
         items.forEach(item => {
-            if (item.id === 'bandage') {
+            if (item.id === 'homemadeMedicine') {
                 location.items.push(item);
             }
         })
@@ -539,7 +557,7 @@ locations.forEach(location => {
             }
         })
         items.forEach(item => {
-            if (item.id === 'bandage') {
+            if (item.id === 'homemadeMedicine') {
                 location.items.push(item);
             }
         })
@@ -550,7 +568,7 @@ locations.forEach(location => {
         })
     } else if (location.name === 'cave') {
         items.forEach(item => {
-            if (item.id === 'pipe') {
+            if (item.id === 'metalPole') {
                 location.items.push(item);
             }
         })
@@ -655,7 +673,8 @@ function reidStart() {
         if (currentGlobalLocation.id === globalLocations[i].id) {
             currentGlobalLocation = globalLocations[i + 1];
             currentLocation = currentGlobalLocation.locations[currentGlobalLocation.locations.length - 1];
-            addLog(currentLocation.message)
+            img.style.background = currentLocation.img;
+            addLog(currentLocation.message);
             break;
         }
     }
@@ -809,6 +828,7 @@ function changeLocation() {
         for (const el of locations) {
             if (el.findChance >= randomNumber()) {
                 currentLocation = el;
+                img.style.background = currentLocation.img;
                 countOfSearch = currentLocation.countOfSearch;
                 break;
             }
@@ -818,6 +838,7 @@ function changeLocation() {
         currentEnemy = currentGlobalLocation.enemies[choiceResult(currentGlobalLocation.enemies.length)];
         enemyHealth = currentEnemy.health;
         addLog(currentEnemy.message);
+        img.style.background = currentEnemy.img;
         battleStart();
     }
 };
@@ -871,8 +892,8 @@ function avoid() {
     displayCurentDate();
     battleFinish();
     currentLocation = currentGlobalLocation.locations[currentGlobalLocation.locations.length - 1];
+    img.style.background = currentLocation.img;
     countOfSearch = currentLocation.countOfSearch;
-    // infoTextLocation.innerHTML = `Ти втік від ${currentEnemy.name}. ${currentLocation.message}`;
     addLog(`Ти втік від ${currentEnemy.name}. ${currentLocation.message}`);
     currentEnemy = undefined;
 };
