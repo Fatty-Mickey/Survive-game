@@ -2,28 +2,16 @@ const modalWindow = document.querySelector('.modal-window')
 const modalWindowMessage = document.querySelector('.modal-window-message');
 const modalWindowBtn = document.querySelector('.modal-window-btn');
 const block1 = document.querySelector(('.block-1'));
-const block2 = document.querySelector(('.block-2'));
-const block3 = document.querySelector(('.block-3'));
+const blockLog = document.querySelectorAll(('.block-log'));
+const blockBackpack = document.querySelectorAll(('.block-backpack'));
+const blockUserMenu = document.querySelectorAll(('.block-user-menu'));
 const inventory = document.querySelector('.inventory');
 const backpackButtons = document.querySelector('.backpack-buttons');
 
 const img = document.querySelector('.img');
-img.style.background = 'url(/img/locations/house0.jpg) center center/cover no-repeat';
+img.style.background = 'url(../img/locations/house0.jpg) center center/cover no-repeat';
 
 const itemDescription = document.querySelector('.item-description');
-
-const questLine = [
-    {
-        id: 'start',
-        message: `Це квест-виживання у постапокаліптичному світі. Твоя історія починається у старій халупі в пустелі - це твій дім. Ти пригадуєш, що напередодні домовився зі старим По з хутора неподалік про зустріч.`,
-
-    },
-];
-
-modalWindowMessage.innerHTML = questLine[0].message;
-modalWindowBtn.addEventListener('click', function () {
-    modalWindow.classList.add('hidden')
-})
 
 function randomNumber() {
     return Math.round(Math.random() * 100);
@@ -84,7 +72,7 @@ let emptyCellsOfBackPack = 0;
     for (let i = 0; i < (25 - user.backpackSize); i++) {
         backpack.innerHTML += `
         <div class="backpack-item close" id="${i + user.backpackSize}-backpack-item">
-            <img src="/img/close.svg" alt="">
+            <img src="../img/close.svg" alt="">
         </div>`;
     }
 })();
@@ -454,7 +442,7 @@ const locations = [
     {
         id: 'cave',
         name: 'cave',
-        img: 'url(../img/locations/cave.jpg) center center/cover no-repeat', 
+        img: 'url(../img/locations/cave.jpg) center center/cover no-repeat',
         message: 'Перед тобою печера ...',
         findChance: 60,
         possibleItems: [],
@@ -466,7 +454,7 @@ const locations = [
         id: 'waterSource',
         name: 'waterSource',
         message: 'Ти знайшов джерело, тут можна набрати води ...',
-        img: 'url(../img/locations/waterSource.jpg) center center/cover no-repeat', 
+        img: 'url(../img/locations/waterSource.jpg) center center/cover no-repeat',
         findChance: 80,
         possibleItems: [],
         dropChanceIndex: 1,
@@ -477,7 +465,7 @@ const locations = [
         id: 'wilderness',
         name: 'wilderness',
         message: 'Навколо тебе пустеля ...',
-        img: 'url(../img/locations/wilderness.jpg) center center/cover no-repeat', 
+        img: 'url(../img/locations/wilderness.jpg) center center/cover no-repeat',
         findChance: 100,
         possibleItems: [],
         dropChanceIndex: 1,
@@ -621,6 +609,7 @@ let currentEnemy;
 let enemyHealth;
 let searchResult;
 let log = currentLocation.message;
+let travelCount = 0;
 
 // Кнопки дій
 const reidhBtn = document.querySelector('.reid');
@@ -629,6 +618,9 @@ const searchBtn = document.querySelector('.search');
 const changeLocationBtn = document.querySelector('.change-location');
 const attackBtn = document.querySelector('.attack');
 const avoidBtn = document.querySelector('.avoid');
+const questsBtn = document.querySelector('.quests');
+const skillsBtn = document.querySelector('.skills');
+const perksBtn = document.querySelector('.perks');
 
 const eventLog = document.querySelector('.event-log');
 const expCount = document.querySelector('.exp-count');
@@ -642,7 +634,7 @@ const level = document.querySelector('.level');
 function addExperience(value) {
     let n;
     value === 'regular' ? n = 5 :
-        value === 'unusual' ? n = 15 : n = value;        
+        value === 'unusual' ? n = 15 : n = value;
     user.experience += n;
     console.log(user.experience);
     let expToNextLevel = (user.level + 1) * user.level / 2 * 1000;
@@ -819,6 +811,9 @@ function choiceResult(amount) {
 };
 
 function changeLocation() {
+    travelCount += 1;
+    console.log(travelCount);
+    questLineMain();
     alert();
     action();
     curentDate.setMinutes(curentDate.getMinutes() + 30);
@@ -908,26 +903,31 @@ searchBtn.addEventListener('click', search);
 // Кнопки основного меню
 const logBtn = document.querySelector('.log-btn');
 const backpackBtn = document.querySelector('.backpack-btn');
-const userBtn = document.querySelector('.user-btn');
+const userMenuBtn = document.querySelector('.user-menu-btn');
 const mapBtn = document.querySelector('.map-btn');
 const settingsBtn = document.querySelector('.backpack-btn');
 
 function logUse() {
-    block2.classList.remove('hidden');
-    block3.classList.add('hidden');
-    img.classList.remove('hidden');
-    itemDescription.classList.add('hidden');
+    blockLog.forEach(el => el.classList.remove('hidden'));
+    blockUserMenu.forEach(el => el.classList.add('hidden'));
+    blockBackpack.forEach(el => el.classList.add('hidden'));
 };
 
 function backpackUse() {
-    block2.classList.add('hidden');
-    block3.classList.remove('hidden');
-    itemDescription.classList.remove('hidden');
-    img.classList.add('hidden');
+    blockBackpack.forEach(el => el.classList.remove('hidden'));
+    blockLog.forEach(el => el.classList.add('hidden'));
+    blockUserMenu.forEach(el => el.classList.add('hidden'));
 };
+
+function userMenuUse() {
+    blockUserMenu.forEach(el => el.classList.remove('hidden'));
+    blockLog.forEach(el => el.classList.add('hidden'));
+    blockBackpack.forEach(el => el.classList.add('hidden'));
+}
 
 logBtn.addEventListener('click', logUse);
 backpackBtn.addEventListener('click', backpackUse);
+userMenuBtn.addEventListener('click', userMenuUse);
 
 // Виділення предмета (спробувати зменшити код від дублювання)
 let selectedItemInHTML;
@@ -1266,4 +1266,68 @@ function use() {
 deleteBtn.addEventListener('click', deleteItem);
 apartBtn.addEventListener('click', apart);
 useBtn.addEventListener('click', use);
+
+// Квести
+// const nextMessageBtn = document.querySelector('.next-message');
+// const okBtn = document.querySelector('.ok');
+
+const quests = [
+    {
+        id: 'quest0',
+        message: [
+            `Це квест-виживання у постапокаліптичному світі. Твоя історія починається у старій халупі в пустелі - це твій дім. Ти пригадуєш, що напередодні домовився зі старим По з хутора неподалік про зустріч.`
+        ],
+        questBookMessage: 'Дійти до хутора',
+        condition: 10,
+        completed: false,
+    },
+    {
+        id: 'quest1',
+        message: [
+            "Ти дойшов до хутора де проживає старий По і ще декілька бродяг.",
+            "Старий По: - Прийшов? Добре! Я вирішив що хочу допомогти тобі. Не варто такому перспективному юнакові витрачати своє життя в цьому глухому куті. Я вкажу тобі дорогу до міста Кеп, де на тебе чекає... ну не знаю... щось краще ніж ти маєш зараз...",
+            "Ви думаєте що в чомусь По правий, тут точно робити нічого...",
+            "Старий По: - Але не просто так! Принеси мені хоча б якийсь запас їжі, підійде навіть сире м'ясо.",
+        ],
+        // message: "Ти дойшов до хутора де проживає старий По і ще декілька бродяг.",
+        // message: "Старий По: - Прийшов? Добре! Я вирішив що хочу допомогти тобі. Не варто такому перспективному юнакові витрачати своє життя в цьому глухому куті. Я вкажу тобі дорогу до міста Кеп, де на тебе чекає... ну не знаю... щось краще ніж ти маєш зараз...",
+        // message: "Ви думаєте що в чомусь По правий, тут точно робити нічого...",
+        // message: "Старий По: - Але не просто так! Принеси мені хоча б якийсь запас їжі, підійде навіть сире м'ясо.",
+        questBookMessage: "Принести По 5 шматків сирого м'яса",
+        condition: 5,
+        completed: false,
+    },
+    {},
+];
+
+let currentQuest = quests[0];
+let questMessageCount = 1;
+
+modalWindowMessage.innerHTML = quests[0].message;
+function nextMessage() {
+    modalWindowMessage.innerHTML = currentQuest.message[questMessageCount];
+    questMessageCount += 1;
+    console.log(questMessageCount);
+    if (questMessageCount > currentQuest.message.length) {
+        console.log('close');
+        modalWindow.classList.add('hidden')
+        questMessageCount = 1;
+    }
+}
+modalWindowBtn.addEventListener('click', nextMessage);
+
+function questLineMain() {    
+    for (let i = 0; i < quests.length; i++) {
+        if (quests[i].completed === false) {
+            currentQuest = quests[i];
+            if (quests[i].condition < travelCount) {
+                quests[i].completed = true;
+                modalWindow.classList.remove('hidden');
+                currentQuest = quests[i + 1];
+                modalWindowMessage.innerHTML = currentQuest.message[0];                
+            }
+        }
+        break;    
+    }
+};
 

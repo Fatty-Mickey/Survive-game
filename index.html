@@ -15,16 +15,17 @@
 <body>
     <div class="modal-window">
         <div class="container">
-            <div class="modal-window-message"></div>    
-            <button class="modal-window-btn actions-btn" type="button">Ok</button>
+            <div class="modal-window-message"></div>
+            <button class="modal-window-btn actions-btn" type="button">Далі</button>
         </div>
     </div>
     <header>
         <div class="block-1">
             <div class="container">
                 <div class="img-fon">
-                    <div class="img"></div>
-                    <div class="item-description hidden"></div>
+                    <div class="img block-log"></div>
+                    <div class="item-description block-backpack hidden"></div>
+                    <div class="user-menu-description block-user-menu hidden"></div>
                 </div>
             </div>
             <div class="container">
@@ -32,7 +33,7 @@
                     <div class="exp-count">
                         <div class="exp-full"></div>
                         <div class="exp-empty"></div>
-                    </div>                    
+                    </div>
                 </div>
             </div>
             <div class="container">
@@ -63,7 +64,7 @@
                             <p class="thirst-index">100</p>
                         </div>
                     </div>
-                </div>                
+                </div>
             </div>
             <div class="container">
                 <div class="equipment">
@@ -80,16 +81,16 @@
                 </div>
             </div>
         </div>
-        <div class="block-2">
-            
+        <div class="block-log">
             <div class="container">
                 <div class="info">
                     <div class="event-log">
-                        <p><span class="time">[00:00]</span> Ти прокинувся в своїй халупі. Варто обшукати приміщення перед виходом.</p>
-                    </div>        
-                    <h2 class="info-text-location"></h2>
+                        <p><span class="time">[00:00]</span> Ти прокинувся в своїй халупі. Варто обшукати приміщення
+                            перед виходом.</p>
+                    </div>
+                    <!-- <h2 class="info-text-location"></h2>
                     <h2 class="info-text-search"></h2>
-                    <h3 class="info-text-alert"></h3>
+                    <h3 class="info-text-alert"></h3> -->
                 </div>
                 <div class="container ">
                     <div class="event-log hidden">
@@ -108,9 +109,9 @@
                     <button class="actions-btn change-location hidden" type="button">Йти далі</button>
                 </div>
             </div>
-
         </div>
-        <div class="block-3 hidden">
+
+        <div class="block-backpack hidden">
             <div class="container">
                 <div class="details">
                     <div class="scrap">
@@ -133,19 +134,7 @@
             </div>
             <div class="container">
                 <div class="inventory">
-                    
-                    <div class="backpack">
-                        <!-- <div class="backpack-item"></div>
-                        <div class="backpack-item"></div>
-                        <div class="backpack-item"></div>
-                        <div class="backpack-item"></div>
-                        <div class="backpack-item"></div>
-                        <div class="backpack-item"></div>
-                        <div class="backpack-item"></div>
-                        <div class="backpack-item"></div>
-                        <div class="backpack-item"></div>
-                        <div class="backpack-item"></div> -->
-                    </div>
+                    <div class="backpack"></div>
                 </div>
             </div>
             <div class="container">
@@ -157,23 +146,36 @@
             </div>
         </div>
 
+        <div class="block-user-menu hidden">
+            <div class="container">
+            </div>
+            <div class="container">
+            </div>
+            <div class="container">
+                <div class="backpack-buttons">
+                    <button class="actions-btn quests" type="button">Квести</button>
+                    <button class="actions-btn skills" type="button">Навички</button>
+                    <button class="actions-btn perks" type="button">Перки</button>
+                </div>
+            </div>
+        </div>
 
         <div class="container">
             <div class="menu-buttons">
                 <button class="menu-btn log-btn" type="button">
-                    <img src="/img/menu-btn-icon/list-svgrepo-com.svg" alt="">
+                    <img src="../img/menu-btn-icon/list-svgrepo-com.svg" alt="">
                 </button>
                 <button class="menu-btn backpack-btn" type="button">
-                    <img src="img/menu-btn-icon/backpack-fashion-bag-accessory-travel-svgrepo-com.svg" alt="">
+                    <img src="../img/menu-btn-icon/backpack.svg" alt="">
                 </button>
-                <button class="menu-btn user-btn" type="button">
-                    <img src="/img/menu-btn-icon/user-svgrepo-com.svg" alt="">
+                <button class="menu-btn user-menu-btn" type="button">
+                    <img src="../img/menu-btn-icon/user-svgrepo-com.svg" alt="">
                 </button>
                 <button class="menu-btn map-btn" type="button">
-                    <img src="/img/menu-btn-icon/map-svgrepo-com.svg" alt="">
+                    <img src="../img/menu-btn-icon/map-svgrepo-com.svg" alt="">
                 </button>
                 <button class="menu-btn settings-btn" type="button">
-                    <img src="/img/menu-btn-icon/settings-svgrepo-com.svg" alt="">
+                    <img src="../img/menu-btn-icon/settings-svgrepo-com.svg" alt="">
                 </button>
 
                 <!-- <button class="menu-btn backpack-btn" type="button">Журнал</button>
