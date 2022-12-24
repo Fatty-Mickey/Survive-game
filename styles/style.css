@@ -208,6 +208,34 @@ body {
     color: #3a981c;
 }
 
+.user-info {
+    /* width: 96%; */
+    height: 39vh;
+    margin: auto;
+    /* padding: 30px 45px 20px 35px; */
+    padding: 10% 15% 10% 10%;
+    /* border: 1px solid red; */
+    font-size: 12px;
+    /* margin-bottom: 10px; */
+    background: url(../img/fon/magazine.jpg) center no-repeat;
+    background-size: 100% 100%;
+    color: #3a981c;
+    display: flex;
+    flex-direction: column;
+}
+
+.back-btn-box {
+    align-self: flex-end;
+}
+
+.quests-book {
+    height: 93%;
+}
+
+.back {
+
+}
+
 .event-log {
     height: 32vh;
 
@@ -220,7 +248,15 @@ body {
 
 .event-log p {
     font-size: 12px;
+    /* text-decoration: line-through; */
 }
+
+.quests-menu {
+    border: 1px solid red;
+    height: 32vh;
+}
+
+
 
 .item {
     font-size: 12px;

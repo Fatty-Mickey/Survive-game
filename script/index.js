@@ -1,4 +1,4 @@
-const modalWindow = document.querySelector('.modal-window')
+const modalWindow = document.querySelector('.modal-window');
 const modalWindowMessage = document.querySelector('.modal-window-message');
 const modalWindowBtn = document.querySelector('.modal-window-btn');
 const block1 = document.querySelector(('.block-1'));
@@ -7,6 +7,7 @@ const blockBackpack = document.querySelectorAll(('.block-backpack'));
 const blockUserMenu = document.querySelectorAll(('.block-user-menu'));
 const inventory = document.querySelector('.inventory');
 const backpackButtons = document.querySelector('.backpack-buttons');
+console.log(backpackButtons.childNodes);
 
 const img = document.querySelector('.img');
 img.style.background = 'url(../img/locations/house0.jpg) center center/cover no-repeat';
@@ -386,7 +387,7 @@ const enemies = [
 const globalLocations = [
     {
         id: 'firstHouse',
-        name: 'firstHouse',
+        name: 'Дім',
         message: 'Ти в своєму будинку. ',
         type: 'peaceful',
         // findLocationChance: 100,
@@ -396,12 +397,21 @@ const globalLocations = [
     },
     {
         id: 'nearFirstHouse',
-        name: 'nearFirstHouse',
+        name: 'Околиці дому',
         type: 'seekAndFight',
         findLocationChance: 70,
         battleChance: 100,
         locations: [],
         enemies: [],
+    },
+    {
+        id: 'village',
+        name: 'Хутор',
+        type: 'peaceful',
+        // findLocationChance: 70,
+        // battleChance: 100,
+        // locations: [],
+        // enemies: [],
     },
 ];
 
@@ -600,7 +610,6 @@ function displayCurentDate() {
 };
 displayCurentDate();
 
-
 // Основні дії
 let currentGlobalLocation = globalLocations[0];
 let currentLocation = currentGlobalLocation.locations[currentGlobalLocation.locations.length - 1];
@@ -743,12 +752,12 @@ function action() {
     };
 };
 
-function addLog(log) {
+function addLog(log, color ='#3a981c') {
     let hoursInHtml;
     let minutesInHtml;
     curentDate.getHours() < 10 ? hoursInHtml = `0${curentDate.getHours()}` : hoursInHtml = `${curentDate.getHours()}`;
     curentDate.getMinutes() < 10 ? minutesInHtml = `0${curentDate.getMinutes()}` : minutesInHtml = `${curentDate.getMinutes()}`;
-    eventLog.innerHTML += `<p><span class="time">[${hoursInHtml}:${minutesInHtml}]</span> ${log}</p>`;
+    eventLog.innerHTML += `<p style="color:${color}"><span class="time">[${hoursInHtml}:${minutesInHtml}]</span> ${log}</p>`;
     // Додати видалення логів після переповнення
 };
 
@@ -813,7 +822,6 @@ function choiceResult(amount) {
 function changeLocation() {
     travelCount += 1;
     console.log(travelCount);
-    questLineMain();
     alert();
     action();
     curentDate.setMinutes(curentDate.getMinutes() + 30);
@@ -837,6 +845,7 @@ function changeLocation() {
         img.style.background = currentEnemy.img;
         battleStart();
     }
+    questLineMain();
 };
 
 function battleStart() {
@@ -923,6 +932,7 @@ function userMenuUse() {
     blockUserMenu.forEach(el => el.classList.remove('hidden'));
     blockLog.forEach(el => el.classList.add('hidden'));
     blockBackpack.forEach(el => el.classList.add('hidden'));
+    showQuests();
 }
 
 logBtn.addEventListener('click', logUse);
@@ -1269,30 +1279,29 @@ useBtn.addEventListener('click', use);
 
 // Квести
 // const nextMessageBtn = document.querySelector('.next-message');
-// const okBtn = document.querySelector('.ok');
-
-const quests = [
+const questBook = [
     {
         id: 'quest0',
+        startLocationId: 'firstHouse',
+        startLocationName: 'Дім',
         message: [
             `Це квест-виживання у постапокаліптичному світі. Твоя історія починається у старій халупі в пустелі - це твій дім. Ти пригадуєш, що напередодні домовився зі старим По з хутора неподалік про зустріч.`
         ],
         questBookMessage: 'Дійти до хутора',
+        active: true,
         condition: 10,
         completed: false,
     },
     {
         id: 'quest1',
+        startLocationId: 'village',
+        startLocationName: 'Хутор',
         message: [
             "Ти дойшов до хутора де проживає старий По і ще декілька бродяг.",
             "Старий По: - Прийшов? Добре! Я вирішив що хочу допомогти тобі. Не варто такому перспективному юнакові витрачати своє життя в цьому глухому куті. Я вкажу тобі дорогу до міста Кеп, де на тебе чекає... ну не знаю... щось краще ніж ти маєш зараз...",
             "Ви думаєте що в чомусь По правий, тут точно робити нічого...",
             "Старий По: - Але не просто так! Принеси мені хоча б якийсь запас їжі, підійде навіть сире м'ясо.",
         ],
-        // message: "Ти дойшов до хутора де проживає старий По і ще декілька бродяг.",
-        // message: "Старий По: - Прийшов? Добре! Я вирішив що хочу допомогти тобі. Не варто такому перспективному юнакові витрачати своє життя в цьому глухому куті. Я вкажу тобі дорогу до міста Кеп, де на тебе чекає... ну не знаю... щось краще ніж ти маєш зараз...",
-        // message: "Ви думаєте що в чомусь По правий, тут точно робити нічого...",
-        // message: "Старий По: - Але не просто так! Принеси мені хоча б якийсь запас їжі, підійде навіть сире м'ясо.",
         questBookMessage: "Принести По 5 шматків сирого м'яса",
         condition: 5,
         completed: false,
@@ -1300,34 +1309,71 @@ const quests = [
     {},
 ];
 
-let currentQuest = quests[0];
-let questMessageCount = 1;
 
-modalWindowMessage.innerHTML = quests[0].message;
+let currentQuest = questBook[0];
+addLog(currentQuest.questBookMessage, '#fff');
+addLog('Ти прокинувся в своїй халупі. Варто обшукати приміщення перед виходом.')
+modalWindowMessage.innerHTML = questBook[0].message;
+let questMessageCount = 1;
 function nextMessage() {
     modalWindowMessage.innerHTML = currentQuest.message[questMessageCount];
     questMessageCount += 1;
     console.log(questMessageCount);
     if (questMessageCount > currentQuest.message.length) {
-        console.log('close');
         modalWindow.classList.add('hidden')
         questMessageCount = 1;
     }
 }
 modalWindowBtn.addEventListener('click', nextMessage);
 
-function questLineMain() {    
-    for (let i = 0; i < quests.length; i++) {
-        if (quests[i].completed === false) {
-            currentQuest = quests[i];
-            if (quests[i].condition < travelCount) {
-                quests[i].completed = true;
+function questLineMain() {
+    for (let i = 0; i < questBook.length; i++) {
+        if (questBook[i].completed === false) {
+            currentQuest = questBook[i];
+            if (questBook[i].condition < travelCount) {
+                questBook[i].completed = true;
+                currentQuest = questBook[i + 1];
+                questBook[i + 1].active = true;
                 modalWindow.classList.remove('hidden');
-                currentQuest = quests[i + 1];
-                modalWindowMessage.innerHTML = currentQuest.message[0];                
+                modalWindowMessage.innerHTML = currentQuest.message[0];
+                addLog(`<span style="color: #fff;">${currentQuest.questBookMessage}</span>`);
+                for (let i = 0; i < globalLocations.length; i++) {
+                    if (globalLocations[i].name === currentGlobalLocation.name) {
+                        currentGlobalLocation = globalLocations[i + 1];
+                        break;
+                    }
+                }
             }
         }
-        break;    
+        break;
     }
+    return;
 };
+
+
+const questsBookInHtml = document.querySelector('.quests-book');
+function showQuests() {
+    questsBookInHtml.innerHTML = '';
+    questBook.forEach(quest => {
+        if (quest.active) {
+            questsBookInHtml.innerHTML += `<div class="quest-location" id="${quest.startLocationId}">${quest.startLocationName}</div>`;
+        }
+    })
+    document.querySelectorAll('.quest-location').forEach(el => {
+        el.addEventListener('click', function () {
+            document.addEventListener('click', event => {
+                console.log(event.target.getAttribute('id'));
+                questBook.forEach(quest => {
+                    if (quest.startLocationId === event.target.getAttribute('id')) {
+                        questsBookInHtml.innerHTML = '';
+                        quest.completed ? questsBookInHtml.innerHTML += `<p style="text-decoration: line-through">${quest.questBookMessage}</p>` : questsBookInHtml.innerHTML += `<p>${quest.questBookMessage}</p>`
+                    }
+                })
+            })
+
+        })
+    })
+};
+const backBtn = document.querySelector('.back');
+backBtn.addEventListener('click', showQuests)
 
