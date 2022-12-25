@@ -84,92 +84,50 @@ for (let i = 0; i < user.backpackSize; i++) {
 
 // Створюємо предмети
 const items = [
+    // weapon
     {
-        id: 'armorFBI',
-        name: 'Бронежилет FBI',
-        rareness: 'unusual',
-        rarenessColor: '#37f713',
-        dropChance: 50,
-        img: '<img src="img/item-icon/armor-fbi.svg" alt="">',
-        scrapPartsMin: 4,
-        scrapPartsMax: 8,
-        electronicsPartsMin: 0,
-        electronicsPartsMax: 0,
-        ragsPartsMin: 4,
-        ragsPartsMax: 8,
-        medicinesPartsMin: 0,
-        medicinesPartsMax: 0,
-        class: 'armor',
-        description: '<p>Бронежилет FBI</p>',
-    },
-    {
-        id: 'helmetSport',
-        name: 'Спортивний шолом',
-        rareness: 'unusual',
-        rarenessColor: '#37f713',
-        dropChance: 100,
-        // img: '<img src="img/item-icon/helmet-sport.svg" alt="">',
-        img: '<img class="backpack-item-img" src="img/f2-items/helmetSport.webp" alt="">',
+        id: 'knifeRusty',
+        name: 'Іржавий ніж',
+        rareness: 'regular',
+        rarenessColor: '#fff',
+        img: '<img class="backpack-item-img" src="img/f2-items/knifeRusty.webp" alt="">',
         scrapPartsMin: 1,
-        scrapPartsMax: 4,
-        electronicsPartsMin: 0,
-        electronicsPartsMax: 0,
-        ragsPartsMin: 1,
-        ragsPartsMax: 4,
-        medicinesPartsMin: 0,
-        medicinesPartsMax: 0,
-        class: 'helmet',
-        description: '<p>Спортивний шолом</p>',
-    },
-    {
-        id: 'respirator',
-        name: 'Респіратор',
-        rareness: 'regular',
-        rarenessColor: '#fff',
-        dropChance: 100,
-        // img: '<img src="img/item-icon/mask-respirator.svg" alt="">',
-        img: '<img class="backpack-item-img" src="img/f2-items/respirator.webp" alt="">',
-        scrapPartsMin: 0,
-        scrapPartsMax: 0,
-        electronicsPartsMin: 0,
-        electronicsPartsMax: 0,
-        ragsPartsMin: 1,
-        ragsPartsMax: 4,
-        medicinesPartsMin: 0,
-        medicinesPartsMax: 0,
-        class: 'mask',
-        description: '<p>Респіратор</p>',
-    },
-    {
-        id: 'meatRaw',
-        name: 'Сире м\'ясо',
-        rareness: 'regular',
-        rarenessColor: '#fff',
-        dropChance: 0,
-        // img: '<img class="backpack-item-img" src="img/item-icon/meat-raw.svg" alt="">',
-        img: '<img class="backpack-item-img" src="img/f2-items/meatRaw.webp" alt="">',
-        scrapPartsMin: 0,
-        scrapPartsMax: 0,
+        scrapPartsMax: 3,
         electronicsPartsMin: 0,
         electronicsPartsMax: 0,
         ragsPartsMin: 0,
         ragsPartsMax: 0,
         medicinesPartsMin: 0,
         medicinesPartsMax: 0,
-        class: 'useOnYourself',
-        description: "<p>Сире м\'ясо</p><p>Ефекти: Здоров'я +5; Ситість +30</p>",
-        healthEffect: 5,
-        hungerEffect: 30,
-        thirstEffect: 0,
-        radiationEffect: 0,
+        class: 'weapon',
+        description: '<p>Іржавий ніж</p>',
+        minDamage: 2,
+        maxDamage: 4,
+    },
+    {
+        id: 'metalPole',
+        name: 'Шматок арматури',
+        rareness: 'regular',
+        rarenessColor: '#fff',
+        img: '<img class="backpack-item-img" src="img/f2-items/metalPole.webp" alt="">',
+        scrapPartsMin: 1,
+        scrapPartsMax: 3,
+        electronicsPartsMin: 0,
+        electronicsPartsMax: 0,
+        ragsPartsMin: 0,
+        ragsPartsMax: 0,
+        medicinesPartsMin: 0,
+        medicinesPartsMax: 0,
+        class: 'weapon',
+        description: '<p>Шматок арматури</p>',
+        minDamage: 3,
+        maxDamage: 5,
     },
     {
         id: 'pistolRusty',
         name: 'Іржавий пістолет',
         rareness: 'regular',
         rarenessColor: '#fff',
-        dropChance: 5,
-        // img: '<img class="backpack-item-img" src="img/item-icon/pistol-rusty.svg" alt="">',
         img: '<img class="backpack-item-img" src="img/f2-items/pistolRusty.webp" alt="">',
         scrapPartsMin: 1,
         scrapPartsMax: 3,
@@ -189,8 +147,6 @@ const items = [
         name: 'Бойовий ніж',
         rareness: 'unusual',
         rarenessColor: '#37f713',
-        dropChance: 10,
-        // img: '<img class="backpack-item-img" src="img/item-icon/knife-combat.svg" alt="">',
         img: '<img class="backpack-item-img" src="img/f2-items/knifeCombat.webp" alt="">',
         scrapPartsMin: 3,
         scrapPartsMax: 5,
@@ -206,12 +162,109 @@ const items = [
         maxDamage: 9,
     },
     {
+        id: 'mouser9mm',
+        name: 'Маузер 9мм',
+        rareness: 'regular',
+        rarenessColor: '#fff',
+        img: '<img class="backpack-item-img" src="img/f2-items/weapon/mouser9mm.webp" alt="">',
+        scrapPartsMin: 3,
+        scrapPartsMax: 5,
+        electronicsPartsMin: 0,
+        electronicsPartsMax: 0,
+        ragsPartsMin: 0,
+        ragsPartsMax: 0,
+        medicinesPartsMin: 0,
+        medicinesPartsMax: 0,
+        class: 'weapon',
+        description: '<p>Маузер 9мм</p>',
+        minDamage: 5,
+        maxDamage: 8,
+    },
+    // helmet
+    {
+        id: 'helmetSport',
+        name: 'Спортивний шолом',
+        rareness: 'unusual',
+        rarenessColor: '#37f713',
+        img: '<img class="backpack-item-img" src="img/f2-items/helmetSport.webp" alt="">',
+        scrapPartsMin: 1,
+        scrapPartsMax: 4,
+        electronicsPartsMin: 0,
+        electronicsPartsMax: 0,
+        ragsPartsMin: 1,
+        ragsPartsMax: 4,
+        medicinesPartsMin: 0,
+        medicinesPartsMax: 0,
+        class: 'helmet',
+        description: '<p>Спортивний шолом</p>',
+    },
+    // mask
+    {
+        id: 'respirator',
+        name: 'Респіратор',
+        rareness: 'regular',
+        rarenessColor: '#fff',
+        img: '<img class="backpack-item-img" src="img/f2-items/respirator.webp" alt="">',
+        scrapPartsMin: 0,
+        scrapPartsMax: 0,
+        electronicsPartsMin: 0,
+        electronicsPartsMax: 0,
+        ragsPartsMin: 1,
+        ragsPartsMax: 4,
+        medicinesPartsMin: 0,
+        medicinesPartsMax: 0,
+        class: 'mask',
+        description: '<p>Респіратор</p>',
+    },
+    // armor
+    {
+        id: 'leatherJacket',
+        name: 'Шкіряна куртка',
+        rareness: 'unusual',
+        rarenessColor: '#37f713',
+        img: '<img class="backpack-item-img" src="img/f2-items/armor/leatherJacket.webp" alt="">',
+        scrapPartsMin: 0,
+        scrapPartsMax: 0,
+        electronicsPartsMin: 0,
+        electronicsPartsMax: 0,
+        ragsPartsMin: 4,
+        ragsPartsMax: 8,
+        medicinesPartsMin: 0,
+        medicinesPartsMax: 0,
+        class: 'armor',
+        description: '<p>Шкіряна куртка</p>',
+    },
+    // backpack
+
+    // trinket
+
+    // useOnYourself    
+    {
+        id: 'meatRaw',
+        name: 'Сире м\'ясо',
+        rareness: 'regular',
+        rarenessColor: '#fff',
+        img: '<img class="backpack-item-img" src="img/f2-items/meatRaw.webp" alt="">',
+        scrapPartsMin: 0,
+        scrapPartsMax: 0,
+        electronicsPartsMin: 0,
+        electronicsPartsMax: 0,
+        ragsPartsMin: 0,
+        ragsPartsMax: 0,
+        medicinesPartsMin: 0,
+        medicinesPartsMax: 0,
+        class: 'useOnYourself',
+        description: "<p>Сире м\'ясо</p><p>Ефекти: Здоров'я +5; Ситість +30</p>",
+        healthEffect: 5,
+        hungerEffect: 30,
+        thirstEffect: 0,
+        radiationEffect: 0,
+    },    
+    {
         id: 'firstAidKit',
         name: 'Аптечка',
         rareness: 'unusual',
         rarenessColor: '#37f713',
-        dropChance: 15,
-        // img: '<img class="backpack-item-img" src="img/item-icon/first-aid-kit.svg" alt="">',
         img: '<img class="backpack-item-img" src="img/f2-items/firstAidKit.webp" alt="">',
         scrapPartsMin: 0,
         scrapPartsMax: 0,
@@ -233,8 +286,6 @@ const items = [
         name: 'Саморобні ліки',
         rareness: 'regular',
         rarenessColor: '#fff',
-        dropChance: 20,
-        // img: '<img class="backpack-item-img" src="img/item-icon/bandage.svg" alt="">',
         img: '<img class="backpack-item-img" src="img/f2-items/homemadeMedicine.webp" alt="">',
         scrapPartsMin: 0,
         scrapPartsMax: 0,
@@ -250,56 +301,12 @@ const items = [
         hungerEffect: 0,
         thirstEffect: 0,
         radiationEffect: 0,
-    },
-    {
-        id: 'knifeRusty',
-        name: 'Іржавий ніж',
-        rareness: 'regular',
-        rarenessColor: '#fff',
-        dropChance: 25,
-        // img: '<img class="backpack-item-img" src="img/item-icon/knife-rusty.svg" alt="">',
-        img: '<img class="backpack-item-img" src="img/f2-items/knifeRusty.webp" alt="">',
-        scrapPartsMin: 1,
-        scrapPartsMax: 3,
-        electronicsPartsMin: 0,
-        electronicsPartsMax: 0,
-        ragsPartsMin: 0,
-        ragsPartsMax: 0,
-        medicinesPartsMin: 0,
-        medicinesPartsMax: 0,
-        class: 'weapon',
-        description: '<p>Іржавий ніж</p>',
-        minDamage: 2,
-        maxDamage: 4,
-    },
-    {
-        id: 'metalPole',
-        name: 'Шматок арматури',
-        rareness: 'regular',
-        rarenessColor: '#fff',
-        dropChance: 40,
-        // img: '<img class="backpack-item-img" src="img/item-icon/pipe.svg" alt="">',
-        img: '<img class="backpack-item-img" src="img/f2-items/metalPole.webp" alt="">',
-        scrapPartsMin: 1,
-        scrapPartsMax: 3,
-        electronicsPartsMin: 0,
-        electronicsPartsMax: 0,
-        ragsPartsMin: 0,
-        ragsPartsMax: 0,
-        medicinesPartsMin: 0,
-        medicinesPartsMax: 0,
-        class: 'weapon',
-        description: '<p>Шматок арматури</p>',
-        minDamage: 3,
-        maxDamage: 5,
-    },
+    },    
     {
         id: 'crackers',
         name: 'Запліснявілі сухарі',
         rareness: 'regular',
         rarenessColor: '#fff',
-        dropChance: 60,
-        // img: '<img class="backpack-item-img" src="img/item-icon/crackers.svg" alt="">',
         img: '<img class="backpack-item-img" src="img/f2-items/crackers.webp" alt="">',
         scrapPartsMin: 0,
         scrapPartsMax: 0,
@@ -321,8 +328,6 @@ const items = [
         name: 'Пляшка води',
         rareness: 'regular',
         rarenessColor: '#fff',
-        dropChance: 80,
-        // img: '<img class="backpack-item-img" src="img/item-icon/bottle-of-water.svg" alt="">',
         img: '<img class="backpack-item-img" src="img/f2-items/water.webp" alt="">',
         scrapPartsMin: 0,
         scrapPartsMax: 0,
@@ -342,19 +347,8 @@ const items = [
     {
         id: 'nothing',
         name: 'Нічого',
-        dropChance: 1000,
         img: undefined,
     },
-    // 'Пляшка води',
-    // 'Запліснявілі сухарі',
-    // 'Ніж',
-    // 'Бойовий ніж',
-    // 'Арматурина',
-    // 'Бинт',
-    // 'Аптечка',
-    // 'Пістолет 9мм',
-    // 'Патрони 9мм 10шт.',
-    // 'Нічого',
 ];
 
 // Створюємо ворогів
@@ -365,10 +359,11 @@ const enemies = [
         img: 'url(../img/enemies/rat.jpg) center center/cover no-repeat',
         message: 'Ти втрапив у засітку мутованого пацюка',
         health: 10,
-        exp: 1000,
+        exp: 25,
         minDamage: 3,
         maxDamage: 6,
         dropName: 'Сире м\'ясо',
+        items: [],
     },
     {
         id: 'scorpion',
@@ -376,10 +371,35 @@ const enemies = [
         img: 'url(../img/enemies/scorpion.jpg) center center/cover no-repeat',
         message: 'Ти втрапив у засітку мутованого скорпіона',
         health: 15,
-        exp: 1000,
+        exp: 50,
         minDamage: 5,
         maxDamage: 8,
         dropName: 'Сире м\'ясо',
+        items: [],
+    },
+    {
+        id: 'mole',
+        name: 'Мутований кріт',
+        img: 'url(../img/enemies/mole.png) center center/cover no-repeat',
+        message: 'Ти втрапив у засітку мутованого крота',
+        health: 15,
+        exp: 50,
+        minDamage: 5,
+        maxDamage: 8,
+        dropName: 'Сире м\'ясо',
+        items: [],
+    },
+    {
+        id: 'reider0',
+        name: 'Рейдер з пістолетом',
+        img: 'url(../img/enemies/reider0.png) center center/cover no-repeat',
+        message: 'Ти втрапив у засітку рейдера',
+        health: 25,
+        exp: 75,
+        minDamage: 5,
+        maxDamage: 8,
+        dropName: 'Сире м\'ясо',
+        items: [],
     },
 ];
 
@@ -388,16 +408,17 @@ const globalLocations = [
     {
         id: 'firstHouse',
         name: 'Дім',
-        message: 'Ти в своєму будинку. ',
+        // message: 'Ти в своєму будинку. ',
         type: 'peaceful',
-        // findLocationChance: 100,
-        // battleChance: 0,
+        findLocationChance: 100,
+        battleChance: 0,
         locations: [],
-        // enemies: [],
+        enemies: [],
     },
     {
         id: 'nearFirstHouse',
-        name: 'Околиці дому',
+        name: '',
+        // message: '',
         type: 'seekAndFight',
         findLocationChance: 70,
         battleChance: 100,
@@ -407,56 +428,66 @@ const globalLocations = [
     {
         id: 'village',
         name: 'Хутор',
+        // message: 'Ти дійшов до хутора. Тут можна перепочити і поповнити запаси.',
         type: 'peaceful',
-        // findLocationChance: 70,
-        // battleChance: 100,
-        // locations: [],
-        // enemies: [],
+        findLocationChance: 100,
+        battleChance: 0,
+        locations: [],
+        enemies: [],
+    },
+    {
+        id: 'aroundVillage',
+        name: '',
+        // message: 'Ти дійшов до хутора. Тут можна перепочити і поповнити запаси.',
+        type: 'seekAndFight',
+        findLocationChance: 70,
+        battleChance: 30,
+        locations: [],
+        enemies: [],
     },
 ];
 
 // Створюємо локації
 const locations = [
-    {
-        id: 'cache',
-        name: 'cache',
-        img: 'url(../img/locations/cache.jpg) center center/cover no-repeat',
-        message: 'Ти знайшов чиюсь схованку ...',
-        findChance: 10,
-        dropChanceIndex: 1,
-        countOfSearch: 1,
-        items: [],
-    },
+    // peaceful
     {
         id: 'house0',
         name: 'house0',
-        img: 'url(../img/locations/house0.jpg) center center/cover no-repeat',
-        message: 'Ти натрапив на стару халупу ...',
-        findChance: 30,
-        possibleItems: [],
-        dropChanceIndex: 1,
+        img: 'url(../img/locations/house0.png) center center/cover no-repeat',
+        message: 'Ти в своєму будинку. ',
         countOfSearch: 2,
         items: [],
     },
     {
+        id: 'village',
+        name: 'Хутор',
+        img: 'url(../img/locations/village.png) center center/cover no-repeat',
+        message: 'Ти дійшов до хутора. Тут можна перепочити і поповнити запаси.',
+        countOfSearch: 1,
+        items: [],
+    },
+    // others
+    {
+        id: 'cache',
+        name: 'cache',
+        img: 'url(../img/locations/cache.png) center center/cover no-repeat',
+        message: 'Ти знайшов чиюсь схованку ...',
+        countOfSearch: 1,
+        items: [],
+    },    
+    {
         id: 'house1',
         name: 'house1',
-        img: 'url(../img/locations/house1.jpg) center center/cover no-repeat',
+        img: 'url(../img/locations/house1.png) center center/cover no-repeat',
         message: 'Ти натрапив на стару халупу ...',
-        findChance: 30,
-        possibleItems: [],
-        dropChanceIndex: 1,
         countOfSearch: 2,
         items: [],
     },
     {
         id: 'cave',
         name: 'cave',
-        img: 'url(../img/locations/cave.jpg) center center/cover no-repeat',
+        img: 'url(../img/locations/cave.png) center center/cover no-repeat',
         message: 'Перед тобою печера ...',
-        findChance: 60,
-        possibleItems: [],
-        dropChanceIndex: 1,
         countOfSearch: 2,
         items: [],
     },
@@ -465,9 +496,6 @@ const locations = [
         name: 'waterSource',
         message: 'Ти знайшов джерело, тут можна набрати води ...',
         img: 'url(../img/locations/waterSource.jpg) center center/cover no-repeat',
-        findChance: 80,
-        possibleItems: [],
-        dropChanceIndex: 1,
         countOfSearch: 1,
         items: [],
     },
@@ -475,131 +503,133 @@ const locations = [
         id: 'wilderness',
         name: 'wilderness',
         message: 'Навколо тебе пустеля ...',
-        img: 'url(../img/locations/wilderness.jpg) center center/cover no-repeat',
-        findChance: 100,
-        possibleItems: [],
-        dropChanceIndex: 1,
+        img: 'url(../img/locations/wilderness.png) center center/cover no-repeat',
+        countOfSearch: 0,
+        items: [],
+    },
+    {
+        id: 'carRusty',
+        name: 'Іржава машина',
+        message: 'Купа іржавого брухту, колись це було автомобілем.',
+        img: 'url(../img/locations/carRusty.png) center center/cover no-repeat',
         countOfSearch: 1,
+        items: [],
+    },
+    {
+        id: 'tank',
+        name: 'Бочка',
+        message: 'Стара бочка. Нічого цікавого.',
+        img: 'url(../img/locations/tank.png) center center/cover no-repeat',
+        countOfSearch: 0,
+        items: [],
+    },
+    {
+        id: 'mailbox',
+        name: 'Поштова скринька',
+        message: 'Поштова скринька. Може хтось надіслав тобі листа...',
+        img: 'url(../img/locations/mailbox.png) center center/cover no-repeat',
+        countOfSearch: 0,
+        items: [],
+    },
+    {
+        id: 'ruins',
+        name: 'Руїни',
+        message: 'Руїни. Досить одноманітно.',
+        img: 'url(../img/locations/ruins2.png) center center/cover no-repeat',
+        countOfSearch: 0,
+        items: [],
+    },
+    {
+        id: 'radioactivePuddle',
+        name: 'Розлиті радіаційні відходи',
+        message: 'Розлиті радіаційні відходи. Краще забиратися звідси',
+        img: 'url(../img/locations/radioactivePuddle.png) center center/cover no-repeat',
+        countOfSearch: 0,
+        items: [],
+    },
+    {
+        id: 'tent',
+        name: 'Палатка',
+        message: 'Чиясь палатка. Поруч нікого',
+        img: 'url(../img/locations/tent.png) center center/cover no-repeat',
+        countOfSearch: 1,
+        items: [],
+    },
+    {
+        id: 'gasStation',
+        name: 'Заправка',
+        message: 'Заправка. Варто оглянути.',
+        img: 'url(../img/locations/gasStation.png) center center/cover no-repeat',
+        countOfSearch: 2,
+        items: [],
+    },
+    {
+        id: 'carJunkyard',
+        name: 'Звалище автомобілів',
+        message: 'Звалище автомобілів. Наврятче тут залишилось щось корисне.',
+        img: 'url(../img/locations/carJunkyard.png) center center/cover no-repeat',
+        countOfSearch: 1,
+        items: [],
+    },
+    {
+        id: 'deadScorpion',
+        name: 'Дохлий скорпіон',
+        message: 'Дохлий скорпіон. Смердить',
+        img: 'url(../img/locations/deadScorpion.png) center center/cover no-repeat',
+        countOfSearch: 0,
         items: [],
     },
 ];
 
 // Наповнюємо глобальні локації локаціями
-locations.forEach(location => {
-    if (location.id === 'house0') {
-        globalLocations[0].locations.push(location);
-    }
-});
-locations.forEach(location => {
-    if (location.id === 'cache' || location.id === 'house1' || location.id === 'cave' || location.id === 'waterSource' || location.id === 'wilderness') {
-        globalLocations[1].locations.push(location);
-    }
-});
+function addLocation(index, arr) {
+    arr.forEach(el => {
+        globalLocations[index].locations.push(...locations.filter(location => location.id === el))
+    })
+};
+addLocation(0, ['house0']);
+addLocation(1, ['cache', 'house1', 'cave', 'waterSource', 'wilderness']);
+addLocation(2, ['village']);
+addLocation(3, ['cache', 'gasStation', 'tent', 'waterSource', 'radioactivePuddle', 'ruins']);
 
-// Наповнюємо глобальну локацію ворогами
-enemies.forEach(el => {
-    if (el.id === 'rat') {
-        globalLocations[1].enemies.push(el);
-    } else if (el.id === 'scorpion') {
-        globalLocations[1].enemies.push(el);
-    }
-});
+// Наповнюємо глобальні локації ворогами
+function addEnemy(index, arr) {
+    arr.forEach(el => {
+        globalLocations[index].enemies.push(...enemies.filter(enemy => enemy.id === el))
+    })    
+};
+addEnemy(1, ['rat', 'scorpion']);
+addEnemy(3, ['rat', 'scorpion', 'mole', 'reider0']);
 
 // Наповнюємо локації предметами
-locations.forEach(location => {
-    if (location.name === 'cache') {
-        items.forEach(item => {
-            if (item.id === 'knifeCombat') {
-                location.items.push(item);
-            }
-        })
-        items.forEach(item => {
-            if (item.id === 'helmetSport') {
-                location.items.push(item);
-            }
-        })
-        items.forEach(item => {
-            if (item.id === 'firstAidKit') {
-                location.items.push(item);
-            }
-        })
-    } else if (location.name === 'house0') {
-        items.forEach(item => {
-            if (item.id === 'respirator') {
-                location.items.push(item);
-            }
-        })
-        items.forEach(item => {
-            if (item.id === 'pistolRusty') {
-                location.items.push(item);
-            }
-        })
-        items.forEach(item => {
-            if (item.id === 'homemadeMedicine') {
-                location.items.push(item);
-            }
-        })
-        items.forEach(item => {
-            if (item.id === 'crackers') {
-                location.items.push(item);
-            }
-        })
-    } else if (location.name === 'house1') {
-        items.forEach(item => {
-            if (item.id === 'respirator') {
-                location.items.push(item);
-            }
-        })
-        items.forEach(item => {
-            if (item.id === 'pistolRusty') {
-                location.items.push(item);
-            }
-        })
-        items.forEach(item => {
-            if (item.id === 'homemadeMedicine') {
-                location.items.push(item);
-            }
-        })
-        items.forEach(item => {
-            if (item.id === 'crackers') {
-                location.items.push(item);
-            }
-        })
-    } else if (location.name === 'cave') {
-        items.forEach(item => {
-            if (item.id === 'metalPole') {
-                location.items.push(item);
-            }
-        })
-        items.forEach(item => {
-            if (item.id === 'knifeRusty') {
-                location.items.push(item);
-            }
-        })
-        items.forEach(item => {
-            if (item.id === 'water') {
-                location.items.push(item);
-            }
-        })
-    } else if (location.name === 'waterSource') {
-        items.forEach(item => {
-            if (item.id === 'water') {
-                location.items.push(item);
-            }
-        })
-    } else if (location.name === 'wilderness') {
-        items.forEach(item => {
-            if (item.id === 'knifeRusty') {
-                location.items.push(item);
-            }
-        })
-        items.forEach(item => {
-            if (item.id === 'nothing') {
-                location.items.push(item);
-            }
-        })
-    }
-});
+function addItem(parentArr, id, arr) {
+    parentArr.forEach(location => {
+        if (location.id === id) {
+            arr.forEach(el => {
+                location.items.push(...items.filter(item => item.id === el))
+            })
+        }
+    })
+};
+// firstHouse
+addItem(locations, 'house0', ['respirator', 'pistolRusty', 'homemadeMedicine', 'crackers']);
+// nearFirstHouse
+addItem(locations, 'cache', ['knifeCombat', 'helmetSport', 'firstAidKit']);
+addItem(locations, 'house1', ['respirator', 'pistolRusty', 'homemadeMedicine', 'crackers']);
+addItem(locations, 'cave', ['metalPole', 'knifeRusty', 'water']);
+addItem(locations, 'waterSource', ['water']);
+addItem(locations, 'wilderness', ['knifeRusty', 'nothing']);
+// village
+addItem(locations, 'gasStation', ['metalPole', 'crackers', 'water']);
+addItem(locations, 'tent', ['pistolRusty', 'knifeRusty', 'nothing']);
+addItem(locations, 'radioactivePuddle', ['nothing']);
+addItem(locations, 'ruins', ['nothing']);
+
+// Додати ворогам предмети
+addItem(enemies, 'rat', ['meatRaw']);
+addItem(enemies, 'scorpion', ['meatRaw']);
+addItem(enemies, 'mole', ['meatRaw']);
+addItem(enemies, 'reider0', ['leatherJacket', 'mouser9mm']);
 
 // Починаємо відлік часу
 let curentDate = new Date(2211, 0, 1, 0, 0);
@@ -634,11 +664,6 @@ const perksBtn = document.querySelector('.perks');
 const eventLog = document.querySelector('.event-log');
 const expCount = document.querySelector('.exp-count');
 const level = document.querySelector('.level');
-
-// const infoTextLocation = document.querySelector('.info-text-location');
-// const infoTextSearch = document.querySelector('.info-text-search');
-// const infoTextAlert = document.querySelector('.info-text-alert');
-
 
 function addExperience(value) {
     let n;
@@ -681,6 +706,24 @@ function reidStart() {
         }
     }
 };
+function reidFinish() {
+    for (let i = 0; i < globalLocations.length; i++) {        
+        if (globalLocations[i].name === currentGlobalLocation.name) {
+            console.log('aaa');
+            currentGlobalLocation = globalLocations[i + 1];
+            changeLocation();
+            img.style.background = currentLocation.img;
+            currentEnemy = undefined;
+            break;
+        }
+    }
+    reidhBtn.classList.remove('hidden');
+    barterBtn.classList.remove('hidden');
+    searchBtn.classList.add('hidden');
+    changeLocationBtn.classList.add('hidden');
+    attackBtn.classList.add('hidden');
+    avoidBtn.classList.add('hidden');
+};
 
 function search() {
     curentDate.setMinutes(curentDate.getMinutes() + 15);
@@ -690,11 +733,7 @@ function search() {
         alert();
         action();
         if (currentEnemy !== undefined) {
-            items.forEach(item => {
-                if (item.name === currentEnemy.dropName) {
-                    searchResult = item;
-                }
-            });
+            searchResult = currentEnemy.items[choiceResult(currentEnemy.items.length)];
             addLog(`Ти знайшов <span class="item" style="color:${searchResult.rarenessColor}">${searchResult.name}</span>. Тут нічого не залишилось, варто йти далі.`)
             putInBackpack();
             currentEnemy = undefined;
@@ -785,6 +824,7 @@ function choiceResult(amount) {
     let thirdElChance;
     let fourthElChance;
     let fifthElChance;
+    let sixthChance;
 
     if (amount === 1) {
         firstElChance = 100;
@@ -806,11 +846,19 @@ function choiceResult(amount) {
         thirdElChance = 35;
         fourthElChance = 75;
         fifthElChance = 100;
+    } else if (amount === 6) {
+        firstElChance = 2;
+        secondElChance = 6;
+        thirdElChance = 18;
+        fourthElChance = 36;
+        fifthElChance = 60;
+        sixthChance = 100;
     }
     let arr = [];
-    arr.push(firstElChance, secondElChance, thirdElChance, fourthElChance, fifthElChance);
+    arr.push(firstElChance, secondElChance, thirdElChance, fourthElChance, fifthElChance, sixthChance);
 
     let someRandomNumber = randomNumber();
+    console.log(someRandomNumber);
 
     for (let i = 0; i < arr.length; i++) {
         if (someRandomNumber <= arr[i]) {
@@ -821,21 +869,16 @@ function choiceResult(amount) {
 
 function changeLocation() {
     travelCount += 1;
-    console.log(travelCount);
     alert();
     action();
     curentDate.setMinutes(curentDate.getMinutes() + 30);
     displayCurentDate();
 
     if (randomNumber() <= currentGlobalLocation.findLocationChance) {
-        console.log('loca');
-        for (const el of locations) {
-            if (el.findChance >= randomNumber()) {
-                currentLocation = el;
-                img.style.background = currentLocation.img;
-                countOfSearch = currentLocation.countOfSearch;
-                break;
-            }
+        for (const el of currentGlobalLocation.locations) {
+            currentLocation = currentGlobalLocation.locations[choiceResult(currentGlobalLocation.locations.length)];
+            img.style.background = currentLocation.img;
+            countOfSearch = currentLocation.countOfSearch;
         }
         addLog(currentLocation.message);
     } else {
@@ -1297,10 +1340,10 @@ const questBook = [
         startLocationId: 'village',
         startLocationName: 'Хутор',
         message: [
-            "Ти дойшов до хутора де проживає старий По і ще декілька бродяг.",
-            "Старий По: - Прийшов? Добре! Я вирішив що хочу допомогти тобі. Не варто такому перспективному юнакові витрачати своє життя в цьому глухому куті. Я вкажу тобі дорогу до міста Кеп, де на тебе чекає... ну не знаю... щось краще ніж ти маєш зараз...",
+            "Ти дойшов до хутора де проживає старий По і ще декілька бродяг.<br>Перед тобою апартаменти По, це пом'ятий білий холодильник і великий деревянний ящик. В першому По спить, в другому - робить все інше.",
+            `Старий По:<br> - Прийшов? Добре! Я вирішив що хочу допомогти тобі. Не варто такому перспективному юнакові витрачати своє життя в цьому глухому куті. Я вкажу тобі дорогу до міста Кеп, де на тебе чекає...<br>...ну не знаю... щось краще ніж ти маєш зараз...`,
             "Ви думаєте що в чомусь По правий, тут точно робити нічого...",
-            "Старий По: - Але не просто так! Принеси мені хоча б якийсь запас їжі, підійде навіть сире м'ясо.",
+            "Старий По:<br> - Але не просто так! Принеси мені хоча б якийсь запас їжі, підійде навіть сире м'ясо.",
         ],
         questBookMessage: "Принести По 5 шматків сирого м'яса",
         condition: 5,
@@ -1337,12 +1380,7 @@ function questLineMain() {
                 modalWindow.classList.remove('hidden');
                 modalWindowMessage.innerHTML = currentQuest.message[0];
                 addLog(`<span style="color: #fff;">${currentQuest.questBookMessage}</span>`);
-                for (let i = 0; i < globalLocations.length; i++) {
-                    if (globalLocations[i].name === currentGlobalLocation.name) {
-                        currentGlobalLocation = globalLocations[i + 1];
-                        break;
-                    }
-                }
+                reidFinish();
             }
         }
         break;
