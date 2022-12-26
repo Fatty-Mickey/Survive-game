@@ -11,7 +11,7 @@ const backpackButtons = document.querySelector('.backpack-buttons');
 
 
 const img = document.querySelector('.img');
-img.style.background = 'url(../img/locations/house0.png) center center/cover no-repeat';
+img.style.background = 'url(img/locations/house0.png) center center/cover no-repeat';
 
 const itemDescription = document.querySelector('.item-description');
 
