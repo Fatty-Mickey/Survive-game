@@ -18,7 +18,6 @@ const itemDescription = document.querySelector('.item-description');
 function randomNumber() {
     return Math.round(Math.random() * 100);
 }
-
 // Створюємо юзера
 const user = {
     name: '',
@@ -74,7 +73,7 @@ let emptyCellsOfBackPack = 0;
     for (let i = 0; i < (25 - user.backpackSize); i++) {
         backpack.innerHTML += `
         <div class="backpack-item close" id="${i + user.backpackSize}-backpack-item">
-            <img src="../img/close.svg" alt="">
+            <img src="img/close.svg" alt="">
         </div>`;
     }
 })();
@@ -377,7 +376,7 @@ const enemies = [
     {
         id: 'rat',
         name: 'Мутований пацюк',
-        img: 'url(../img/enemies/rat.jpg) center center/cover no-repeat',
+        img: 'url(img/enemies/rat.jpg) center center/cover no-repeat',
         message: 'Ти втрапив у засітку мутованого пацюка',
         health: 10,
         exp: 25,
@@ -389,7 +388,7 @@ const enemies = [
     {
         id: 'scorpion',
         name: 'Мутований скорпіон',
-        img: 'url(../img/enemies/scorpion.jpg) center center/cover no-repeat',
+        img: 'url(img/enemies/scorpion.jpg) center center/cover no-repeat',
         message: 'Ти втрапив у засітку мутованого скорпіона',
         health: 15,
         exp: 50,
@@ -401,7 +400,7 @@ const enemies = [
     {
         id: 'mole',
         name: 'Мутований кріт',
-        img: 'url(../img/enemies/mole.png) center center/cover no-repeat',
+        img: 'url(img/enemies/mole.png) center center/cover no-repeat',
         message: 'Ти втрапив у засітку мутованого крота',
         health: 15,
         exp: 50,
@@ -413,7 +412,7 @@ const enemies = [
     {
         id: 'reider0',
         name: 'Рейдер з пістолетом',
-        img: 'url(../img/enemies/reider0.png) center center/cover no-repeat',
+        img: 'url(img/enemies/reider0.png) center center/cover no-repeat',
         message: 'Ти втрапив у засітку рейдера',
         health: 25,
         exp: 75,
@@ -478,7 +477,7 @@ const locations = [
     {
         id: 'house0',
         name: 'house0',
-        img: 'url(../img/locations/house0.png) center center/cover no-repeat',
+        img: 'url(img/locations/house0.png) center center/cover no-repeat',
         message: 'Ти в своєму будинку. ',
         countOfSearch: 0,
         items: [],
@@ -486,7 +485,7 @@ const locations = [
     {
         id: 'village',
         name: 'Хутор',
-        img: 'url(../img/locations/village.png) center center/cover no-repeat',
+        img: 'url(img/locations/village.png) center center/cover no-repeat',
         message: 'Ти дійшов до хутора. Тут можна перепочити і поповнити запаси.',
         countOfSearch: 1,
         items: [],
@@ -495,7 +494,7 @@ const locations = [
     {
         id: 'cache',
         name: 'cache',
-        img: 'url(../img/locations/cache.png) center center/cover no-repeat',
+        img: 'url(img/locations/cache.png) center center/cover no-repeat',
         message: 'Ти знайшов чиюсь схованку ...',
         countOfSearch: 1,
         items: [],
@@ -503,7 +502,7 @@ const locations = [
     {
         id: 'house1',
         name: 'house1',
-        img: 'url(../img/locations/house1.png) center center/cover no-repeat',
+        img: 'url(img/locations/house1.png) center center/cover no-repeat',
         message: 'Ти натрапив на стару халупу ...',
         countOfSearch: 2,
         items: [],
@@ -511,7 +510,7 @@ const locations = [
     {
         id: 'cave',
         name: 'cave',
-        img: 'url(../img/locations/cave.png) center center/cover no-repeat',
+        img: 'url(img/locations/cave.png) center center/cover no-repeat',
         message: 'Перед тобою печера ...',
         countOfSearch: 2,
         items: [],
@@ -520,7 +519,7 @@ const locations = [
         id: 'waterSource',
         name: 'waterSource',
         message: 'Ти знайшов джерело, тут можна набрати води ...',
-        img: 'url(../img/locations/waterSource.jpg) center center/cover no-repeat',
+        img: 'url(img/locations/waterSource.jpg) center center/cover no-repeat',
         countOfSearch: 1,
         items: [],
     },
@@ -528,7 +527,7 @@ const locations = [
         id: 'wilderness',
         name: 'wilderness',
         message: 'Навколо тебе пустеля ...',
-        img: 'url(../img/locations/wilderness.png) center center/cover no-repeat',
+        img: 'url(img/locations/wilderness.png) center center/cover no-repeat',
         countOfSearch: 0,
         items: [],
     },
@@ -536,7 +535,7 @@ const locations = [
         id: 'carRusty',
         name: 'Іржава машина',
         message: 'Купа іржавого брухту, колись це було автомобілем.',
-        img: 'url(../img/locations/carRusty.png) center center/cover no-repeat',
+        img: 'url(img/locations/carRusty.png) center center/cover no-repeat',
         countOfSearch: 1,
         items: [],
     },
@@ -544,7 +543,7 @@ const locations = [
         id: 'tank',
         name: 'Бочка',
         message: 'Стара бочка. Нічого цікавого.',
-        img: 'url(../img/locations/tank.png) center center/cover no-repeat',
+        img: 'url(img/locations/tank.png) center center/cover no-repeat',
         countOfSearch: 0,
         items: [],
     },
@@ -552,7 +551,7 @@ const locations = [
         id: 'mailbox',
         name: 'Поштова скринька',
         message: 'Поштова скринька. Може хтось надіслав тобі листа...',
-        img: 'url(../img/locations/mailbox.png) center center/cover no-repeat',
+        img: 'url(img/locations/mailbox.png) center center/cover no-repeat',
         countOfSearch: 0,
         items: [],
     },
@@ -560,7 +559,7 @@ const locations = [
         id: 'ruins',
         name: 'Руїни',
         message: 'Руїни. Досить одноманітно.',
-        img: 'url(../img/locations/ruins2.png) center center/cover no-repeat',
+        img: 'url(img/locations/ruins2.png) center center/cover no-repeat',
         countOfSearch: 0,
         items: [],
     },
@@ -568,7 +567,7 @@ const locations = [
         id: 'radioactivePuddle',
         name: 'Розлиті радіаційні відходи',
         message: 'Розлиті радіаційні відходи. Краще забиратися звідси',
-        img: 'url(../img/locations/radioactivePuddle.png) center center/cover no-repeat',
+        img: 'url(img/locations/radioactivePuddle.png) center center/cover no-repeat',
         countOfSearch: 0,
         items: [],
     },
@@ -576,7 +575,7 @@ const locations = [
         id: 'tent',
         name: 'Палатка',
         message: 'Чиясь палатка. Поруч нікого',
-        img: 'url(../img/locations/tent.png) center center/cover no-repeat',
+        img: 'url(img/locations/tent.png) center center/cover no-repeat',
         countOfSearch: 1,
         items: [],
     },
@@ -584,7 +583,7 @@ const locations = [
         id: 'gasStation',
         name: 'Заправка',
         message: 'Заправка. Варто оглянути.',
-        img: 'url(../img/locations/gasStation.png) center center/cover no-repeat',
+        img: 'url(img/locations/gasStation.png) center center/cover no-repeat',
         countOfSearch: 2,
         items: [],
     },
@@ -592,7 +591,7 @@ const locations = [
         id: 'carJunkyard',
         name: 'Звалище автомобілів',
         message: 'Звалище автомобілів. Наврятче тут залишилось щось корисне.',
-        img: 'url(../img/locations/carJunkyard.png) center center/cover no-repeat',
+        img: 'url(img/locations/carJunkyard.png) center center/cover no-repeat',
         countOfSearch: 1,
         items: [],
     },
@@ -600,7 +599,7 @@ const locations = [
         id: 'deadScorpion',
         name: 'Дохлий скорпіон',
         message: 'Дохлий скорпіон. Смердить',
-        img: 'url(../img/locations/deadScorpion.png) center center/cover no-repeat',
+        img: 'url(img/locations/deadScorpion.png) center center/cover no-repeat',
         countOfSearch: 0,
         items: [],
     },
@@ -949,7 +948,6 @@ function changeLocation() {
         img.style.background = currentEnemy.img;
         battleStart();
     }
-    questLineMain();
 };
 
 function battleStart() {
@@ -1530,23 +1528,26 @@ function nextMessage() {
 modalWindowBtn.addEventListener('click', nextMessage);
 
 function questLineMain() {
-    for (let i = 0; i < questBook.length; i++) {
-        if (questBook[i].active) {
-            currentQuest = questBook[i];
-            if (questBook[i].condition < travelCount) {
-                questBook[i].completed = true;
-                currentQuest = questBook[i + 1];
-                questBook[i + 1].active = true;
-                modalWindow.classList.remove('hidden');
-                modalWindowMessage.innerHTML = currentQuest.message[0];
-                addLog(`<span style="color: #fff;">${currentQuest.questBookMessage}</span>`);
-                break;
-            }
-        }
+    if (currentQuest.finishLocationId === currentGlobalLocation.id) {
+        console.log(1);
     }
+    // for (let i = 0; i < questBook.length; i++) {
+    //     if (questBook[i].active) {
+    //         currentQuest = questBook[i];
+    //         if (questBook[i].condition < travelCount) {
+    //             questBook[i].completed = true;
+    //             currentQuest = questBook[i + 1];
+    //             questBook[i + 1].active = true;
+    //             modalWindow.classList.remove('hidden');
+    //             modalWindowMessage.innerHTML = currentQuest.message[0];
+    //             addLog(`<span style="color: #fff;">${currentQuest.questBookMessage}</span>`);
+    //             break;
+    //         }
+    //     }
+    // }
 };
 
-
+console.log(questBook);
 
 
 
