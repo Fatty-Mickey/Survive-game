@@ -430,6 +430,7 @@ const globalLocations = [
         name: 'Дім',
         // message: 'Ти в своєму будинку. ',
         type: 'peaceful',
+        npc: [],
         findLocationChance: 100,
         battleChance: 0,
         locations: [],
@@ -452,6 +453,7 @@ const globalLocations = [
         name: 'Хутор',
         // message: 'Ти дійшов до хутора. Тут можна перепочити і поповнити запаси.',
         type: 'peaceful',
+        npc: ['Po'],
         findLocationChance: 100,
         battleChance: 0,
         locations: [],
@@ -789,10 +791,10 @@ function search() {
             searchResult = currentLocation.items[choiceResult(currentLocation.items.length)];
             countOfSearch -= 1;
             mapFound();
-            
+
             if (searchResult.id !== 'nothing') {
-                if (countOfSearch > 0) {                    
-                    addLog(`Ти знайшов <span class="item" style="color:${searchResult.rarenessColor}">${searchResult.name}</span>. Варто пошукати ще.`);                    
+                if (countOfSearch > 0) {
+                    addLog(`Ти знайшов <span class="item" style="color:${searchResult.rarenessColor}">${searchResult.name}</span>. Варто пошукати ще.`);
                 } else {
                     addLog(`Ти знайшов <span class="item" style="color:${searchResult.rarenessColor}">${searchResult.name}</span>. Тут нічого не залишилось, варто йти далі.`);
                     searchBtn.classList.add('hidden');
@@ -934,7 +936,7 @@ function changeLocation() {
             countOfSearch = currentLocation.countOfSearch;
             if (countOfSearch > 0) {
                 searchBtn.classList.remove('hidden');
-                changeLocationBtn.classList.add('hidden');                
+                changeLocationBtn.classList.add('hidden');
             } else {
                 searchBtn.classList.add('hidden');
                 changeLocationBtn.classList.remove('hidden');
@@ -1006,7 +1008,7 @@ function avoid() {
     // currentLocation = currentGlobalLocation.locations[currentGlobalLocation.locations.length - 1];
     // img.style.background = currentLocation.img;
     // countOfSearch = currentLocation.countOfSearch;
-    
+
 };
 
 reidhBtn.addEventListener('click', reidStart);
@@ -1015,6 +1017,7 @@ avoidBtn.addEventListener('click', avoid);
 attackBtn.addEventListener('click', attack);
 changeLocationBtn.addEventListener('click', changeLocation);
 searchBtn.addEventListener('click', search);
+speakBtn.addEventListener('click', questLineMain);
 
 // Кнопки основного меню
 const logBtn = document.querySelector('.log-btn');
@@ -1075,18 +1078,18 @@ function showQuests() {
         el.addEventListener('click', function () {
             document.addEventListener('click', event => {
                 questBook.forEach(quest => {
-                    if (quest.id === event.target.getAttribute('id')) {
+                    if (quest.startLocationId === event.target.getAttribute('id')) {
+                        console.log(2);
                         questsBookInHtml.innerHTML = '';
                         quest.completed ? questsBookInHtml.innerHTML += `<p style="text-decoration: line-through">${quest.questBookMessage}</p>` : questsBookInHtml.innerHTML += `<p>${quest.questBookMessage}</p>`
                     }
                 })
             })
-
         })
     })
 };
 
-let mapLocationsInHtml = document.querySelectorAll('.map-location');
+// let mapLocationsInHtml = document.querySelectorAll('.map-location');
 
 function showLocations() {
     locationsBookInHtml.innerHTML = '';
@@ -1486,6 +1489,8 @@ const questBook = [
         startLocationName: 'Дім',
         finishLocationId: 'village',
         finishLocationName: 'Хутор',
+        questGiver: '',
+        questAccept: 'Po',
         message: [
             `Це квест-виживання у постапокаліптичному світі. Твоя історія починається у старій халупі в пустелі - це твій дім. Ти пригадуєш, що напередодні домовився зі старим По з хутора неподалік про зустріч.`
         ],
@@ -1499,6 +1504,10 @@ const questBook = [
         id: 'quest1',
         startLocationId: 'village',
         startLocationName: 'Хутор',
+        finishLocationId: 'village',
+        finishLocationName: 'Хутор',
+        questGiver: 'Po',
+        questAccept: 'Po',
         message: [
             "Ти дойшов до хутора де проживає старий По і ще декілька бродяг.<br>Перед тобою апартаменти По, це пом'ятий білий холодильник і великий деревянний ящик. В першому По спить, в другому - робить все інше.",
             `Старий По:<br> - Прийшов? Добре! Я вирішив що хочу допомогти тобі. Не варто такому перспективному юнакові витрачати своє життя в цьому глухому куті. Я вкажу тобі дорогу до міста Кеп, де на тебе чекає...<br>...ну не знаю... щось краще ніж ти маєш зараз...`,
@@ -1529,8 +1538,15 @@ modalWindowBtn.addEventListener('click', nextMessage);
 
 function questLineMain() {
     if (currentQuest.finishLocationId === currentGlobalLocation.id) {
-        console.log(1);
+        questBook.forEach(quest => {
+            if (quest.questAccept === currentQuest.questAccept) {
+
+            }
+        })
+
     }
+
+
     // for (let i = 0; i < questBook.length; i++) {
     //     if (questBook[i].active) {
     //         currentQuest = questBook[i];
