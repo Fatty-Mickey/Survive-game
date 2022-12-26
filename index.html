@@ -17,8 +17,8 @@
         <div class="container modal-window">
             <div class="modal-window-message"></div>
             <div class="modal-window-btn-box">
-                
-            </div>       
+
+            </div>
             <button class="modal-window-btn actions-btn" type="button">Далі</button>
         </div>
     </div>
@@ -29,6 +29,7 @@
                     <div class="img block-log"></div>
                     <div class="item-description block-backpack hidden"></div>
                     <div class="user-menu-description block-user-menu hidden"></div>
+                    <div class="map-description block-map hidden"></div>
                 </div>
             </div>
             <div class="container">
@@ -87,14 +88,17 @@
         <div class="block-log">
             <div class="container">
                 <div class="info">
-                    <div class="event-log"></div>
+                    <div class="info-box">
+                        <div class="event-log"></div>
+                    </div>
                 </div>
             </div>
             <div class="container">
                 <div class="actions">
-                    <button class="actions-btn barter hidden" type="button">Торгувати</button>
-                    <button class="actions-btn search" type="button">Обшукати</button>
-
+                    <button class="actions-btn barter" type="button">Торгувати</button>
+                    <button class="actions-btn reid-finish hidden" type="button">Завершити рейд</button>
+                    <button class="actions-btn search hidden" type="button">Обшукати</button>
+                    <button class="actions-btn speak hidden" type="button">Поговорити</button>
                     <button class="actions-btn reid" type="button">Йти в рейд</button>
                     <button class="actions-btn attack hidden" type="button">Атакувати</button>
                     <button class="actions-btn avoid hidden" type="button">Втекти</button>
@@ -140,12 +144,34 @@
 
         <div class="block-user-menu hidden">
             <div class="container">
-                <div class="user-info">
-                    <div class="quests-book"></div>
-                    <div class="back-btn-box">
-                        <p class="back">Назад</p>
+                <div class="info">
+                    <div class="info-box user-info">
+                        <div class="quests-book"></div>
+                        <div class="back-btn-box">
+                            <p class="back">Назад</p>
+                        </div>
                     </div>
-                    
+                </div>
+            </div>
+            <div class="container">
+            </div>
+            <div class="container">
+                <div class="backpack-buttons">
+                    <button class="actions-btn quests" type="button">Квести</button>
+                    <button class="actions-btn skills" type="button">Навички</button>
+                    <button class="actions-btn perks" type="button">Перки</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="block-map hidden">
+            <div class="container">
+                <div class="info">
+                    <div class="map-info">
+                        <div class="locations-book">
+                            <div onclick="b()" class="map-location" id="firstHouse">Дім</div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="container">

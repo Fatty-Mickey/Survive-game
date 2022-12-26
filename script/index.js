@@ -5,12 +5,13 @@ const block1 = document.querySelector(('.block-1'));
 const blockLog = document.querySelectorAll(('.block-log'));
 const blockBackpack = document.querySelectorAll(('.block-backpack'));
 const blockUserMenu = document.querySelectorAll(('.block-user-menu'));
+const blockMap = document.querySelectorAll(('.block-map'));
 const inventory = document.querySelector('.inventory');
 const backpackButtons = document.querySelector('.backpack-buttons');
-console.log(backpackButtons.childNodes);
+
 
 const img = document.querySelector('.img');
-img.style.background = 'url(../img/locations/house0.jpg) center center/cover no-repeat';
+img.style.background = 'url(../img/locations/house0.png) center center/cover no-repeat';
 
 const itemDescription = document.querySelector('.item-description');
 
@@ -84,6 +85,26 @@ for (let i = 0; i < user.backpackSize; i++) {
 
 // Створюємо предмети
 const items = [
+    // map
+    {
+        id: 'map1',
+        name: 'кординати локації Хутор',
+        rareness: 'regular',
+        rarenessColor: '#fff',
+        // img: '<img class="backpack-item-img" src="img/f2-items/knifeRusty.webp" alt="">',
+        // scrapPartsMin: 1,
+        // scrapPartsMax: 3,
+        // electronicsPartsMin: 0,
+        // electronicsPartsMax: 0,
+        // ragsPartsMin: 0,
+        // ragsPartsMax: 0,
+        // medicinesPartsMin: 0,
+        // medicinesPartsMax: 0,
+        class: 'map',
+        // description: '<p>Іржавий ніж</p>',
+        // minDamage: 2,
+        // maxDamage: 4,
+    },
     // weapon
     {
         id: 'knifeRusty',
@@ -259,7 +280,7 @@ const items = [
         hungerEffect: 30,
         thirstEffect: 0,
         radiationEffect: 0,
-    },    
+    },
     {
         id: 'firstAidKit',
         name: 'Аптечка',
@@ -301,7 +322,7 @@ const items = [
         hungerEffect: 0,
         thirstEffect: 0,
         radiationEffect: 0,
-    },    
+    },
     {
         id: 'crackers',
         name: 'Запліснявілі сухарі',
@@ -414,6 +435,7 @@ const globalLocations = [
         battleChance: 0,
         locations: [],
         enemies: [],
+        active: true,
     },
     {
         id: 'nearFirstHouse',
@@ -424,6 +446,7 @@ const globalLocations = [
         battleChance: 100,
         locations: [],
         enemies: [],
+        active: true,
     },
     {
         id: 'village',
@@ -434,6 +457,7 @@ const globalLocations = [
         battleChance: 0,
         locations: [],
         enemies: [],
+        active: false,
     },
     {
         id: 'aroundVillage',
@@ -444,6 +468,7 @@ const globalLocations = [
         battleChance: 30,
         locations: [],
         enemies: [],
+        active: false,
     },
 ];
 
@@ -455,7 +480,7 @@ const locations = [
         name: 'house0',
         img: 'url(../img/locations/house0.png) center center/cover no-repeat',
         message: 'Ти в своєму будинку. ',
-        countOfSearch: 2,
+        countOfSearch: 0,
         items: [],
     },
     {
@@ -474,7 +499,7 @@ const locations = [
         message: 'Ти знайшов чиюсь схованку ...',
         countOfSearch: 1,
         items: [],
-    },    
+    },
     {
         id: 'house1',
         name: 'house1',
@@ -596,7 +621,7 @@ addLocation(3, ['cache', 'gasStation', 'tent', 'waterSource', 'radioactivePuddle
 function addEnemy(index, arr) {
     arr.forEach(el => {
         globalLocations[index].enemies.push(...enemies.filter(enemy => enemy.id === el))
-    })    
+    })
 };
 addEnemy(1, ['rat', 'scorpion']);
 addEnemy(3, ['rat', 'scorpion', 'mole', 'reider0']);
@@ -649,10 +674,13 @@ let enemyHealth;
 let searchResult;
 let log = currentLocation.message;
 let travelCount = 0;
+console.log(globalLocations[0].name);
 
 // Кнопки дій
 const reidhBtn = document.querySelector('.reid');
+const reidFinishhBtn = document.querySelector('.reid-finish');
 const barterBtn = document.querySelector('.barter');
+const speakBtn = document.querySelector('.speak');
 const searchBtn = document.querySelector('.search');
 const changeLocationBtn = document.querySelector('.change-location');
 const attackBtn = document.querySelector('.attack');
@@ -670,7 +698,6 @@ function addExperience(value) {
     value === 'regular' ? n = 5 :
         value === 'unusual' ? n = 15 : n = value;
     user.experience += n;
-    console.log(user.experience);
     let expToNextLevel = (user.level + 1) * user.level / 2 * 1000;
     if (user.experience >= expToNextLevel) {
         user.level += 1;
@@ -693,8 +720,10 @@ function reidStart() {
     displayCurentDate();
     reidhBtn.classList.add('hidden');
     barterBtn.classList.add('hidden');
-    searchBtn.classList.remove('hidden');
+    speakBtn.classList.add('hidden');
+    searchBtn.classList.add('hidden');
     changeLocationBtn.classList.remove('hidden');
+    reidFinishhBtn.classList.remove('hidden');
 
     for (let i = 0; i < globalLocations.length; i++) {
         if (currentGlobalLocation.id === globalLocations[i].id) {
@@ -707,10 +736,9 @@ function reidStart() {
     }
 };
 function reidFinish() {
-    for (let i = 0; i < globalLocations.length; i++) {        
+    for (let i = 0; i < globalLocations.length; i++) {
         if (globalLocations[i].name === currentGlobalLocation.name) {
-            console.log('aaa');
-            currentGlobalLocation = globalLocations[i + 1];
+            currentGlobalLocation = globalLocations[i - 1];
             changeLocation();
             img.style.background = currentLocation.img;
             currentEnemy = undefined;
@@ -718,11 +746,30 @@ function reidFinish() {
         }
     }
     reidhBtn.classList.remove('hidden');
+    reidFinishhBtn.classList.add('hidden');
     barterBtn.classList.remove('hidden');
+    speakBtn.classList.remove('hidden');
     searchBtn.classList.add('hidden');
     changeLocationBtn.classList.add('hidden');
     attackBtn.classList.add('hidden');
     avoidBtn.classList.add('hidden');
+};
+
+function mapFound() {
+    if (currentQuest.showNextLocation === true) {
+        if (randomNumber() <= 30) {
+            for (let i = 0; i < globalLocations.length; i++) {
+                if (!globalLocations[i].active) {
+                    globalLocations[i].active = true;
+                    globalLocations[i + 1].active = true;
+                    modalWindow.classList.remove('hidden');
+                    modalWindowMessage.innerHTML = `Ти з'ясував місце розташування локації ${globalLocations[i].name}.`;
+                    addLog(`<span style="color: #fff;">Ти з'ясував місце розташування локації ${globalLocations[i].name}.</span>`);
+                    break;
+                }
+            }
+        }
+    }
 };
 
 function search() {
@@ -737,14 +784,20 @@ function search() {
             addLog(`Ти знайшов <span class="item" style="color:${searchResult.rarenessColor}">${searchResult.name}</span>. Тут нічого не залишилось, варто йти далі.`)
             putInBackpack();
             currentEnemy = undefined;
+            searchBtn.classList.add('hidden');
+            changeLocationBtn.classList.remove('hidden');
         } else if (countOfSearch > 0) {
             searchResult = currentLocation.items[choiceResult(currentLocation.items.length)];
             countOfSearch -= 1;
+            mapFound();
+            
             if (searchResult.id !== 'nothing') {
-                if (countOfSearch > 0) {
-                    addLog(`Ти знайшов <span class="item" style="color:${searchResult.rarenessColor}">${searchResult.name}</span>. Варто пошукати ще.`);
+                if (countOfSearch > 0) {                    
+                    addLog(`Ти знайшов <span class="item" style="color:${searchResult.rarenessColor}">${searchResult.name}</span>. Варто пошукати ще.`);                    
                 } else {
                     addLog(`Ти знайшов <span class="item" style="color:${searchResult.rarenessColor}">${searchResult.name}</span>. Тут нічого не залишилось, варто йти далі.`);
+                    searchBtn.classList.add('hidden');
+                    changeLocationBtn.classList.remove('hidden');
                 }
                 putInBackpack();
                 addExperience(searchResult.rareness);
@@ -753,6 +806,8 @@ function search() {
             };
         } else {
             addLog('Тут нічого не залишилось, варто йти далі.');
+            searchBtn.classList.add('hidden');
+            changeLocationBtn.classList.remove('hidden');
         }
     } else {
         addLog('Рюкзак заповнений, потрібно звільнити місце');
@@ -791,7 +846,7 @@ function action() {
     };
 };
 
-function addLog(log, color ='#3a981c') {
+function addLog(log, color = '#3a981c') {
     let hoursInHtml;
     let minutesInHtml;
     curentDate.getHours() < 10 ? hoursInHtml = `0${curentDate.getHours()}` : hoursInHtml = `${curentDate.getHours()}`;
@@ -858,7 +913,6 @@ function choiceResult(amount) {
     arr.push(firstElChance, secondElChance, thirdElChance, fourthElChance, fifthElChance, sixthChance);
 
     let someRandomNumber = randomNumber();
-    console.log(someRandomNumber);
 
     for (let i = 0; i < arr.length; i++) {
         if (someRandomNumber <= arr[i]) {
@@ -879,6 +933,13 @@ function changeLocation() {
             currentLocation = currentGlobalLocation.locations[choiceResult(currentGlobalLocation.locations.length)];
             img.style.background = currentLocation.img;
             countOfSearch = currentLocation.countOfSearch;
+            if (countOfSearch > 0) {
+                searchBtn.classList.remove('hidden');
+                changeLocationBtn.classList.add('hidden');                
+            } else {
+                searchBtn.classList.add('hidden');
+                changeLocationBtn.classList.remove('hidden');
+            }
         }
         addLog(currentLocation.message);
     } else {
@@ -896,6 +957,7 @@ function battleStart() {
     changeLocationBtn.classList.add('hidden');
     attackBtn.classList.remove('hidden');
     avoidBtn.classList.remove('hidden');
+    reidFinishhBtn.classList.add('hidden');
 };
 
 function userAttack() {
@@ -910,9 +972,10 @@ function enemyAttack() {
 
 function battleFinish() {
     searchBtn.classList.remove('hidden');
-    changeLocationBtn.classList.remove('hidden');
+    changeLocationBtn.classList.add('hidden');
     attackBtn.classList.add('hidden');
     avoidBtn.classList.add('hidden');
+    reidFinishhBtn.classList.remove('hidden');
 };
 
 function attack() {
@@ -939,14 +1002,17 @@ function avoid() {
     curentDate.setMinutes(curentDate.getMinutes() + 10);
     displayCurentDate();
     battleFinish();
-    currentLocation = currentGlobalLocation.locations[currentGlobalLocation.locations.length - 1];
-    img.style.background = currentLocation.img;
-    countOfSearch = currentLocation.countOfSearch;
     addLog(`Ти втік від ${currentEnemy.name}. ${currentLocation.message}`);
     currentEnemy = undefined;
+    changeLocation();
+    // currentLocation = currentGlobalLocation.locations[currentGlobalLocation.locations.length - 1];
+    // img.style.background = currentLocation.img;
+    // countOfSearch = currentLocation.countOfSearch;
+    
 };
 
 reidhBtn.addEventListener('click', reidStart);
+reidFinishhBtn.addEventListener('click', reidFinish);
 avoidBtn.addEventListener('click', avoid);
 attackBtn.addEventListener('click', attack);
 changeLocationBtn.addEventListener('click', changeLocation);
@@ -959,28 +1025,121 @@ const userMenuBtn = document.querySelector('.user-menu-btn');
 const mapBtn = document.querySelector('.map-btn');
 const settingsBtn = document.querySelector('.backpack-btn');
 
+const questsBookInHtml = document.querySelector('.quests-book');
+const locationsBookInHtml = document.querySelector('.locations-book');
+
+const backBtn = document.querySelector('.back');
+
 function logUse() {
     blockLog.forEach(el => el.classList.remove('hidden'));
     blockUserMenu.forEach(el => el.classList.add('hidden'));
     blockBackpack.forEach(el => el.classList.add('hidden'));
+    blockMap.forEach(el => el.classList.add('hidden'));
 };
 
 function backpackUse() {
     blockBackpack.forEach(el => el.classList.remove('hidden'));
     blockLog.forEach(el => el.classList.add('hidden'));
     blockUserMenu.forEach(el => el.classList.add('hidden'));
+    blockMap.forEach(el => el.classList.add('hidden'));
 };
 
 function userMenuUse() {
     blockUserMenu.forEach(el => el.classList.remove('hidden'));
     blockLog.forEach(el => el.classList.add('hidden'));
     blockBackpack.forEach(el => el.classList.add('hidden'));
+    blockMap.forEach(el => el.classList.add('hidden'));
     showQuests();
+}
+
+function mapUse() {
+    blockMap.forEach(el => el.classList.remove('hidden'));
+    blockUserMenu.forEach(el => el.classList.add('hidden'));
+    blockLog.forEach(el => el.classList.add('hidden'));
+    blockBackpack.forEach(el => el.classList.add('hidden'));
+    showLocations();
 }
 
 logBtn.addEventListener('click', logUse);
 backpackBtn.addEventListener('click', backpackUse);
 userMenuBtn.addEventListener('click', userMenuUse);
+mapBtn.addEventListener('click', mapUse);
+backBtn.addEventListener('click', showQuests);
+
+function showQuests() {
+    questsBookInHtml.innerHTML = '';
+    questBook.forEach(quest => {
+        if (quest.active) {
+            questsBookInHtml.innerHTML += `<div class="quest-location" id="${quest.startLocationId}">${quest.startLocationName}</div>`;
+        }
+    })
+    document.querySelectorAll('.quest-location').forEach(el => {
+        el.addEventListener('click', function () {
+            document.addEventListener('click', event => {
+                questBook.forEach(quest => {
+                    if (quest.id === event.target.getAttribute('id')) {
+                        questsBookInHtml.innerHTML = '';
+                        quest.completed ? questsBookInHtml.innerHTML += `<p style="text-decoration: line-through">${quest.questBookMessage}</p>` : questsBookInHtml.innerHTML += `<p>${quest.questBookMessage}</p>`
+                    }
+                })
+            })
+
+        })
+    })
+};
+
+let mapLocationsInHtml = document.querySelectorAll('.map-location');
+
+function showLocations() {
+    locationsBookInHtml.innerHTML = '';
+    globalLocations.forEach(location => {
+        if (location.active) {
+            locationsBookInHtml.innerHTML += `<div onclick="changeGlobalLocation()" class="map-location" id="${location.id}">${location.name}</div>`;
+        }
+    })
+};
+
+function changeGlobalLocation() {
+    globalLocations.forEach(location => {
+        if (location.id === event.target.getAttribute('id')) {
+            currentGlobalLocation = location;
+            currentLocation = location.locations[0];
+            currentEnemy = undefined;
+            img.style.background = currentLocation.img;
+            reidhBtn.classList.remove('hidden');
+            reidFinishhBtn.classList.add('hidden');
+            barterBtn.classList.remove('hidden');
+            speakBtn.classList.remove('hidden');
+            searchBtn.classList.add('hidden');
+            changeLocationBtn.classList.add('hidden');
+            attackBtn.classList.add('hidden');
+            avoidBtn.classList.add('hidden');
+            logUse();
+            addLog(currentLocation.message);
+        }
+    })
+};
+
+function reidFinish() {
+    for (let i = 0; i < globalLocations.length; i++) {
+        if (globalLocations[i].name === currentGlobalLocation.name) {
+            currentGlobalLocation = globalLocations[i - 1];
+            changeLocation();
+            img.style.background = currentLocation.img;
+            currentEnemy = undefined;
+            break;
+        }
+    }
+    reidhBtn.classList.remove('hidden');
+    reidFinishhBtn.classList.add('hidden');
+    barterBtn.classList.remove('hidden');
+    speakBtn.classList.remove('hidden');
+    searchBtn.classList.add('hidden');
+    changeLocationBtn.classList.add('hidden');
+    attackBtn.classList.add('hidden');
+    avoidBtn.classList.add('hidden');
+};
+
 
 // Виділення предмета (спробувати зменшити код від дублювання)
 let selectedItemInHTML;
@@ -1327,13 +1486,16 @@ const questBook = [
         id: 'quest0',
         startLocationId: 'firstHouse',
         startLocationName: 'Дім',
+        finishLocationId: 'village',
+        finishLocationName: 'Хутор',
         message: [
             `Це квест-виживання у постапокаліптичному світі. Твоя історія починається у старій халупі в пустелі - це твій дім. Ти пригадуєш, що напередодні домовився зі старим По з хутора неподалік про зустріч.`
         ],
         questBookMessage: 'Дійти до хутора',
         active: true,
-        condition: 10,
+        condition: 30,
         completed: false,
+        showNextLocation: true,
     },
     {
         id: 'quest1',
@@ -1352,16 +1514,14 @@ const questBook = [
     {},
 ];
 
-
+addLog('Ти прокинувся в своїй халупі.')
 let currentQuest = questBook[0];
 addLog(currentQuest.questBookMessage, '#fff');
-addLog('Ти прокинувся в своїй халупі. Варто обшукати приміщення перед виходом.')
 modalWindowMessage.innerHTML = questBook[0].message;
 let questMessageCount = 1;
 function nextMessage() {
     modalWindowMessage.innerHTML = currentQuest.message[questMessageCount];
     questMessageCount += 1;
-    console.log(questMessageCount);
     if (questMessageCount > currentQuest.message.length) {
         modalWindow.classList.add('hidden')
         questMessageCount = 1;
@@ -1371,7 +1531,7 @@ modalWindowBtn.addEventListener('click', nextMessage);
 
 function questLineMain() {
     for (let i = 0; i < questBook.length; i++) {
-        if (questBook[i].completed === false) {
+        if (questBook[i].active) {
             currentQuest = questBook[i];
             if (questBook[i].condition < travelCount) {
                 questBook[i].completed = true;
@@ -1380,38 +1540,13 @@ function questLineMain() {
                 modalWindow.classList.remove('hidden');
                 modalWindowMessage.innerHTML = currentQuest.message[0];
                 addLog(`<span style="color: #fff;">${currentQuest.questBookMessage}</span>`);
-                reidFinish();
+                break;
             }
         }
-        break;
     }
-    return;
 };
 
 
-const questsBookInHtml = document.querySelector('.quests-book');
-function showQuests() {
-    questsBookInHtml.innerHTML = '';
-    questBook.forEach(quest => {
-        if (quest.active) {
-            questsBookInHtml.innerHTML += `<div class="quest-location" id="${quest.startLocationId}">${quest.startLocationName}</div>`;
-        }
-    })
-    document.querySelectorAll('.quest-location').forEach(el => {
-        el.addEventListener('click', function () {
-            document.addEventListener('click', event => {
-                console.log(event.target.getAttribute('id'));
-                questBook.forEach(quest => {
-                    if (quest.startLocationId === event.target.getAttribute('id')) {
-                        questsBookInHtml.innerHTML = '';
-                        quest.completed ? questsBookInHtml.innerHTML += `<p style="text-decoration: line-through">${quest.questBookMessage}</p>` : questsBookInHtml.innerHTML += `<p>${quest.questBookMessage}</p>`
-                    }
-                })
-            })
 
-        })
-    })
-};
-const backBtn = document.querySelector('.back');
-backBtn.addEventListener('click', showQuests)
+
 

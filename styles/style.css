@@ -60,7 +60,8 @@ body {
 
 .img,
 .item-description,
-.user-menu-description {
+.user-menu-description,
+.map-description {
     height: 24vh;
     display: flex;
     flex-direction: column;
@@ -202,32 +203,43 @@ body {
 }
 
 .info {
-    /* width: 96%; */
     height: 39vh;
     margin: auto;
-    padding: 30px 35px;
-    /* border: 1px solid red; */
+    padding: 8% 12% 15% 10%;
     font-size: 12px;
-    /* margin-bottom: 10px; */
     background: url(../img/fon/magazine.jpg) center no-repeat;
     background-size: 100% 100%;
     color: #3a981c;
 }
-
-.user-info {
-    /* width: 96%; */
-    height: 39vh;
-    margin: auto;
-    /* padding: 30px 45px 20px 35px; */
-    padding: 10% 15% 10% 10%;
+.info-box {
     /* border: 1px solid red; */
-    font-size: 12px;
-    /* margin-bottom: 10px; */
-    background: url(../img/fon/magazine.jpg) center no-repeat;
-    background-size: 100% 100%;
-    color: #3a981c;
+}
+
+.event-log {
+    height: 31vh;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
+    justify-content: end;
+}
+
+.user-info {
+    /* border: 1px solid red; */
+    height: 31vh;
+    margin: auto;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+}
+.map-info {
+    /* border: 1px solid red; */
+    height: 31vh;
+    margin: auto;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
 }
 
 .back-btn-box {
@@ -242,15 +254,7 @@ body {
 
 }
 
-.event-log {
-    height: 32vh;
 
-    overflow: hidden;
-    /* border: 1px solid red; */
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-}
 
 .event-log p {
     font-size: 12px;
@@ -275,7 +279,7 @@ body {
 
 .actions-btn {
     height: 8vh;
-    width: 50%;
+    width: 33%;
     padding: 10px;
     /* border: 1px solid red; */
     background: url(../img/action-btn.png) center no-repeat;
