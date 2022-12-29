@@ -251,7 +251,7 @@ const items = [
         medicinesPartsMax: 0,
         class: 'backpack',
         description: '<p>Проста сумка</p>',
-        increment: 3,
+        backpackSize: 3,
     },
     // trinket
 
@@ -1354,6 +1354,7 @@ function deleteItem() {
         equippedArmorArr[0] = undefined;
     } else if (selectedItemInHTML.classList.contains('equipment-backpack')) {
         equippedBackpackArr[0] = undefined;
+        user.backpackSize = 10;
     }
     selectedItem = undefined;
     selectedItemInHTML.innerHTML = '';
@@ -1497,6 +1498,7 @@ function use() {
             equippedBackpackArr[0] = selectedItem;
             deleteItem();
         }
+        user.backpackSize += equippedBackpackArr[0].backpackSize;
         return;
     }
 };
