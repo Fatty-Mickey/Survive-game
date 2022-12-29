@@ -84,26 +84,6 @@ for (let i = 0; i < user.backpackSize; i++) {
 
 // Створюємо предмети
 const items = [
-    // map
-    {
-        id: 'map1',
-        name: 'кординати локації Хутор',
-        rareness: 'regular',
-        rarenessColor: '#fff',
-        // img: '<img class="backpack-item-img" src="img/f2-items/knifeRusty.webp" alt="">',
-        // scrapPartsMin: 1,
-        // scrapPartsMax: 3,
-        // electronicsPartsMin: 0,
-        // electronicsPartsMax: 0,
-        // ragsPartsMin: 0,
-        // ragsPartsMax: 0,
-        // medicinesPartsMin: 0,
-        // medicinesPartsMax: 0,
-        class: 'map',
-        // description: '<p>Іржавий ніж</p>',
-        // minDamage: 2,
-        // maxDamage: 4,
-    },
     // weapon
     {
         id: 'knifeRusty',
@@ -255,7 +235,24 @@ const items = [
         description: '<p>Шкіряна куртка</p>',
     },
     // backpack
-
+    {
+        id: 'bag',
+        name: 'Проста сумка',
+        rareness: 'regular',
+        rarenessColor: '#fff',
+        img: '<img class="backpack-item-img" src="img/f2-items/backpack/bag.webp" alt="">',
+        scrapPartsMin: 0,
+        scrapPartsMax: 0,
+        electronicsPartsMin: 0,
+        electronicsPartsMax: 0,
+        ragsPartsMin: 4,
+        ragsPartsMax: 8,
+        medicinesPartsMin: 0,
+        medicinesPartsMax: 0,
+        class: 'backpack',
+        description: '<p>Проста сумка</p>',
+        increment: 3,
+    },
     // trinket
 
     // useOnYourself    
@@ -369,6 +366,17 @@ const items = [
         name: 'Нічого',
         img: undefined,
     },
+    // quest
+    {
+        id: 'scorpionTail',
+        name: 'Хвіст велетенського скорпіона',
+        rareness: 'regular',
+        rarenessColor: '#fff',
+        img: '<img class="backpack-item-img" src="img/f2-items/quest/scorpionTail.webp" alt="">',
+        class: 'quest',
+        description: '<p>Хвіст велетенського скорпіона</p>',
+    },
+
 ];
 
 // Створюємо ворогів
@@ -382,7 +390,6 @@ const enemies = [
         exp: 25,
         minDamage: 3,
         maxDamage: 6,
-        dropName: 'Сире м\'ясо',
         items: [],
     },
     {
@@ -394,7 +401,17 @@ const enemies = [
         exp: 50,
         minDamage: 5,
         maxDamage: 8,
-        dropName: 'Сире м\'ясо',
+        items: [],
+    },
+    {
+        id: 'hugeScorpion',
+        name: 'Мутований велетенський скорпіон',
+        img: 'url(img/enemies/hugeScorpion.png) center center/cover no-repeat',
+        message: 'Ти знайшов гніздо велетенського скорпіона',
+        health: 75,
+        exp: 150,
+        minDamage: 10,
+        maxDamage: 25,
         items: [],
     },
     {
@@ -406,7 +423,6 @@ const enemies = [
         exp: 50,
         minDamage: 5,
         maxDamage: 8,
-        dropName: 'Сире м\'ясо',
         items: [],
     },
     {
@@ -418,7 +434,6 @@ const enemies = [
         exp: 75,
         minDamage: 5,
         maxDamage: 8,
-        dropName: 'Сире м\'ясо',
         items: [],
     },
 ];
@@ -626,7 +641,7 @@ addLocation(3, ['cache', 'gasStation', 'tent', 'waterSource', 'radioactivePuddle
 // Наповнюємо глобальні локації ворогами
 function addEnemy(index, arr) {
     arr.forEach(el => {
-        globalLocations[index].enemies.push(...enemies.filter(enemy => enemy.id === el))
+        globalLocations[index].enemies.unshift(...enemies.filter(enemy => enemy.id === el))
     })
 };
 addEnemy(1, ['rat', 'scorpion']);
@@ -661,6 +676,8 @@ addItem(enemies, 'rat', ['meatRaw']);
 addItem(enemies, 'scorpion', ['meatRaw']);
 addItem(enemies, 'mole', ['meatRaw']);
 addItem(enemies, 'reider0', ['leatherJacket', 'mouser9mm']);
+addItem(enemies, 'hugeScorpion', ['scorpionTail']);
+
 
 // Починаємо відлік часу
 let curentDate = new Date(2211, 0, 1, 0, 0);
@@ -871,18 +888,10 @@ function putInBackpack() {
     for (let i = 0; i < backpackArr.length; i++) {
         if (backpackArr[i] === undefined) {
             backpackArr[i] = searchResult;
-            break;
-        }
-    }
-    for (const el of backpackItems) {
-        if (el.classList.contains('empty')) {
-            el.innerHTML = searchResult.img;
-            el.classList.remove('empty');
-            el.classList.add('full');
             emptyCellsOfBackPack -= 1;
             break;
         }
-    };
+    }
 };
 
 function choiceResult(amount) {
@@ -1057,6 +1066,7 @@ function backpackUse() {
     blockLog.forEach(el => el.classList.add('hidden'));
     blockUserMenu.forEach(el => el.classList.add('hidden'));
     blockMap.forEach(el => el.classList.add('hidden'));
+    showBackpack();
 };
 
 function userMenuUse() {
@@ -1081,6 +1091,22 @@ userMenuBtn.addEventListener('click', userMenuUse);
 mapBtn.addEventListener('click', mapUse);
 speakBtn.addEventListener('click', showNPC);
 backBtn.addEventListener('click', showQuests);
+
+function showBackpack() {
+    for (let i = 0; i < backpackItems.length; i++) {
+        for (let i = 0; i < backpackArr.length; i++) {
+            if (!backpackArr[i]) {
+                backpackItems[i].innerHTML = ''
+            }
+            if (backpackArr[i] && backpackItems[i].classList.contains('empty')) {                
+                backpackItems[i].innerHTML = backpackArr[i].img;
+                backpackItems[i].classList.remove('empty');
+                backpackItems[i].classList.add('full');                
+            }            
+        }        
+    }
+    console.log(backpackArr);
+};
 
 function showQuests() {
     questsBookInHtml.innerHTML = '';
@@ -1509,6 +1535,9 @@ const questBook = [
         completed: false,
         addInList: true,
         showNextLocation: true,
+        payment: () => {
+            addExperience(100);
+        },
     },
     {
         id: 'quest1',
@@ -1520,7 +1549,7 @@ const questBook = [
         questAccept: 'Po',
         startMessage: [
             "Ти дойшов до хутора де проживає старий По і ще декілька бродяг.<br>Перед тобою апартаменти По, це пом'ятий білий холодильник і великий деревянний ящик. В першому По спить, в другому - робить все інше.",
-            `Старий По:<br> - Прийшов? Добре! Я вирішив що хочу допомогти тобі. Не варто такому перспективному юнакові витрачати своє життя в цьому глухому куті. Я вкажу тобі дорогу до міста Кеп, де на тебе чекає...<br>...ну не знаю... щось краще ніж ти маєш зараз...`,
+            `Старий По:<br> - Прийшов? Добре! Я вирішив що хочу допомогти тобі. Не варто такому перспективному юнакові витрачати своє життя в цьому глухому куті. Я вкажу тобі дорогу до міста Клемат, де на тебе чекає...<br>...ну не знаю... щось краще ніж ти маєш зараз...`,
             "Ви думаєте що в чомусь По правий, тут точно робити нічого...",
             "Старий По:<br> - Але не просто так! Принеси мені хоча б якийсь запас їжі, підійде навіть сире м'ясо.",
         ],
@@ -1539,12 +1568,14 @@ const questBook = [
                     qestItemCount += 1;
                 }
             })
-            if (qestItemCount >= 5) {
-                qestItemCount = 5;
+            if (qestItemCount >= 2) {
+                qestItemCount = 2;
                 backpackArr.forEach(item => {
                     if (item && item.id === 'meatRaw' && qestItemCount > 0) {
-                        qestItemCount -= 1;
-                        deleteItem();
+                        qestItemCount -= 1;  
+                        console.log(item);
+                        backpackArr[backpackArr.indexOf(item)] = undefined;
+                        emptyCellsOfBackPack += 1;
                     }
                 })
                 return true;
@@ -1555,8 +1586,71 @@ const questBook = [
         completed: false,
         addInList: false,
         showNextLocation: false,
+        payment: () => {
+            addExperience(200);
+            addEnemy(3, ['hugeScorpion']);
+        },
     },
-    {},
+    {
+        id: 'quest2',
+        startLocationId: 'village',
+        startLocationName: 'Хутор',
+        finishLocationId: 'village',
+        finishLocationName: 'Хутор',
+        questGiver: 'Po',
+        questAccept: 'Po',
+        startMessage: [
+            "Старий По:<br> - За м'ясо дякую, стане в нагоді. Маю до тебе ще одне прохання...",
+            "Старий По:<br> - Останнім часом в околицях стало з'являтися все більше скорпіонів мутантів. Я вже мав справу з подібною проблемою. Ці потовори десь в околицях організували гніздо, потрібно його знищити...",
+            "Старий По:<br> - Тобі не варто боятися що там буде ціла купа скорпіонів, це не так. Там буде  лише один скорпіон, точніше...<br> скорпіониха...<br>і вона буде дещо більша...<br>",
+            "Старий По:<br> - Принеси мені хвіст цієї паскуди. В нагороду отримаєш мій рюкзак, дуже корисна для подорожі річ.",
+        ],
+        finishMessage: [
+            "Ви виконали квест - принести хвіст велетенського скорпіона. Ви отримуєте саморобну сумку",
+            "Старий По:<br> - Дякую друже, ти нас дуже виручив. Я обіцяв тобі вказати дорогу до міста Клемат... ",
+            "По відмічає на вашій карті як добратися до міста Клемат"
+        ],
+        startMessageForQuestBook: "Принести По хвіст велетенського скорпіона",
+        finishMessageForQuestBook: "Ви виконали квест - принести 5 шматків сирого м'яса.",
+        available: false,
+        active: false,
+        condition: () => {
+            let qestItemCount = 0;
+            backpackArr.forEach(item => {
+                if (item && item.id === 'scorpionTail') {
+
+                    qestItemCount += 1;
+                }
+            })
+            if (qestItemCount >= 1) {
+                qestItemCount = 1;
+                backpackArr.forEach(item => {
+                    if (item && item.id === 'scorpionTail' && qestItemCount > 0) {
+                        qestItemCount -= 1;
+                        backpackArr[backpackArr.indexOf(item)] = undefined;
+                        emptyCellsOfBackPack += 1;
+                    }
+                })
+                return true;
+            } else {
+                return false;
+            }
+        },
+        completed: false,
+        addInList: false,
+        showNextLocation: false,
+        payment: () => {
+            addExperience(500);
+            globalLocations[4].active = true;
+            globalLocations[5].active = true;
+            items.forEach(item => {
+                if (item.id === 'bag') {
+                    searchResult = item;
+                    putInBackpack();
+                }
+            });
+        },
+    },
 ];
 
 showModalMessage(questBook[0].startMessage);
