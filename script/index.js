@@ -453,7 +453,12 @@ const globalLocations = [
         name: 'Хутор',
         // message: 'Ти дійшов до хутора. Тут можна перепочити і поповнити запаси.',
         type: 'peaceful',
-        npc: ['Po'],
+        npc: [
+            {
+                id: 'Po',
+                name: 'Старий По'
+            }
+        ],
         findLocationChance: 100,
         battleChance: 0,
         locations: [],
@@ -675,7 +680,6 @@ let enemyHealth;
 let searchResult;
 let log = currentLocation.message;
 let travelCount = 0;
-console.log(globalLocations[0].name);
 
 // Кнопки дій
 const reidhBtn = document.querySelector('.reid');
@@ -689,8 +693,10 @@ const avoidBtn = document.querySelector('.avoid');
 const questsBtn = document.querySelector('.quests');
 const skillsBtn = document.querySelector('.skills');
 const perksBtn = document.querySelector('.perks');
+const backBtn = document.querySelector('.back');
 
 const eventLog = document.querySelector('.event-log');
+const speakLog = document.querySelector('.speak-log');
 const expCount = document.querySelector('.exp-count');
 const level = document.querySelector('.level');
 
@@ -726,6 +732,9 @@ function reidStart() {
     changeLocationBtn.classList.remove('hidden');
     reidFinishhBtn.classList.remove('hidden');
 
+    eventLog.classList.remove('hidden');
+    speakLog.classList.add('hidden');
+
     for (let i = 0; i < globalLocations.length; i++) {
         if (currentGlobalLocation.id === globalLocations[i].id) {
             currentGlobalLocation = globalLocations[i + 1];
@@ -736,9 +745,10 @@ function reidStart() {
         }
     }
 };
+
 function reidFinish() {
     for (let i = 0; i < globalLocations.length; i++) {
-        if (globalLocations[i].name === currentGlobalLocation.name) {
+        if (globalLocations[i].id === currentGlobalLocation.id) {
             currentGlobalLocation = globalLocations[i - 1];
             changeLocation();
             img.style.background = currentLocation.img;
@@ -763,8 +773,9 @@ function mapFound() {
                 if (!globalLocations[i].active) {
                     globalLocations[i].active = true;
                     globalLocations[i + 1].active = true;
-                    modalWindow.classList.remove('hidden');
-                    modalWindowMessage.innerHTML = `Ти з'ясував місце розташування локації ${globalLocations[i].name}.`;
+                    // modalWindow.classList.remove('hidden');
+                    // modalWindowMessage.innerHTML = `Ти з'ясував місце розташування локації ${globalLocations[i].name}.`;
+                    showModalMessage([`Ти з'ясував місце розташування локації ${globalLocations[i].name}.`])
                     addLog(`<span style="color: #fff;">Ти з'ясував місце розташування локації ${globalLocations[i].name}.</span>`);
                     break;
                 }
@@ -1017,7 +1028,6 @@ avoidBtn.addEventListener('click', avoid);
 attackBtn.addEventListener('click', attack);
 changeLocationBtn.addEventListener('click', changeLocation);
 searchBtn.addEventListener('click', search);
-speakBtn.addEventListener('click', questLineMain);
 
 // Кнопки основного меню
 const logBtn = document.querySelector('.log-btn');
@@ -1029,13 +1039,17 @@ const settingsBtn = document.querySelector('.backpack-btn');
 const questsBookInHtml = document.querySelector('.quests-book');
 const locationsBookInHtml = document.querySelector('.locations-book');
 
-const backBtn = document.querySelector('.back');
+
+
 
 function logUse() {
     blockLog.forEach(el => el.classList.remove('hidden'));
     blockUserMenu.forEach(el => el.classList.add('hidden'));
     blockBackpack.forEach(el => el.classList.add('hidden'));
     blockMap.forEach(el => el.classList.add('hidden'));
+
+    eventLog.classList.remove('hidden');
+    speakLog.classList.add('hidden');
 };
 
 function backpackUse() {
@@ -1065,12 +1079,13 @@ logBtn.addEventListener('click', logUse);
 backpackBtn.addEventListener('click', backpackUse);
 userMenuBtn.addEventListener('click', userMenuUse);
 mapBtn.addEventListener('click', mapUse);
+speakBtn.addEventListener('click', showNPC);
 backBtn.addEventListener('click', showQuests);
 
 function showQuests() {
     questsBookInHtml.innerHTML = '';
     questBook.forEach(quest => {
-        if (quest.active) {
+        if (quest.addInList) {
             questsBookInHtml.innerHTML += `<div class="quest-location" id="${quest.startLocationId}">${quest.startLocationName}</div>`;
         }
     })
@@ -1079,17 +1094,14 @@ function showQuests() {
             document.addEventListener('click', event => {
                 questBook.forEach(quest => {
                     if (quest.startLocationId === event.target.getAttribute('id')) {
-                        console.log(2);
                         questsBookInHtml.innerHTML = '';
-                        quest.completed ? questsBookInHtml.innerHTML += `<p style="text-decoration: line-through">${quest.questBookMessage}</p>` : questsBookInHtml.innerHTML += `<p>${quest.questBookMessage}</p>`
+                        quest.completed ? questsBookInHtml.innerHTML += `<p style="text-decoration: line-through">${quest.startMessageForQuestBook}</p>` : questsBookInHtml.innerHTML += `<p>${quest.startMessageForQuestBook}</p>`
                     }
                 })
             })
         })
     })
 };
-
-// let mapLocationsInHtml = document.querySelectorAll('.map-location');
 
 function showLocations() {
     locationsBookInHtml.innerHTML = '';
@@ -1121,24 +1133,11 @@ function changeGlobalLocation() {
     })
 };
 
-function reidFinish() {
-    for (let i = 0; i < globalLocations.length; i++) {
-        if (globalLocations[i].name === currentGlobalLocation.name) {
-            currentGlobalLocation = globalLocations[i - 1];
-            changeLocation();
-            img.style.background = currentLocation.img;
-            currentEnemy = undefined;
-            break;
-        }
-    }
-    reidhBtn.classList.remove('hidden');
-    reidFinishhBtn.classList.add('hidden');
-    barterBtn.classList.remove('hidden');
-    speakBtn.classList.remove('hidden');
-    searchBtn.classList.add('hidden');
-    changeLocationBtn.classList.add('hidden');
-    attackBtn.classList.add('hidden');
-    avoidBtn.classList.add('hidden');
+function showNPC() {
+    eventLog.classList.add('hidden');
+    speakLog.classList.remove('hidden');
+    speakLog.innerHTML = '';
+    currentGlobalLocation.npc.forEach(el => speakLog.innerHTML += `<p onclick="questLine()" class="npc" id="${el.id}">${el.name}</p>`);
 };
 
 
@@ -1481,7 +1480,6 @@ apartBtn.addEventListener('click', apart);
 useBtn.addEventListener('click', use);
 
 // Квести
-// const nextMessageBtn = document.querySelector('.next-message');
 const questBook = [
     {
         id: 'quest0',
@@ -1491,13 +1489,25 @@ const questBook = [
         finishLocationName: 'Хутор',
         questGiver: '',
         questAccept: 'Po',
-        message: [
+        startMessage: [
             `Це квест-виживання у постапокаліптичному світі. Твоя історія починається у старій халупі в пустелі - це твій дім. Ти пригадуєш, що напередодні домовився зі старим По з хутора неподалік про зустріч.`
         ],
-        questBookMessage: 'Дійти до хутора',
+        finishMessage: [
+            `Ви виконали квест - дійти до хутора. Поговоріть з старим По.`
+        ],
+        startMessageForQuestBook: 'Дійти до хутора',
+        finishMessageForQuestBook: 'Ви виконали квест - дійти до хутора.',
+        available: true,
         active: true,
-        condition: 30,
+        condition: () => {
+            for (let i = 0; i < globalLocations.length; i++) {
+                if (globalLocations[i].id === 'village' && globalLocations[i].active) {
+                    return true
+                }
+            }
+        },
         completed: false,
+        addInList: true,
         showNextLocation: true,
     },
     {
@@ -1508,62 +1518,118 @@ const questBook = [
         finishLocationName: 'Хутор',
         questGiver: 'Po',
         questAccept: 'Po',
-        message: [
+        startMessage: [
             "Ти дойшов до хутора де проживає старий По і ще декілька бродяг.<br>Перед тобою апартаменти По, це пом'ятий білий холодильник і великий деревянний ящик. В першому По спить, в другому - робить все інше.",
             `Старий По:<br> - Прийшов? Добре! Я вирішив що хочу допомогти тобі. Не варто такому перспективному юнакові витрачати своє життя в цьому глухому куті. Я вкажу тобі дорогу до міста Кеп, де на тебе чекає...<br>...ну не знаю... щось краще ніж ти маєш зараз...`,
             "Ви думаєте що в чомусь По правий, тут точно робити нічого...",
             "Старий По:<br> - Але не просто так! Принеси мені хоча б якийсь запас їжі, підійде навіть сире м'ясо.",
         ],
-        questBookMessage: "Принести По 5 шматків сирого м'яса",
-        condition: 5,
+        finishMessage: [
+            "Ви виконали квест - принести 5 шматків сирого м'яса."
+        ],
+        startMessageForQuestBook: "Принести По 5 шматків сирого м'яса",
+        finishMessageForQuestBook: "Ви виконали квест - принести 5 шматків сирого м'яса.",
+        available: false,
+        active: false,
+        condition: () => {
+            let qestItemCount = 0;
+            backpackArr.forEach(item => {
+                if (item && item.id === 'meatRaw') {
+
+                    qestItemCount += 1;
+                }
+            })
+            if (qestItemCount >= 5) {
+                qestItemCount = 5;
+                backpackArr.forEach(item => {
+                    if (item && item.id === 'meatRaw' && qestItemCount > 0) {
+                        qestItemCount -= 1;
+                        deleteItem();
+                    }
+                })
+                return true;
+            } else {
+                return false;
+            }
+        },
         completed: false,
+        addInList: false,
+        showNextLocation: false,
     },
     {},
 ];
 
+showModalMessage(questBook[0].startMessage);
 addLog('Ти прокинувся в своїй халупі.')
 let currentQuest = questBook[0];
-addLog(currentQuest.questBookMessage, '#fff');
-modalWindowMessage.innerHTML = questBook[0].message;
-let questMessageCount = 1;
-function nextMessage() {
-    modalWindowMessage.innerHTML = currentQuest.message[questMessageCount];
-    questMessageCount += 1;
-    if (questMessageCount > currentQuest.message.length) {
-        modalWindow.classList.add('hidden')
-        questMessageCount = 1;
+addLog(currentQuest.startMessageForQuestBook, '#fff');
+
+let messageCount = 0;
+function showModalMessage(messages) {
+    modalWindowMessage.innerHTML = '';
+    modalWindow.classList.remove('hidden');
+    for (let i = 0; i < messages.length; i++) {
+        if (i === 0) {
+            modalWindowMessage.innerHTML += `<p class="modal-message">${messages[i]}</p>`
+        } else {
+            modalWindowMessage.innerHTML += `<p class="modal-message hidden">${messages[i]}</p>`
+        }        
     }
-}
-modalWindowBtn.addEventListener('click', nextMessage);
-
-function questLineMain() {
-    if (currentQuest.finishLocationId === currentGlobalLocation.id) {
-        questBook.forEach(quest => {
-            if (quest.questAccept === currentQuest.questAccept) {
-
-            }
-        })
-
-    }
-
-
-    // for (let i = 0; i < questBook.length; i++) {
-    //     if (questBook[i].active) {
-    //         currentQuest = questBook[i];
-    //         if (questBook[i].condition < travelCount) {
-    //             questBook[i].completed = true;
-    //             currentQuest = questBook[i + 1];
-    //             questBook[i + 1].active = true;
-    //             modalWindow.classList.remove('hidden');
-    //             modalWindowMessage.innerHTML = currentQuest.message[0];
-    //             addLog(`<span style="color: #fff;">${currentQuest.questBookMessage}</span>`);
-    //             break;
-    //         }
-    //     }
-    // }
 };
 
-console.log(questBook);
+function nextMessage() {
+    let messages = document.querySelectorAll('.modal-message');
+    console.log(messageCount);
+    console.log(messages.length - 1);
+    if (messageCount === messages.length - 1) {
+        modalWindow.classList.add('hidden');
+        messageCount = 0;
+        console.log('close');
+    } else {
+        for (let i = 0; i < messages.length; i++) {
+            if (!messages[i].classList.contains('hidden')) {
+                messages[i].classList.add('hidden');
+                if (messages[i + 1]) {
+                    messages[i + 1].classList.remove('hidden');
+                }
+                messageCount += 1;
+                break;
+            }
+        }
+    } 
+};
+
+function questLine() {
+    for (let i = 0; i < questBook.length; i++) {
+        if (questBook[i].questAccept === event.target.getAttribute('id')) {
+            // Закінчення квесту
+            if (questBook[i].active && !questBook[i].completed) {
+                if (questBook[i].condition() === true) {
+                    questBook[i].completed = true;
+
+                    showModalMessage(questBook[i].finishMessage);
+                    addLog(`<span style="color: #fff;">${currentQuest.finishMessageForQuestBook}</span>`);
+                    questBook[i].active = false;
+                    questBook[i].available = false;
+                    questBook[i + 1].available = true;
+                    break;                    
+                }
+            } else if (questBook[i].available) {
+                questBook[i].active = true;
+                questBook[i].addInList = true;
+                currentQuest = questBook[i];
+                showModalMessage(questBook[i].startMessage)
+                addLog(`<span style="color: #fff;">${currentQuest.startMessageForQuestBook}</span>`);
+                break;
+            } else {
+                showModalMessage([`Умови поточного квесту не виконані`])
+            }
+        }
+    }
+};
+
+modalWindowBtn.addEventListener('click', nextMessage);
+
 
 
 
