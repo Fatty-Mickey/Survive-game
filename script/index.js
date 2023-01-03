@@ -10,6 +10,7 @@ const inventory = document.querySelector('.inventory');
 const backpackButtons = document.querySelector('.backpack-buttons');
 
 
+
 const img = document.querySelector('.img');
 img.style.background = 'url(img/locations/house0.png) center center/cover no-repeat';
 
@@ -65,21 +66,26 @@ medicinesCount.innerHTML = medicinesAmount;
 
 const backpack = document.querySelector('.backpack');
 let emptyCellsOfBackPack = 0;
-(function backpackCreate() {
-    for (let i = 0; i < user.backpackSize; i++) {
-        backpack.innerHTML += `<div class="backpack-item empty" id="${i}-backpack-item"></div>`;
-        emptyCellsOfBackPack += 1;
-    }
-    for (let i = 0; i < (25 - user.backpackSize); i++) {
-        backpack.innerHTML += `
-        <div class="backpack-item close" id="${i + user.backpackSize}-backpack-item">
-            <img src="img/close.svg" alt="">
-        </div>`;
-    }
-})();
+
 const backpackArr = [];
 for (let i = 0; i < user.backpackSize; i++) {
     backpackArr.push(undefined);
+};
+
+function checkEmptyCellsOfBackPack() {
+    let amount = 0;
+    backpackArr.forEach(el => el ? amount : amount += 1)
+    return amount;
+};
+
+function changeBackpack(backpackSize) {
+    user.backpackSize += backpackSize;
+    for (let i = 0; i < user.backpackSize; i++) {
+        if (!user.backpackSize) {
+            backpackArr.push(undefined);
+        }
+    };
+    backpackUse();
 };
 
 // Створюємо предмети
@@ -90,7 +96,8 @@ const items = [
         name: 'Іржавий ніж',
         rareness: 'regular',
         rarenessColor: '#fff',
-        img: '<img class="backpack-item-img" src="img/f2-items/knifeRusty.webp" alt="">',
+        // img: '<img class="backpack-item-img" src="img/f2-items/knifeRusty.webp" alt="">',
+        img: 'url(../img/f2-items/weapon/knifeRusty.webp) center center/contain no-repeat',
         scrapPartsMin: 1,
         scrapPartsMax: 3,
         electronicsPartsMin: 0,
@@ -109,7 +116,8 @@ const items = [
         name: 'Шматок арматури',
         rareness: 'regular',
         rarenessColor: '#fff',
-        img: '<img class="backpack-item-img" src="img/f2-items/metalPole.webp" alt="">',
+        // img: '<img class="backpack-item-img" src="img/f2-items/metalPole.webp" alt="">',
+        img: 'url(../img/f2-items/weapon/metalPole.webp) center center/contain no-repeat',
         scrapPartsMin: 1,
         scrapPartsMax: 3,
         electronicsPartsMin: 0,
@@ -128,7 +136,8 @@ const items = [
         name: 'Іржавий пістолет',
         rareness: 'regular',
         rarenessColor: '#fff',
-        img: '<img class="backpack-item-img" src="img/f2-items/pistolRusty.webp" alt="">',
+        // img: '<img class="backpack-item-img" src="img/f2-items/pistolRusty.webp" alt="">',
+        img: 'url(../img/f2-items/weapon/pistolRusty.webp) center center/contain no-repeat',
         scrapPartsMin: 1,
         scrapPartsMax: 3,
         electronicsPartsMin: 0,
@@ -148,6 +157,7 @@ const items = [
         rareness: 'unusual',
         rarenessColor: '#37f713',
         img: '<img class="backpack-item-img" src="img/f2-items/knifeCombat.webp" alt="">',
+        img: 'url(../img/f2-items/weapon/knifeCombat.webp) center center/contain no-repeat',
         scrapPartsMin: 3,
         scrapPartsMax: 5,
         electronicsPartsMin: 0,
@@ -166,7 +176,8 @@ const items = [
         name: 'Маузер 9мм',
         rareness: 'regular',
         rarenessColor: '#fff',
-        img: '<img class="backpack-item-img" src="img/f2-items/weapon/mouser9mm.webp" alt="">',
+        // img: '<img class="backpack-item-img" src="img/f2-items/weapon/mouser9mm.webp" alt="">',
+        img: 'url(../img/f2-items/weapon/mouser9mm.webp) center center/contain no-repeat',
         scrapPartsMin: 3,
         scrapPartsMax: 5,
         electronicsPartsMin: 0,
@@ -180,13 +191,52 @@ const items = [
         minDamage: 5,
         maxDamage: 8,
     },
+    {
+        id: 'shotgun',
+        name: 'Обріз',
+        rareness: 'regular',
+        rarenessColor: '#fff',
+        img: 'url(../img/f2-items/weapon/shotgun.webp) center center/contain no-repeat',
+        scrapPartsMin: 5,
+        scrapPartsMax: 7,
+        electronicsPartsMin: 0,
+        electronicsPartsMax: 0,
+        ragsPartsMin: 0,
+        ragsPartsMax: 0,
+        medicinesPartsMin: 0,
+        medicinesPartsMax: 0,
+        class: 'weapon',
+        description: '<p>Обріз</p>',
+        minDamage: 6,
+        maxDamage: 10,
+    },
+    {
+        id: 'huntingRifle',
+        name: 'Мисливський карабін',
+        rareness: 'regular',
+        rarenessColor: '#fff',
+        img: 'url(../img/f2-items/weapon/huntingRifle.webp) center center/contain no-repeat',
+        scrapPartsMin: 5,
+        scrapPartsMax: 7,
+        electronicsPartsMin: 0,
+        electronicsPartsMax: 0,
+        ragsPartsMin: 0,
+        ragsPartsMax: 0,
+        medicinesPartsMin: 0,
+        medicinesPartsMax: 0,
+        class: 'weapon',
+        description: '<p>Мисливський карабін</p>',
+        minDamage: 8,
+        maxDamage: 12,
+    },
     // helmet
     {
         id: 'helmetSport',
         name: 'Спортивний шолом',
         rareness: 'unusual',
         rarenessColor: '#37f713',
-        img: '<img class="backpack-item-img" src="img/f2-items/helmetSport.webp" alt="">',
+        // img: '<img class="backpack-item-img" src="img/f2-items/helmetSport.webp" alt="">',
+        img: 'url(../img/f2-items/helmet/helmetSport.webp) center center/contain no-repeat',
         scrapPartsMin: 1,
         scrapPartsMax: 4,
         electronicsPartsMin: 0,
@@ -198,13 +248,31 @@ const items = [
         class: 'helmet',
         description: '<p>Спортивний шолом</p>',
     },
+    {
+        id: 'welderHelmet',
+        name: 'Маска техніка',
+        rareness: 'unusual',
+        rarenessColor: '#37f713',
+        img: 'url(../img/f2-items/helmet/welderHelmet.webp) center center/contain no-repeat',
+        scrapPartsMin: 5,
+        scrapPartsMax: 8,
+        electronicsPartsMin: 0,
+        electronicsPartsMax: 0,
+        ragsPartsMin: 0,
+        ragsPartsMax: 0,
+        medicinesPartsMin: 0,
+        medicinesPartsMax: 0,
+        class: 'helmet',
+        description: '<p>Маска техніка</p>',
+    },
     // mask
     {
         id: 'respirator',
         name: 'Респіратор',
         rareness: 'regular',
         rarenessColor: '#fff',
-        img: '<img class="backpack-item-img" src="img/f2-items/respirator.webp" alt="">',
+        // img: '<img class="backpack-item-img" src="img/f2-items/respirator.webp" alt="">',
+        img: 'url(../img/f2-items/mask/respirator.webp) center center/contain no-repeat',
         scrapPartsMin: 0,
         scrapPartsMax: 0,
         electronicsPartsMin: 0,
@@ -222,7 +290,8 @@ const items = [
         name: 'Шкіряна куртка',
         rareness: 'unusual',
         rarenessColor: '#37f713',
-        img: '<img class="backpack-item-img" src="img/f2-items/armor/leatherJacket.webp" alt="">',
+        // img: '<img class="backpack-item-img" src="img/f2-items/armor/leatherJacket.webp" alt="">',
+        img: 'url(../img/f2-items/armor/leatherJacket.webp) center center/contain no-repeat',
         scrapPartsMin: 0,
         scrapPartsMax: 0,
         electronicsPartsMin: 0,
@@ -240,7 +309,8 @@ const items = [
         name: 'Проста сумка',
         rareness: 'regular',
         rarenessColor: '#fff',
-        img: '<img class="backpack-item-img" src="img/f2-items/backpack/bag.webp" alt="">',
+        // img: '<img class="backpack-item-img" src="img/f2-items/backpack/bag.webp" alt="">',
+        img: 'url(../img/f2-items/backpack/bag.webp) center center/contain no-repeat',
         scrapPartsMin: 0,
         scrapPartsMax: 0,
         electronicsPartsMin: 0,
@@ -261,7 +331,8 @@ const items = [
         name: 'Сире м\'ясо',
         rareness: 'regular',
         rarenessColor: '#fff',
-        img: '<img class="backpack-item-img" src="img/f2-items/meatRaw.webp" alt="">',
+        // img: '<img class="backpack-item-img" src="img/f2-items/meatRaw.webp" alt="">',
+        img: 'url(../img/f2-items/useOnYourself/meatRaw.webp) center center/contain no-repeat',
         scrapPartsMin: 0,
         scrapPartsMax: 0,
         electronicsPartsMin: 0,
@@ -282,7 +353,8 @@ const items = [
         name: 'Аптечка',
         rareness: 'unusual',
         rarenessColor: '#37f713',
-        img: '<img class="backpack-item-img" src="img/f2-items/firstAidKit.webp" alt="">',
+        // img: '<img class="backpack-item-img" src="img/f2-items/firstAidKit.webp" alt="">',
+        img: 'url(../img/f2-items/useOnYourself/firstAidKit.webp) center center/contain no-repeat',
         scrapPartsMin: 0,
         scrapPartsMax: 0,
         electronicsPartsMin: 0,
@@ -303,7 +375,8 @@ const items = [
         name: 'Саморобні ліки',
         rareness: 'regular',
         rarenessColor: '#fff',
-        img: '<img class="backpack-item-img" src="img/f2-items/homemadeMedicine.webp" alt="">',
+        // img: '<img class="backpack-item-img" src="img/f2-items/homemadeMedicine.webp" alt="">',
+        img: 'url(../img/f2-items/useOnYourself/homemadeMedicine.webp) center center/contain no-repeat',
         scrapPartsMin: 0,
         scrapPartsMax: 0,
         electronicsPartsMin: 0,
@@ -324,7 +397,8 @@ const items = [
         name: 'Запліснявілі сухарі',
         rareness: 'regular',
         rarenessColor: '#fff',
-        img: '<img class="backpack-item-img" src="img/f2-items/crackers.webp" alt="">',
+        // img: '<img class="backpack-item-img" src="img/f2-items/crackers.webp" alt="">',
+        img: 'url(../img/f2-items/useOnYourself/crackers.webp) center center/contain no-repeat',
         scrapPartsMin: 0,
         scrapPartsMax: 0,
         electronicsPartsMin: 0,
@@ -345,7 +419,8 @@ const items = [
         name: 'Пляшка води',
         rareness: 'regular',
         rarenessColor: '#fff',
-        img: '<img class="backpack-item-img" src="img/f2-items/water.webp" alt="">',
+        // img: '<img class="backpack-item-img" src="img/f2-items/water.webp" alt="">',
+        img: 'url(../img/f2-items/useOnYourself/water.webp) center center/contain no-repeat',
         scrapPartsMin: 0,
         scrapPartsMax: 0,
         electronicsPartsMin: 0,
@@ -372,7 +447,8 @@ const items = [
         name: 'Хвіст велетенського скорпіона',
         rareness: 'regular',
         rarenessColor: '#fff',
-        img: '<img class="backpack-item-img" src="img/f2-items/quest/scorpionTail.webp" alt="">',
+        // img: '<img class="backpack-item-img" src="img/f2-items/quest/scorpionTail.webp" alt="">',
+        img: 'url(../img/f2-items/quest/scorpionTail.webp) center center/cover no-repeat',
         class: 'quest',
         description: '<p>Хвіст велетенського скорпіона</p>',
     },
@@ -491,6 +567,36 @@ const globalLocations = [
         enemies: [],
         active: false,
     },
+    {
+        id: 'klemat',
+        name: 'Клемат',
+        type: 'peaceful',
+        npc: [
+            {
+                id: 'viskyBob',
+                name: 'Віскі Боб'
+            },
+            {
+                id: 'trapperSmiley',
+                name: 'Трапер Смайлі'
+            },
+        ],
+        findLocationChance: 100,
+        battleChance: 0,
+        locations: [],
+        enemies: [],
+        active: false,
+    },
+    {
+        id: 'aroundKlemat',
+        name: 'Околиці міста Клемат',
+        type: 'seekAndFight',
+        findLocationChance: 60,
+        battleChance: 40,
+        locations: [],
+        enemies: [],
+        active: false,
+    },
 ];
 
 // Створюємо локації
@@ -509,7 +615,15 @@ const locations = [
         name: 'Хутор',
         img: 'url(img/locations/village.png) center center/cover no-repeat',
         message: 'Ти дійшов до хутора. Тут можна перепочити і поповнити запаси.',
-        countOfSearch: 1,
+        countOfSearch: 0,
+        items: [],
+    },
+    {
+        id: 'klemat',
+        name: 'Клемат',
+        img: 'url(img/locations/klemat.png) center center/cover no-repeat',
+        message: 'Ти дійшов до міста Клемат. Тут можна перепочити і поповнити запаси.',
+        countOfSearch: 0,
         items: [],
     },
     // others
@@ -522,9 +636,17 @@ const locations = [
         items: [],
     },
     {
-        id: 'house1',
-        name: 'house1',
-        img: 'url(img/locations/house1.png) center center/cover no-repeat',
+        id: 'cache1',
+        name: 'cache',
+        img: 'url(img/locations/cache1.png) center center/cover no-repeat',
+        message: 'Ти знайшов чиюсь схованку ...',
+        countOfSearch: 1,
+        items: [],
+    },
+    {
+        id: 'house2',
+        name: 'house2',
+        img: 'url(img/locations/house2.png) center center/cover no-repeat',
         message: 'Ти натрапив на стару халупу ...',
         countOfSearch: 2,
         items: [],
@@ -614,7 +736,7 @@ const locations = [
         name: 'Звалище автомобілів',
         message: 'Звалище автомобілів. Наврятче тут залишилось щось корисне.',
         img: 'url(img/locations/carJunkyard.png) center center/cover no-repeat',
-        countOfSearch: 1,
+        countOfSearch: 0,
         items: [],
     },
     {
@@ -637,6 +759,8 @@ addLocation(0, ['house0']);
 addLocation(1, ['cache', 'house1', 'cave', 'waterSource', 'wilderness']);
 addLocation(2, ['village']);
 addLocation(3, ['cache', 'gasStation', 'tent', 'waterSource', 'radioactivePuddle', 'ruins']);
+addLocation(4, ['klemat']);
+addLocation(5, ['cache1', 'gasStation', 'house2', 'tent', 'carJunkyard', 'ruins']);
 
 // Наповнюємо глобальні локації ворогами
 function addEnemy(index, arr) {
@@ -646,6 +770,7 @@ function addEnemy(index, arr) {
 };
 addEnemy(1, ['rat', 'scorpion']);
 addEnemy(3, ['rat', 'scorpion', 'mole', 'reider0']);
+addEnemy(5, ['scorpion', 'mole', 'reider0']);
 
 // Наповнюємо локації предметами
 function addItem(parentArr, id, arr) {
@@ -670,6 +795,9 @@ addItem(locations, 'gasStation', ['metalPole', 'crackers', 'water']);
 addItem(locations, 'tent', ['pistolRusty', 'knifeRusty', 'nothing']);
 addItem(locations, 'radioactivePuddle', ['nothing']);
 addItem(locations, 'ruins', ['nothing']);
+// klemat
+addItem(locations, 'cache1', ['huntingRifle', 'welderHelmet', 'firstAidKit']);
+addItem(locations, 'house2', ['mouser9mm', 'homemadeMedicine', 'water', 'nothing']);
 
 // Додати ворогам предмети
 addItem(enemies, 'rat', ['meatRaw']);
@@ -784,16 +912,15 @@ function reidFinish() {
 };
 
 function mapFound() {
-    if (currentQuest.showNextLocation === true) {
+    if (currentQuest.showNextLocation) {
         if (randomNumber() <= 30) {
             for (let i = 0; i < globalLocations.length; i++) {
-                if (!globalLocations[i].active) {
-                    globalLocations[i].active = true;
+                if (currentGlobalLocation === globalLocations[i] && !globalLocations[i + 1].active) {
                     globalLocations[i + 1].active = true;
-                    // modalWindow.classList.remove('hidden');
-                    // modalWindowMessage.innerHTML = `Ти з'ясував місце розташування локації ${globalLocations[i].name}.`;
-                    showModalMessage([`Ти з'ясував місце розташування локації ${globalLocations[i].name}.`])
-                    addLog(`<span style="color: #fff;">Ти з'ясував місце розташування локації ${globalLocations[i].name}.</span>`);
+                    globalLocations[i + 2].active = true;
+                    currentQuest.showNextLocation = false;
+                    showModalMessage([`Ти з'ясував місце розташування локації ${globalLocations[i + 1].name}.`])
+                    addLog(`<span style="color: #fff;">Ти з'ясував місце розташування локації ${globalLocations[i + 1].name}.</span>`);
                     break;
                 }
             }
@@ -805,7 +932,7 @@ function search() {
     curentDate.setMinutes(curentDate.getMinutes() + 15);
     displayCurentDate();
 
-    if (emptyCellsOfBackPack > 0) {
+    if (checkEmptyCellsOfBackPack() > 0) {
         alert();
         action();
         if (currentEnemy !== undefined) {
@@ -1049,8 +1176,6 @@ const questsBookInHtml = document.querySelector('.quests-book');
 const locationsBookInHtml = document.querySelector('.locations-book');
 
 
-
-
 function logUse() {
     blockLog.forEach(el => el.classList.remove('hidden'));
     blockUserMenu.forEach(el => el.classList.add('hidden'));
@@ -1074,7 +1199,7 @@ function userMenuUse() {
     blockLog.forEach(el => el.classList.add('hidden'));
     blockBackpack.forEach(el => el.classList.add('hidden'));
     blockMap.forEach(el => el.classList.add('hidden'));
-    showQuests();
+    showQuestLocations();
 }
 
 function mapUse() {
@@ -1090,49 +1215,77 @@ backpackBtn.addEventListener('click', backpackUse);
 userMenuBtn.addEventListener('click', userMenuUse);
 mapBtn.addEventListener('click', mapUse);
 speakBtn.addEventListener('click', showNPC);
-backBtn.addEventListener('click', showQuests);
+backBtn.addEventListener('click', showQuestLocations);
 
 function showBackpack() {
+
+    backpack.innerHTML = '';
+    for (let i = 0; i < user.backpackSize; i++) {
+        backpack.innerHTML += `<div class="backpack-item-box"><div class="backpack-item empty" onclick="select()" id="${i}-backpack-item"></div></div>`;
+        emptyCellsOfBackPack += 1;
+    }
+    for (let i = 0; i < (25 - user.backpackSize); i++) {
+        backpack.innerHTML += `
+        <div class="backpack-item-box"><div class="backpack-item close" id="${i + user.backpackSize}-backpack-item">
+            <img src="img/close.svg" alt="">
+        </div></div>`;
+    }
+
+    let backpackItems = document.querySelectorAll('.backpack-item');
     for (let i = 0; i < backpackItems.length; i++) {
         for (let i = 0; i < backpackArr.length; i++) {
-            if (!backpackArr[i]) {
-                backpackItems[i].innerHTML = ''
-            }
-            if (backpackArr[i] && backpackItems[i].classList.contains('empty')) {                
-                backpackItems[i].innerHTML = backpackArr[i].img;
+            if (backpackArr[i] && backpackItems[i].classList.contains('empty')) {
+                backpackItems[i].style.background = backpackArr[i].img;
+                // backpackItems[i].style.backgroundSize = ' auto 80%'
                 backpackItems[i].classList.remove('empty');
-                backpackItems[i].classList.add('full');                
-            }            
-        }        
+                backpackItems[i].classList.add('full');
+            }
+        }
     }
     console.log(backpackArr);
 };
 
-function showQuests() {
+function checkEmptyCellsOfBackPack() {
+    let amount = 0;
+    backpackArr.forEach(el => el ? amount : amount += 1)
+    return amount;
+};
+
+function changeBackpack(backpackSize) {
+    user.backpackSize += backpackSize;
+    for (let i = 0; i < user.backpackSize; i++) {
+        if (!user.backpackSize) {
+            backpackArr.push(undefined);
+        }
+    };
+};
+
+function showQuestLocations() {
     questsBookInHtml.innerHTML = '';
+    for (let i = 0; i < questBook.length; i++) {
+        if (questBook[i].addInList) {
+            if (questBook[i - 1] && questBook[i].startLocationId === questBook[i - 1].startLocationId) {
+                continue;
+            } else {
+                questsBookInHtml.innerHTML += `<div class="quest-location" onclick="showQuests()" id="${questBook[i].startLocationId}">${questBook[i].startLocationName}</div>`;
+            }
+        }
+    }
+};
+
+function showQuests() {
     questBook.forEach(quest => {
-        if (quest.addInList) {
-            questsBookInHtml.innerHTML += `<div class="quest-location" id="${quest.startLocationId}">${quest.startLocationName}</div>`;
+        if (quest.startLocationId === event.target.getAttribute('id') && quest.addInList) {
+            document.querySelectorAll('.quest-location').forEach(el => el.remove())
+            quest.completed ? questsBookInHtml.innerHTML += `<p style="text-decoration: line-through">${quest.startMessageForQuestBook}</p>` : questsBookInHtml.innerHTML += `<p>${quest.startMessageForQuestBook}</p>`
         }
     })
-    document.querySelectorAll('.quest-location').forEach(el => {
-        el.addEventListener('click', function () {
-            document.addEventListener('click', event => {
-                questBook.forEach(quest => {
-                    if (quest.startLocationId === event.target.getAttribute('id')) {
-                        questsBookInHtml.innerHTML = '';
-                        quest.completed ? questsBookInHtml.innerHTML += `<p style="text-decoration: line-through">${quest.startMessageForQuestBook}</p>` : questsBookInHtml.innerHTML += `<p>${quest.startMessageForQuestBook}</p>`
-                    }
-                })
-            })
-        })
-    })
-};
+}
 
 function showLocations() {
     locationsBookInHtml.innerHTML = '';
     globalLocations.forEach(location => {
-        if (location.active) {
+        if (location.active && location.type === 'peaceful') {
             locationsBookInHtml.innerHTML += `<div onclick="changeGlobalLocation()" class="map-location" id="${location.id}">${location.name}</div>`;
         }
     })
@@ -1170,7 +1323,7 @@ function showNPC() {
 // Виділення предмета (спробувати зменшити код від дублювання)
 let selectedItemInHTML;
 let selectedItem;
-const backpackItems = document.querySelectorAll('.backpack-item');
+
 const backpackItem0 = document.getElementById('0-backpack-item');
 const backpackItem1 = document.getElementById('1-backpack-item');
 const backpackItem2 = document.getElementById('2-backpack-item');
@@ -1183,85 +1336,6 @@ const backpackItem8 = document.getElementById('8-backpack-item');
 const backpackItem9 = document.getElementById('9-backpack-item');
 
 
-backpackItem0.addEventListener('click', el => {
-    deselect();
-    selectedItemInHTML = backpackItem0;
-    selectedItem = backpackArr[0];
-    selectedItemInHTML.classList.add('selected');
-    itemDescription.innerHTML = selectedItem.description;
-});
-
-backpackItem1.addEventListener('click', el => {
-    deselect();
-    selectedItemInHTML = backpackItem1;
-    selectedItem = backpackArr[1];
-    selectedItemInHTML.classList.add('selected');
-    itemDescription.innerHTML = selectedItem.description;
-});
-
-backpackItem2.addEventListener('click', el => {
-    deselect();
-    selectedItemInHTML = backpackItem2;
-    selectedItem = backpackArr[2];
-    selectedItemInHTML.classList.add('selected');
-    itemDescription.innerHTML = selectedItem.description;
-});
-
-backpackItem3.addEventListener('click', el => {
-    deselect();
-    selectedItemInHTML = backpackItem3;
-    selectedItem = backpackArr[3];
-    selectedItemInHTML.classList.add('selected');
-    itemDescription.innerHTML = selectedItem.description;
-});
-
-backpackItem4.addEventListener('click', el => {
-    deselect();
-    selectedItemInHTML = backpackItem4;
-    selectedItem = backpackArr[4];
-    selectedItemInHTML.classList.add('selected');
-    itemDescription.innerHTML = selectedItem.description;
-});
-
-backpackItem5.addEventListener('click', el => {
-    deselect();
-    selectedItemInHTML = backpackItem5;
-    selectedItem = backpackArr[5];
-    selectedItemInHTML.classList.add('selected');
-    itemDescription.innerHTML = selectedItem.description;
-});
-
-backpackItem6.addEventListener('click', el => {
-    deselect();
-    selectedItemInHTML = backpackItem6;
-    selectedItem = backpackArr[6];
-    selectedItemInHTML.classList.add('selected');
-    itemDescription.innerHTML = selectedItem.description;
-});
-
-backpackItem7.addEventListener('click', el => {
-    deselect();
-    selectedItemInHTML = backpackItem7;
-    selectedItem = backpackArr[7];
-    selectedItemInHTML.classList.add('selected');
-    itemDescription.innerHTML = selectedItem.description;
-});
-
-backpackItem8.addEventListener('click', el => {
-    deselect();
-    selectedItemInHTML = backpackItem8;
-    selectedItem = backpackArr[8];
-    selectedItemInHTML.classList.add('selected');
-    itemDescription.innerHTML = selectedItem.description;
-});
-
-backpackItem9.addEventListener('click', el => {
-    deselect();
-    selectedItemInHTML = backpackItem9;
-    selectedItem = backpackArr[9];
-    selectedItemInHTML.classList.add('selected');
-    itemDescription.innerHTML = selectedItem.description;
-});
 
 const equipment = document.querySelector('.equipment');
 const equipmentItems = document.querySelectorAll('.equipment-item');
@@ -1277,52 +1351,31 @@ const equippedMaskArr = [undefined];
 const equippedArmorArr = [undefined];
 const equippedBackpackArr = [undefined];
 
-equipmentWeapon.addEventListener('click', function () {
+function select() {
     deselect();
-    selectedItemInHTML = equipmentWeapon;
-    selectedItem = equippedWeaponArr[0];
-    selectedItemInHTML.classList.add('selected');
-    itemDescription.innerHTML = selectedItem.description;
-});
+    selectedItemInHTML = event.target;
+    if (selectedItemInHTML.classList.contains('backpack-item')) {
+        selectedItem = backpackArr[parseInt(selectedItemInHTML.id)];
+    } else if (selectedItemInHTML.classList.contains('equipment-weapon')) {
+        selectedItem = equippedWeaponArr[0];
+    } else if (selectedItemInHTML.classList.contains('equipment-helmet')) {
+        selectedItem = equippedHelmetArr[0];
+    } else if (selectedItemInHTML.classList.contains('equipment-mask')) {
+        selectedItem = equippedMaskArr[0];
+    } else if (selectedItemInHTML.classList.contains('equipment-armor')) {
+        selectedItem = equippedArmorArr[0];
+    } else if (selectedItemInHTML.classList.contains('equipment-backpack')) {
+        selectedItem = equippedBackpackArr[0];
+    }
 
-equipmentHelmet.addEventListener('click', function () {
-    deselect();
-    selectedItemInHTML = equipmentHelmet;
-    selectedItem = equippedHelmetArr[0];
     selectedItemInHTML.classList.add('selected');
-    itemDescription.innerHTML = selectedItem.description;
-});
-
-equipmentMask.addEventListener('click', function () {
-    deselect();
-    selectedItemInHTML = equipmentMask;
-    selectedItem = equippedMaskArr[0];
-    selectedItemInHTML.classList.add('selected');
-    itemDescription.innerHTML = selectedItem.description;
-});
-
-equipmentArmor.addEventListener('click', function () {
-    deselect();
-    selectedItemInHTML = equipmentArmor;
-    selectedItem = equippedArmorArr[0];
-    selectedItemInHTML.classList.add('selected');
-    itemDescription.innerHTML = selectedItem.description;
-});
-
-equipmentBackpack.addEventListener('click', function () {
-    deselect();
-    selectedItemInHTML = equipmentBackpack;
-    selectedItem = equippedBackpackArr[0];
-    selectedItemInHTML.classList.add('selected');
-    itemDescription.innerHTML = selectedItem.description;
-});
-
-// function select() {
-//     selectedItemInHTML = this;
-//     selectedItemInHTML.classList.add('selected');
-// };
+    if (selectedItem) {
+        itemDescription.innerHTML = selectedItem.description;
+    }    
+};
 
 function deselect() {
+    let backpackItems = document.querySelectorAll('.backpack-item');
     backpackItems.forEach(el => {
         el.classList.remove('selected')
     });
@@ -1362,6 +1415,7 @@ function deleteItem() {
     selectedItemInHTML.classList.remove('full');
     selectedItemInHTML.classList.add('empty');
     selectedItemInHTML.classList.remove('selected');
+    showBackpack();
 };
 
 function apart() {
@@ -1411,15 +1465,16 @@ function use() {
             if (equippedWeaponArr[0] !== selectedItem) {
                 let saveItem = equippedWeaponArr[0];
                 equippedWeaponArr[0] = selectedItem;
-                equipmentWeapon.innerHTML = selectedItem.img;
+                equipmentWeapon.style.background = selectedItem.img;
 
                 backpackArr[parseInt(selectedItemInHTML.id)] = saveItem;
-                selectedItemInHTML.innerHTML = saveItem.img;
+                selectedItemInHTML.style.background = saveItem.img;
                 saveItem = undefined;
                 deselect();
             }
         } else {
-            equipmentWeapon.innerHTML = selectedItem.img;
+            equipmentWeapon.innerText = ''
+            equipmentWeapon.style.background = selectedItem.img;
             equipmentWeapon.classList.remove('empty');
             equipmentWeapon.classList.add('full');
             equippedWeaponArr[0] = selectedItem;
@@ -1434,14 +1489,15 @@ function use() {
             if (equippedHelmetArr[0] !== selectedItem) {
                 let saveItem = equippedHelmetArr[0];
                 equippedHelmetArr[0] = selectedItem;
-                equipmentHelmet.innerHTML = selectedItem.img;
+                equipmentHelmet.style.background = selectedItem.img;
                 backpackArr[parseInt(selectedItemInHTML.id)] = saveItem;
-                selectedItemInHTML.innerHTML = saveItem.img;
+                selectedItemInHTML.style.background = saveItem.img;
                 saveItem = undefined;
                 deselect();
             }
         } else {
-            equipmentHelmet.innerHTML = selectedItem.img;
+            equipmentHelmet.innerText = ''
+            equipmentHelmet.style.background = selectedItem.img;
             equippedHelmetArr[0] = selectedItem;
             deleteItem();
         }
@@ -1452,14 +1508,15 @@ function use() {
             if (equippedMaskArr[0] !== selectedItem) {
                 let saveItem = equippedMaskArr[0];
                 equippedMaskArr[0] = selectedItem;
-                equipmentMask.innerHTML = selectedItem.img;
+                equipmentMask.style.background = selectedItem.img;
                 backpackArr[parseInt(selectedItemInHTML.id)] = saveItem;
-                selectedItemInHTML.innerHTML = saveItem.img;
+                selectedItemInHTML.style.background = saveItem.img;
                 saveItem = undefined;
                 deselect();
             }
         } else {
-            equipmentMask.innerHTML = selectedItem.img;
+            equipmentMask.innerText = ''
+            equipmentMask.style.background = selectedItem.img;
             equippedMaskArr[0] = selectedItem;
             deleteItem();
         }
@@ -1470,14 +1527,14 @@ function use() {
             if (equippedArmorArr[0] !== selectedItem) {
                 let saveItem = equippedArmorArr[0];
                 equippedArmorArr[0] = selectedItem;
-                equipmentArmor.innerHTML = selectedItem.img;
+                equipmentArmor.style.background = selectedItem.img;
                 backpackArr[parseInt(selectedItemInHTML.id)] = saveItem;
-                selectedItemInHTML.innerHTML = saveItem.img;
+                selectedItemInHTML.style.background = saveItem.img;
                 saveItem = undefined;
                 deselect();
             }
         } else {
-            equipmentArmor.innerHTML = selectedItem.img;
+            equipmentArmor.style.background = selectedItem.img;
             equippedArmorArr[0] = selectedItem;
             deleteItem();
         }
@@ -1487,18 +1544,23 @@ function use() {
             if (equippedBackpackArr[0] !== selectedItem) {
                 let saveItem = equippedBackpackArr[0];
                 equippedBackpackArr[0] = selectedItem;
-                equipmentBackpack.innerHTML = selectedItem.img;
+                equipmentBackpack.style.background = selectedItem.img;
                 backpackArr[parseInt(selectedItemInHTML.id)] = saveItem;
-                selectedItemInHTML.innerHTML = saveItem.img;
+                // selectedItemInHTML.innerHTML = saveItem.img;
+                selectedItemInHTML.style.background = saveItem.img;
+                // selectedItemInHTML.style.backgroundSize = 'auto 80%';
                 saveItem = undefined;
+
                 deselect();
             }
         } else {
-            equipmentBackpack.innerHTML = selectedItem.img;
+            equipmentBackpack.innerText = ''
+            equipmentBackpack.style.background = selectedItem.img;
+            equipmentBackpack.style.backgroundSize = 'auto 80%';
             equippedBackpackArr[0] = selectedItem;
             deleteItem();
         }
-        user.backpackSize += equippedBackpackArr[0].backpackSize;
+        changeBackpack(equippedBackpackArr[0].backpackSize);
         return;
     }
 };
@@ -1539,6 +1601,19 @@ const questBook = [
         showNextLocation: true,
         payment: () => {
             addExperience(100);
+            addLog(`Отримано 100 очків досвіду`);
+            items.forEach(item => {
+                if (item.id === 'knifeCombat') {
+                    searchResult = item;
+                    putInBackpack();
+                }
+            });
+            items.forEach(item => {
+                if (item.id === 'bag') {
+                    searchResult = item;
+                    putInBackpack();
+                }
+            });
         },
     },
     {
@@ -1574,8 +1649,7 @@ const questBook = [
                 qestItemCount = 2;
                 backpackArr.forEach(item => {
                     if (item && item.id === 'meatRaw' && qestItemCount > 0) {
-                        qestItemCount -= 1;  
-                        console.log(item);
+                        qestItemCount -= 1;
                         backpackArr[backpackArr.indexOf(item)] = undefined;
                         emptyCellsOfBackPack += 1;
                     }
@@ -1590,6 +1664,7 @@ const questBook = [
         showNextLocation: false,
         payment: () => {
             addExperience(200);
+            addLog(`Отримано 200 очків досвіду`)
             addEnemy(3, ['hugeScorpion']);
         },
     },
@@ -1610,10 +1685,11 @@ const questBook = [
         finishMessage: [
             "Ви виконали квест - принести хвіст велетенського скорпіона. Ви отримуєте саморобну сумку",
             "Старий По:<br> - Дякую друже, ти нас дуже виручив. Я обіцяв тобі вказати дорогу до міста Клемат... ",
-            "По відмічає на вашій карті як добратися до міста Клемат"
+            "По відмічає на вашій карті як добратися до міста Клемат",
+            "Старий По:<br> - Знайди в Клематі мого знайомого, його звати Віскі Боб, можливо він зможе тобі допомогти. Однак не чекай від нього безкоштовної допомоги, він точно не такий безкорисний як я...",
         ],
         startMessageForQuestBook: "Принести По хвіст велетенського скорпіона",
-        finishMessageForQuestBook: "Ви виконали квест - принести 5 шматків сирого м'яса.",
+        finishMessageForQuestBook: "Ви виконали квест - принести хвіст велетенського скорпіона",
         available: false,
         active: false,
         condition: () => {
@@ -1643,6 +1719,7 @@ const questBook = [
         showNextLocation: false,
         payment: () => {
             addExperience(500);
+            addLog(`Отримано 500 очків досвіду`)
             globalLocations[4].active = true;
             globalLocations[5].active = true;
             items.forEach(item => {
@@ -1651,6 +1728,53 @@ const questBook = [
                     putInBackpack();
                 }
             });
+        },
+    },
+    {
+        id: 'quest3',
+        startLocationId: 'klemat',
+        startLocationName: 'Клемат',
+        finishLocationId: 'klemat',
+        finishLocationName: 'Клемат',
+        questGiver: 'viskyBob',
+        questAccept: 'viskyBob',
+        startMessage: [
+            "Віскі Боб:<br> - А ти що за хрін? Милостиню не подаю ...",
+            "... в тебе виникає бажання вибити Бобу останні зуби, але здоровий глузд підказує що місцевий охоронець наврятче не помітить цього. Ти ввічливо нагадуєш Віскі Бобу про старого По з хутора ...",
+            "Віскі Боб:<br> - По? Та він же був старим ще коли я мав всі зуби. Невже він досі живий!?",
+            "Віскі Боб:<br> - Добре малий, маю до тебе прибуткову пропозицію. В околицях розташована моя самогонна установка, потрібно принести звідти партію товару. Май на увазі, якщо вкрадеш самогон, я тебе з під землі дістану.",
+            "Віскі Боб:<br> - Виконаєш завдання - непогано підзаробиш і здобудеш репутацію надійної людини, а це в нашому місті дорожче металу. Все, досить витрачати мій час ...",
+        ],
+        finishMessage: [
+            "Ви виконали квест - принести партію самогону.",
+            "Віскі Боб:<br> - Окей партнер",
+        ],
+        startMessageForQuestBook: "Принести Віскі Бобу партію самогону",
+        finishMessageForQuestBook: "Ви виконали квест - принести Віскі Бобу партію самогону",
+        available: false,
+        active: false,
+        condition: () => {
+            backpackArr.forEach(item => {
+                if (item && item.id === 'canister') {
+                    backpackArr[backpackArr.indexOf(item)] = undefined;
+                    return true;
+                } else {
+                    return false;
+                }
+            })
+        },
+        completed: false,
+        addInList: false,
+        showNextLocation: false,
+        payment: () => {
+            addExperience(300);
+            items.forEach(item => {
+                if (item.id === 'shotgun') {
+                    searchResult = item;
+                    putInBackpack();
+                }
+            });
+            addLog(`Отримано 300 очків досвіду. В нагороду ти отримуєш обріз`);
         },
     },
 ];
@@ -1669,18 +1793,15 @@ function showModalMessage(messages) {
             modalWindowMessage.innerHTML += `<p class="modal-message">${messages[i]}</p>`
         } else {
             modalWindowMessage.innerHTML += `<p class="modal-message hidden">${messages[i]}</p>`
-        }        
+        }
     }
 };
 
 function nextMessage() {
     let messages = document.querySelectorAll('.modal-message');
-    console.log(messageCount);
-    console.log(messages.length - 1);
     if (messageCount === messages.length - 1) {
         modalWindow.classList.add('hidden');
         messageCount = 0;
-        console.log('close');
     } else {
         for (let i = 0; i < messages.length; i++) {
             if (!messages[i].classList.contains('hidden')) {
@@ -1692,7 +1813,7 @@ function nextMessage() {
                 break;
             }
         }
-    } 
+    }
 };
 
 function questLine() {
@@ -1707,8 +1828,9 @@ function questLine() {
                     addLog(`<span style="color: #fff;">${currentQuest.finishMessageForQuestBook}</span>`);
                     questBook[i].active = false;
                     questBook[i].available = false;
-                    questBook[i + 1].available = true;
-                    break;                    
+                    questBook[i].payment();
+                    questBook[i + 1].available = true;                    
+                    break;
                 }
             } else if (questBook[i].available) {
                 questBook[i].active = true;
