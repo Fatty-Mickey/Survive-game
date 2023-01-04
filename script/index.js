@@ -251,7 +251,7 @@ const locations = [
     },
 ];
 
-// Створюємо ворогів
+// Створюємо противників
 const enemies = [
     {
         id: 'rat',
@@ -662,8 +662,6 @@ const items = [
 
 ];
 
-
-
 // Наповнюємо глобальні локації локаціями
 function addLocation(index, arr) {
     arr.forEach(el => {
@@ -702,7 +700,7 @@ addItem(locations, 'house0', ['respirator', 'pistolRusty', 'homemadeMedicine', '
 // nearFirstHouse
 addItem(locations, 'cache', ['knifeCombat', 'helmetSport', 'firstAidKit']);
 addItem(locations, 'house1', ['respirator', 'pistolRusty', 'homemadeMedicine', 'crackers']);
-addItem(locations, 'cave', ['metalPole', 'knifeRusty', 'water']);
+addItem(locations, 'cave', ['metalPole', 'knifeRusty', 'crackers']);
 addItem(locations, 'waterSource', ['water']);
 addItem(locations, 'wilderness', ['knifeRusty', 'nothing']);
 // village
@@ -1032,7 +1030,6 @@ const user = {
 
 showModalMessage(user.currentQuest.startMessage);
 
-
 // Починаємо відлік часу
 const date = document.querySelector('.date');
 function displayCurentDate() {
@@ -1078,7 +1075,6 @@ function checkEmptyCellsOfBackPack() {
 };
 
 function changeBackpack(backpackSize) {
-    console.log(backpackSize);
     user.backpackSize += backpackSize;
     for (let i = user.backpack.length; i < user.backpackSize; i++) {
         user.backpack.push(undefined);
@@ -1501,12 +1497,6 @@ function showBackpack() {
     }
 };
 
-function checkEmptyCellsOfBackPack() {
-    let amount = 0;
-    user.backpack.forEach(el => el ? amount : amount += 1)
-    return amount;
-};
-
 function showQuestLocations() {
     questsBookInHtml.innerHTML = '';
     for (let i = 0; i < questBook.length; i++) {
@@ -1566,21 +1556,9 @@ function showNPC() {
     user.currentGlobalLocation.npc.forEach(el => speakLog.innerHTML += `<p onclick="questLine()" class="npc" id="${el.id}">${el.name}</p>`);
 };
 
-
 // Виділення предмета 
 let selectedItemInHTML;
 let selectedItem;
-
-// const backpackItem0 = document.getElementById('0-backpack-item');
-// const backpackItem1 = document.getElementById('1-backpack-item');
-// const backpackItem2 = document.getElementById('2-backpack-item');
-// const backpackItem3 = document.getElementById('3-backpack-item');
-// const backpackItem4 = document.getElementById('4-backpack-item');
-// const backpackItem5 = document.getElementById('5-backpack-item');
-// const backpackItem6 = document.getElementById('6-backpack-item');
-// const backpackItem7 = document.getElementById('7-backpack-item');
-// const backpackItem8 = document.getElementById('8-backpack-item');
-// const backpackItem9 = document.getElementById('9-backpack-item');
 
 const equipment = document.querySelector('.equipment');
 const equipmentItems = document.querySelectorAll('.equipment-item');
@@ -1589,12 +1567,6 @@ const equipmentHelmet = document.querySelector('.equipment-helmet');
 const equipmentMask = document.querySelector('.equipment-mask');
 const equipmentArmor = document.querySelector('.equipment-armor');
 const equipmentBackpack = document.querySelector('.equipment-backpack');
-
-// const equippedWeaponArr = [undefined];
-// const equippedHelmetArr = [undefined];
-// const equippedMaskArr = [undefined];
-// const equippedArmorArr = [undefined];
-// const equippedBackpackArr = [undefined];
 
 function select() {
     deselect();

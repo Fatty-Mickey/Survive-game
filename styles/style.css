@@ -293,7 +293,7 @@ body {
 
 .actions-btn {
     height: 8vh;
-    width: 33%;
+    width: 33.3%;
     padding: 10px;
     /* border: 1px solid red; */
     background: url(../img/action-btn.png) center no-repeat;
@@ -301,6 +301,14 @@ body {
     font-size: 18px;
     font-weight: bold;
     color: #e4d80c;
+}
+
+.reid-finish,
+.search,
+.attack,
+.avoid,
+.change-location {
+    width: 50%;
 }
 
 .details {
